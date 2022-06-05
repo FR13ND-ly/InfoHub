@@ -1,0 +1,74 @@
+<div class="widget">
+    <a class="widget__preview mat-elevation-z4" [class.disabled]="!widgets[0].activated" [href]="widgets[0].url" target="_blank">
+        <p class="widget__title">{{ widgets[0].title }}</p>
+        <img class="widget__image" [src]="widgets[0].imageUrl ? widgets[0].imageUrl : 'https://i.pinimg.com/originals/ae/8a/c2/ae8ac2fa217d23aadcc913989fcc34a2.png'">
+    </a>
+    <div class="widget__settings mat-elevation-z4">
+        <mat-form-field>
+            <mat-label>Titlu</mat-label>
+            <input matInput [(ngModel)]="widgets[0].title">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label [(ngModel)]="widgets[0].url">Link</mat-label>
+            <input matInput>
+        </mat-form-field>
+        
+        <button mat-flat-button color="accent" (click)="onChangeImage(0)">Schimbă imaginea</button>
+        <div class="widget__actions">
+            <button class="widget__save-btn" mat-flat-button color="primary">Salvează</button>
+            <mat-checkbox [(ngModel)]="widgets[0].activated">Activat</mat-checkbox>
+        </div>
+    </div>
+</div>
+
+<div class="widget">
+    <div class="widget__preview mat-elevation-z4" [class.disabled]="!widgets[2].activated" target="_blank">
+        <img class="widget__image" [src]="widgets[2].imageUrl ? widgets[2].imageUrl : 'https://i.pinimg.com/originals/ae/8a/c2/ae8ac2fa217d23aadcc913989fcc34a2.png'">
+        <h2 class="widget__title">{{ widgets[2].title }}</h2>
+        <h5 class="widget__author" *ngIf="widgets[2].author!">
+            <b>Autor:</b> {{ widgets[2].author }}
+        </h5>
+    </div>
+    <div class="widget__settings mat-elevation-z4">
+        <mat-form-field>
+            <mat-label>Titlu</mat-label>
+            <input matInput [(ngModel)]="widgets[2].title">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Autor</mat-label>
+            <input matInput [(ngModel)]="widgets[2].author">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label [(ngModel)]="widgets[2].url">Link</mat-label>
+            <input matInput>
+        </mat-form-field>
+        <button mat-flat-button color="accent" (click)="onChangeImage(2)">Schimbă imaginea</button>
+        <div class="widget__actions">
+            <button class="widget__save-btn" mat-flat-button color="primary">Salvează</button>
+            <mat-checkbox [(ngModel)]="widgets[2].activated">Activat</mat-checkbox>
+        </div>
+    </div>
+</div>
+
+<div class="widget">
+    <a class="widget__preview mat-elevation-z4" [class.disabled]="!widgets[1].activated" [href]="widgets[1].url" target="_blank">
+        <img class="widget__image" [src]="widgets[1].imageUrl ? widgets[1].imageUrl : 'https://i.pinimg.com/originals/ae/8a/c2/ae8ac2fa217d23aadcc913989fcc34a2.png'">
+        <p class="widget__title">{{ widgets[1].title }}</p>
+    </a>
+    <div class="widget__settings mat-elevation-z4">
+        <mat-form-field>
+            <mat-label>Titlu</mat-label>
+            <input matInput [(ngModel)]="widgets[1].title">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label [(ngModel)]="widgets[1].url">Link</mat-label>
+            <input matInput>
+        </mat-form-field>
+        <button mat-flat-button color="accent" (click)="onChangeImage(1)">Schimbă imaginea</button>
+        <div class="widget__actions">
+            <button class="widget__save-btn" mat-flat-button color="primary">Salvează</button>
+            <mat-checkbox [(ngModel)]="widgets[1].activated">Activat</mat-checkbox>
+        </div>
+    </div>
+</div>
+<button class="update-videos" mat-raised-button color="primary">Actualizează video-urile</button>

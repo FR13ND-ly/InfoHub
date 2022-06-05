@@ -1,0 +1,50 @@
+<div class="user-data">
+    <div class="user-data__wrapper">
+        <input type="file" hidden #imageUploader (input)="onSetUserImage($event)">
+        <div class="user-data__image-wrapper change-avatar-btn" *ngIf="user?.allowChangeAvatar" (click)="imageUploader.click()">
+            <mat-icon class="user-data__edit-image">edit</mat-icon>
+            <img class="user-data__image" [src]="user?.imageUrl">
+        </div>
+        <div class="user-data__image-wrapper" *ngIf="!user?.allowChangeAvatar">
+            <img class="user-data__image" [src]="user?.imageUrl">
+        </div>
+        <span class="user-data__username">{{ user?.displayName }}</span>
+    </div>
+    <img class="user-data__background" src="/assets/images/user-background.webp/">
+</div>
+<ul class="actions">
+    <div *ngIf="user?.isStaff">
+        <li class="action" routerLink="/articol/nou" (click)="onCloseUserSideNav()">
+            <mat-icon>edit</mat-icon>
+            Adaugă un articol
+        </li>
+        <li class="action" routerLink="/ciorne" (click)="onCloseUserSideNav()">
+            <mat-icon>edit_notifications</mat-icon>
+            Ciorne
+        </li>
+        <li class="action" routerLink="/widgets" (click)="onCloseUserSideNav()">
+            <mat-icon>widgets</mat-icon>
+            Widgete
+        </li>
+        <li class="action" routerLink="/widgets" (click)="onCloseUserSideNav()">
+            <mat-icon>manage_accounts</mat-icon>
+            Utilizatori
+        </li>
+        <li class="action" routerLink="/widgets" (click)="onCloseUserSideNav()">
+            <mat-icon>gpp_maybe</mat-icon>
+            Raportări
+        </li>
+    </div>
+    <li class="action" routerLink="/readlist" (click)="onCloseUserSideNav()">
+        <mat-icon>library_books</mat-icon>
+        ReadListe
+    </li>
+    <li class="action" (click)="onLogout()">
+        <mat-icon>logout</mat-icon>
+        Delogare
+    </li>
+    <li class="action hide-on-large" (click)="onChangeTheme()">
+        <mat-icon>brightness_5</mat-icon>
+        Schimbă tema
+    </li>
+</ul>

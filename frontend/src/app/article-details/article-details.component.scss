@@ -1,0 +1,17 @@
+.extra-content {
+    display: flex;
+    margin-top: 1rem;
+    gap: 1rem;
+    app-comments {
+        width: 70%;
+    }
+    app-more-articles {
+        width: 45%;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .extra-content app-comments {
+        width: 100%;
+    }
+}

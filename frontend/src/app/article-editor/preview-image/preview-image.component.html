@@ -1,0 +1,4 @@
+<div class="image-wrapper" (click)="onSelectImage()">
+    <img class="image" [src]="imageUrl">
+</div>
+<input matInput [ngModel]="coverImageDescription" (ngModelChange)="coverImageDescriptionChange.emit(coverImageDescriptionRef.value)" #coverImageDescriptionRef placeholder="Descriere imagini">

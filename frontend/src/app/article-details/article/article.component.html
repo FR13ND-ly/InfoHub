@@ -1,0 +1,19 @@
+<article *ngIf="article$ | async as article else loading">
+    <app-tags [tags]="article.tags"></app-tags>
+    <app-titles [title]="article.title" [subtitle]="article.subtitle"></app-titles>
+    <app-details [details]="article.details"></app-details>
+    <app-cover-image [imageUrl]="article.imageUrl" [coverImageDescription]="article.coverImageDescription"></app-cover-image>
+    <app-text [text]="article.text"></app-text>
+</article>
+<ng-template #loading class="loading">
+    <div class="loading__tags">
+        <div class="loading__tag" *ngFor="let _ of [1,2,3,4]"></div>
+    </div>
+    <div class="loading__title"></div>
+    <div class="loading__subtitle"></div>
+    <div class="loading__details"></div>
+    <div class="loading__coverImage"></div>
+    <div class="loading__text">
+        <div class="loading__line" *ngFor="let i of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]" [style.width.%]="97 + (i % 8) * (i % 2 ? -1 : 1) * 0.5" [style.margin-top.rem]="(i % 5 ? .5 : 1.5)"></div>
+    </div>
+</ng-template>

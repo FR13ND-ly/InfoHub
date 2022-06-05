@@ -1,0 +1,174 @@
+@use "@angular/material" as mat;
+@include mat.core();
+
+$frontend-primary: mat.define-palette(mat.$indigo-palette);
+$frontend-accent: mat.define-palette(mat.$teal-palette);
+
+$light-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $frontend-primary,
+      accent: $frontend-accent,
+    ),
+  )
+);
+
+@include mat.all-component-themes($light-theme);
+
+$dark-theme: mat.define-dark-theme(
+  (
+    color: (
+      primary: $frontend-primary,
+      accent: $frontend-accent,
+    ),
+  )
+);
+
+:root {
+  --background-color-1: #eee;
+  --background-color-2: #fff;
+  --primary-color: #1976d2;
+  --primary-color-secondary: hsl(240, 100%, 50%);
+  --accent-color: teal;
+  --text-color: #212121;
+  --placeholder-color: #8e8e8e;
+  --red-color: #d50000;
+}
+
+.dark-theme {
+  @include mat.all-component-colors($dark-theme);
+  --background-color-1: #263238;
+  --background-color-2: #37474f;
+  --text-color: #fff;
+  --placeholder-color: hsl(0, 0%, 70%);
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+mat-sidenav-content {
+  background-color: var(--background-color-1);
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #d6dee1;
+  border-radius: 20px;
+  border: 6px solid transparent;
+  background-clip: content-box;
+  min-height: 100px;
+  &:hover {
+      opacity: 100%;
+      background-color: #bcc4c4;
+  }
+  &:active {
+      background-color: #a7a8a8;
+  }
+}
+
+.first-paragraph {
+  font-weight: bold;
+  &::first-letter {
+    color: var(--primary-color);
+    padding: 0 .3rem;
+    margin: 0 .3rem 0 0;
+    font-family: "IBM Plex Mono";
+    font-size: 5.5rem;
+    float: left;
+    line-height: 1;
+  }
+}
+
+app-surveys .mat-tab-labels :last-child.mat-tab-label {
+  min-width: 0;
+  padding: 0 12px;
+  color: #666;
+  opacity: unset;
+}
+
+.hide-on-large {
+  display: none !important;
+}
+
+@media only screen and (max-width: 601px) {
+  .hide-on-mob {
+      display: none !important;
+  }
+  .hide-on-large {
+      display: block !important;
+  }
+  blockquote {
+      line-height: 1.5em;
+      margin: 0;
+      padding: 1em 0 1em 1.5em;
+      &:after {
+          font-size: 3rem;
+      }
+  }
+}
+
+@keyframes tie-slide-in-up {
+  from {
+      transform: translate3d(0, 50px, 0);
+      opacity: 0;
+  }
+  to {
+      transform: translate3d(0, 0, 0);
+      opacity: 1;
+  }
+}
+
+@keyframes tie-slide-in-left {
+  from {
+      transform: translate3d(50px, 0, 0);
+      opacity: 0;
+  }
+  to {
+      transform: translate3d(0, 0, 0);
+      opacity: 1;
+  }
+}
+
+@keyframes tie-slide-in-right {
+  from {
+      transform: translate3d(-50px, 0, 0);
+  }
+  to {
+      transform: translate3d(0, 0, 0);
+      opacity: 1;
+  }
+}
+
+.files-dialog, .image-editor-dialog {
+  max-height: 90vh;
+  width: 60vw;
+}
+
+mat-dialog-container {
+  background-color: var(--background-color-2)!important;
+}
+
+@keyframes loading {
+  0% {
+      background-color: #ccc;
+  }
+  50% {
+      background-color: rgb(141, 140, 140);
+  }
+  100% {
+      background-color: #ccc;
+  }
+}

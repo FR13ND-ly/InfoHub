@@ -1,0 +1,19 @@
+<div class="images-wrapper">
+  <img
+    *ngFor="let image of images"
+    class="image"
+    [src]="image.imageUrl"
+    (click)="onSelectImage(image)"
+    [class.selected]="includes(image)"/>
+</div>
+<div class="actions">
+  <input type="file" (change)="onAddFile($event)" #file hidden>
+  <button mat-stroked-button (click)="file.click()" color="accent">Încarcă imagine</button>
+  <button
+    mat-flat-button
+    color="primary"
+    [disabled]="!data.selectedImages.length"
+    [mat-dialog-close]="data">
+    Continuă
+  </button>
+</div>

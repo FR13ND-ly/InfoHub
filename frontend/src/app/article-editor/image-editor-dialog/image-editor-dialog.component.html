@@ -1,0 +1,28 @@
+<div class="image">
+    <h2 class="image__header">Aliniere</h2>
+    <mat-button-toggle-group class="image__section" #group="matButtonToggleGroup" [(ngModel)]="data.align" tabindex="-1">
+        <mat-button-toggle value="left">
+            <mat-icon>format_align_left</mat-icon>
+        </mat-button-toggle>
+        <mat-button-toggle value="center">
+            <mat-icon>format_align_center</mat-icon>
+        </mat-button-toggle>
+        <mat-button-toggle value="right">
+            <mat-icon>format_align_right</mat-icon>
+        </mat-button-toggle>
+    </mat-button-toggle-group>
+    <h2 class="image__header">Mărime</h2>
+    <mat-button-toggle-group class="image__section" #group="matButtonToggleGroup" [(ngModel)]="data.size" tabindex="-1">
+        <mat-button-toggle value="small">
+            Mică
+        </mat-button-toggle>
+        <mat-button-toggle value="medium">
+            Medie
+        </mat-button-toggle>
+        <mat-button-toggle value="big">
+            Mare
+        </mat-button-toggle>
+    </mat-button-toggle-group>
+    <button mat-raised-button color="primary" [mat-dialog-close]="data">Adaugă</button>
+</div>
+<img class="image-preview" [src]="data.imageUrl"/>

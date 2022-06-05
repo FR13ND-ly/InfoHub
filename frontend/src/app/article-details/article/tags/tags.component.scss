@@ -1,0 +1,38 @@
+:host {
+    display: flex;
+    gap: .8rem;
+    flex-wrap: wrap;
+}
+
+.tag {
+    user-select: none;
+    cursor: pointer;
+    border-radius: 50px;
+    font-weight: bold;
+    padding: .8rem 1.2rem;
+    background-color: var(--background-color-2);
+    transition: .2s ease-in-out;
+    &:hover {
+        color: var(--primary-color);
+    }
+}
+
+.jump {
+    animation: jump .3s;
+}
+
+@keyframes jump {
+    0% {transform: translateY(0);}
+    50% {transform: translateY(-4px);}
+    100% {transform: translateY(0);}
+}
+
+@media only screen and (max-width: 600px) {
+    :host {
+        gap: .5rem;
+    }
+    .tag {
+        padding: .5rem 1rem;
+        font-size: .7rem;
+    }
+}

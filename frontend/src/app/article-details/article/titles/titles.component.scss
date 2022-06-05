@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+
+.title {
+    font-family: 'Raleway', sans-serif;
+    font-size: 5rem;
+    font-weight: bold;
+    line-height: normal;
+    margin-bottom: 0;
+    opacity: 0;
+    animation: tie-slide-in-up .3s ease-in-out forwards;
+}
+
+.sub-title {
+    font-weight: lighter;
+    font-size: 32px;
+    line-height: normal;
+    opacity: 0;
+    animation: tie-slide-in-up .3s .2s ease-in-out forwards;    
+}
+
+@media only screen and (max-width: 600px) {
+    .title {
+        font-size: 2rem;
+    }
+
+    .sub-title {
+        font-size: 1rem;
+    }
+}

@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+
+:host {
+    display: flex;
+    flex-direction: column;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.title-input, .subtitle-input {
+    border: 0;
+    outline: 0;
+    padding: 1rem;
+    background-color: var(--background-color-2);
+    color: var(--text-color);
+    &::placeholder {
+        color: var(--placeholder-color)
+    }
+}
+
+.title-input {
+    font-family: 'Raleway', sans-serif;
+    font-size: 5rem;
+    font-weight: bold;
+    line-height: normal;
+    position: relative;
+    &::before {
+        content: '';
+        position: absolute;
+        z-index: 1;
+        bottom: 0;
+        right: 0;
+        background-color: blue;
+        width: 50px;
+        height: 50px;
+    }
+}
+
+.subtitle-input {
+    font-weight: lighter;
+    font-size: 32px;
+    line-height: normal;
+    border-top: 1px solid var(--text-color);
+}
+
+.additional-content {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    align-items: flex-start;
+    .left-side {
+        display: flex;
+        flex-direction: column;
+        width: 72%;
+        flex-shrink: 0;
+        gap: 1rem;
+    }
+    .control-panel {
+        width: 100%;
+        padding: .8rem;
+        box-sizing: border-box;
+        background-color: var(--background-color-2);
+        border-radius: 6px;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        &__title {
+            margin-bottom: 0;
+        }
+        &__actions {
+            margin-top: .5rem;
+            display: flex;
+            gap: .5rem
+        }
+    }
+}
+
+.go-to-text-button {
+    position: absolute;
+    right: 1rem;
+}

@@ -1,0 +1,7 @@
+<button class="close-button" mat-icon-button (click)="onCloseSearchSidenav()"><mat-icon>close</mat-icon></button>
+<mat-form-field class="search-input" [class.active]="searchText.trim().length">
+    <mat-label>Caută</mat-label>
+    <input matInput placeholder="Caută" [class.tag]="searchText.trim()[0] == '#'" [(ngModel)]="searchText" (ngModelChange)="onSearch(searchText)">
+</mat-form-field>
+<h1 *ngIf="!articles?.length && searchText.trim().length">Niciun rezultat</h1>
+<app-article [articles]="articles" [hideDetails]="true"></app-article>

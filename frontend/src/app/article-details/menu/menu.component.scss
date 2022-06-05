@@ -1,0 +1,97 @@
+.menu {
+    margin-top: 1rem;
+    background-color: blue;
+    display: flex;
+    box-sizing: border-box;
+    padding: .7rem;
+    padding-left: 21.25%;
+    gap: 1rem;
+    width: 142.7%;
+    margin-left: -21.25%;
+    transform: translateX(-99%);
+    transform-origin: left;
+    transition: .8s cubic-bezier(0, 0, .2, 1), background-color 1s ease-in-out;
+}
+
+.like-button, .readlists-button, .share-button {
+    transform: scale(0);
+    transition: .2s ease-in-out;
+}
+
+.readlists-button, .like-button, .edit-button {
+    background-color: var(--background-color-1);
+}
+
+.like-button {
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+    transition-delay: .7s;
+    mat-icon {
+        font-size: 1.4rem;
+        margin-right: -.15rem;
+    }
+}
+
+.readlists-button {
+    transition-delay: .8s;
+}
+
+.share-button {
+    transition-delay: .9s;
+}
+
+.show {
+    background-color: var(--background-color-2);
+    transform: translateX(0);
+    .like-button, .readlists-button, .share-button {
+        transform: scale(1);
+    }
+}
+
+.socials {
+    display: flex; 
+    column-gap: .5rem;
+    .facebook {
+        background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1024px-Facebook_Logo_%282019%29.png");
+        animation: socialAppear .2s ;
+        background-size: 100%;
+    }
+    .twitter {
+        background-image: url("https://www.pngkey.com/png/full/2-27646_twitter-logo-png-transparent-background-logo-twitter-png.png");
+        animation: socialAppear .4s ;
+        background-size: 100%;
+    }
+    .viber {
+        background-color: #59267c;
+        animation: socialAppear .6s ;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &__image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            overflow: hidden;
+        }
+    }
+}
+
+@keyframes socialAppear {
+    0% {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .menu {
+        width: 122%;
+        transform: none;
+        background-color: var(--background-color-2);
+    }
+}

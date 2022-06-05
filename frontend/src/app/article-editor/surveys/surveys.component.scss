@@ -1,0 +1,24 @@
+@use '@angular/material' as mat;
+
+:host {
+    width: 100%;
+    background-color: var(--background-color-2);
+    color: var(--text-color);
+    border-radius: 6px;
+    @include mat.elevation(4);
+}
+
+.survey {
+    display: flex;
+    flex-direction: column;
+    padding: .8rem;
+    box-sizing: border-box;
+    &__actions {
+        display: flex;
+        gap: .5rem;
+    }
+}
+
+.activate-survey-button {
+    width: 100%;
+}

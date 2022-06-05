@@ -1,0 +1,27 @@
+:host {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    position: relative;
+}
+
+.image-preview {
+    width: 70%;
+    height: auto;
+    border-radius: 3px;
+    flex-shrink: 0;
+}
+
+
+.image {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    &__header {
+        margin-bottom: 0;
+    }
+    &__section {
+        margin-bottom: .5rem;
+        width: fit-content;
+    }
+}

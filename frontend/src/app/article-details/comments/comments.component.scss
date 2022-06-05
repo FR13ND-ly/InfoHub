@@ -1,0 +1,77 @@
+:host {
+    display: flex;
+    flex-direction: column;
+}
+
+.add-comment {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: .6rem;
+    margin-top: -.8rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    &__user-photo {
+        flex-shrink: 0;
+        background-color: #ccc;
+        height: 45px;
+        width: 45px;
+        overflow: hidden;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+    &__input {
+        border: 0;
+        width: 100%;
+        margin-top: -2%;
+    }
+    &__button {
+        position: absolute;
+        bottom: -1.5rem;
+        right: 0;
+    }
+}
+
+.comments {
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+}
+
+.comment {
+    display: flex;
+    gap: .6rem;
+    width: 100%;
+    opacity: 0;
+    position: relative;
+    &__user-photo {
+        flex-shrink: 0;
+        width: 45px;
+        height: 45px;
+        background-color: #ccc;
+        object-fit: cover;
+        overflow: hidden;
+        border-radius: 50%;
+    }
+    &__content-wrapper {
+        width: 100%;
+    }
+    &__date {
+        margin-left: .3rem;
+        font-weight: normal;
+        font-size: .7rem;
+    }
+    &__delete-button {
+        opacity: 0;
+        position: absolute;
+        right: 0;
+        transition: .2s;
+    }
+    &:hover &__delete-button {
+        opacity: 1;
+    }
+}
+
+.show {
+    animation: tie-slide-in-right .3s cubic-bezier(0.42, 0, 0, 1.2) forwards;
+}

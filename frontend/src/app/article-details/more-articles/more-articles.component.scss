@@ -1,0 +1,37 @@
+.articles {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.article {
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    height: 15rem;
+    overflow: hidden;
+    cursor: pointer;
+    background-color: var(--background-color-2);
+    opacity: 0;
+    &__image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        overflow: hidden;
+    }
+    &__title {
+        padding: .9rem;
+        padding-top: .8rem;
+        font-size: 1.1rem;
+        line-height: normal;
+        font-weight: bold;
+        transition: .2s cubic-bezier(0, 0, .2, 1);
+    }
+    &:hover &__title {
+        color: var(--primary-color)
+    }
+}
+
+.show  .article {
+    animation: tie-slide-in-left .3s ease-in-out forwards;
+}

@@ -1,0 +1,27 @@
+<ng-container *ngIf="article$ | async as article">
+    <div class="main mat-elevation-z4">
+        <input class="title-input" [(ngModel)]="article!.title" placeholder="Titlu">
+        <input class="subtitle-input" [(ngModel)]="article!.subtitle" placeholder="Subtitlu">
+        <app-menu></app-menu>
+        <app-text-editor [(text)]="article.text"></app-text-editor>
+    </div>
+    <div class="additional-content">
+        <div class="left-side">
+            <app-tags [tags]="article.tags"></app-tags>
+            <app-preview-image [imageUrl]="article.imageUrl" [(coverImage)]="article.coverImage" [(coverImageDescription)]="article.coverImageDescription"></app-preview-image>
+            <app-surveys></app-surveys>
+        </div>
+        <div class="control-panel mat-elevation-z4">
+            <!-- <button mat-icon-button *ngIf="url" class="go-to-text-button" routerLink="/articol/{{url}}"><mat-icon>open_in_new</mat-icon></button> -->
+            <h2 class="control-panel__title">{{ article.framework ? 'Adaugă articolul' : 'Salvează schimbările'}}</h2>
+            <mat-checkbox [(ngModel)]="article.draft">Ciornă</mat-checkbox>
+            <mat-checkbox [(ngModel)]="article.hideViews">Nu afișa numărul de vizualizări</mat-checkbox>
+            <mat-checkbox [(ngModel)]="article.hideDate">Nu afișa data publicării</mat-checkbox>
+            <mat-checkbox [(ngModel)]="article.restrictComments">Restricționează comentariile</mat-checkbox>
+            <div class="control-panel__actions">
+                <button mat-flat-button color="primary" (click)="onPublish(article)">{{ article.framework ? "Publică" : "Salvează" }}</button>
+                <button mat-flat-button color="warn">Șterge</button>
+            </div>
+        </div>
+    </div>
+</ng-container>

@@ -1,0 +1,38 @@
+<button mat-icon-button (click)="format('bold')"><mat-icon>format_bold</mat-icon></button>
+<button mat-icon-button (click)="format('italic')"><mat-icon>format_italic</mat-icon></button>
+<button mat-icon-button (click)="format('strikethrough')"><mat-icon>format_strikethrough</mat-icon></button>
+<button mat-icon-button (click)="format('underline')"><mat-icon>format_underlined</mat-icon></button>
+<button mat-icon-button (click)="format('insertUnorderedList')"><mat-icon>format_list_bulleted</mat-icon></button>
+<button mat-icon-button (click)="format('insertOrderedList')"><mat-icon>format_list_numbered</mat-icon></button>
+<button mat-icon-button (click)="format('justifyLeft')"><mat-icon>format_align_left</mat-icon></button>
+<button mat-icon-button (click)="format('justifyCenter')"><mat-icon>format_align_center</mat-icon></button>
+<button mat-icon-button (click)="format('justifyRight')"><mat-icon>format_align_right</mat-icon></button>
+<button mat-icon-button [matMenuTriggerFor]="textSizeMenu"><mat-icon>format_size</mat-icon></button>
+<button mat-icon-button [matMenuTriggerFor]="textFontMenu"><mat-icon>font_download</mat-icon></button>
+<button mat-icon-button [matMenuTriggerFor]="textFillColorMenu"><mat-icon>format_color_fill</mat-icon></button>
+<button mat-icon-button [matMenuTriggerFor]="textColorMenu"><mat-icon>format_color_text</mat-icon></button>
+<button mat-icon-button (click)="onSetFirstParagraph()"><mat-icon>numbers</mat-icon></button>
+<button mat-icon-button (click)="onSetLink()"><mat-icon>link</mat-icon></button>
+<button mat-icon-button (click)="onAddImage()"><mat-icon>add_photo_alternate_outline</mat-icon></button>
+<button mat-icon-button (click)="onAddYoutubeVideo()"><mat-icon>video_call</mat-icon></button>
+<button mat-icon-button (click)="format('undo')"><mat-icon>undo</mat-icon></button>
+<button mat-icon-button (click)="format('redo')"><mat-icon>redo</mat-icon></button>
+<button mat-icon-button (click)="onSetView()"><mat-icon>{{ codeView ? 'code_off' : 'code' }}</mat-icon></button>
+<button mat-icon-button (click)="format('removeFormat')"><mat-icon>format_clear</mat-icon></button>
+
+<mat-menu #textSizeMenu="matMenu">
+    <button mat-menu-item *ngFor="let formatType of formats" (click)="format('formatBlock', formatType[1])">{{ formatType[0] }}</button>
+</mat-menu>
+<mat-menu #textFontMenu="matMenu">
+    <button mat-menu-item *ngFor="let font of fonts" (click)="format('fontname', font)">{{ font }}</button>
+</mat-menu>
+<mat-menu #textFillColorMenu="matMenu">
+    <button mat-menu-item *ngFor="let backColor of backColors" (click)="format('backColor', backColor[1])">{{ backColor[0] }}</button>
+</mat-menu>
+<mat-menu #textColorMenu="matMenu">
+    <button mat-menu-item *ngFor="let color of colors" (click)="format('foreColor', color[1])">{{ color[0] }}</button>
+</mat-menu>
+<mat-menu #textSizeMenu="matMenu">
+    <button mat-menu-item>Item 1</button>
+    <button mat-menu-item>Item 2</button>
+</mat-menu>

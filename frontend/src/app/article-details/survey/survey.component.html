@@ -1,0 +1,12 @@
+<div class="surveys mat-elevation-z4" #surveyRef>
+    <div class="main">
+        <h2 class="question"><span class="question__index">{{ surveyIndex + 1 }}.</span> {{ surveys[surveyIndex].question }}</h2>
+        <div class="arrows" *ngIf="surveys.length - 1">
+            <div class="arrow mat-elevation-z3" (click)="onChangeSurveyPrev()"><</div>
+            <div class="arrow mat-elevation-z3" (click)="onChangeSurveyNext()">></div>
+        </div>
+    </div>
+    <ul class="anwsers">
+        <li class="answer" *ngFor="let answer of surveys[surveyIndex].answers; let i = index" [style.animation-delay.s]="i * .1 + .2" [attr.votes]="answer.votes">{{ answer.text }}</li>
+    </ul>
+</div>

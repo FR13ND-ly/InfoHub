@@ -1,0 +1,22 @@
+<div class="menu" #menuRef>
+    <button mat-raised-button (click)="onLikeInteract()" class="like-button"><mat-icon color="warn">{{ liked }}</mat-icon> {{ likes }}</button>
+    <button mat-raised-button class="edit-button" routerLink="edit/" *ngIf="user?.isStaff"><mat-icon color="accent">edit</mat-icon></button>
+    <button mat-raised-button [matMenuTriggerFor]="readListMenu" class="readlists-button"><mat-icon color="primary">add_to_photos</mat-icon></button>
+    <button mat-icon-button class="share-button" (click)="showSocials = !showSocials"><mat-icon>share</mat-icon></button>
+    <div class="socials" *ngIf="showSocials">
+        <button mat-mini-fab (click)="onShare($event, 'http://www.facebook.com/sharer.php?u=')" class="facebook hoverable">
+          f
+        </button>
+        <button mat-mini-fab (click)="onShare($event, 'http://twitter.com/intent/tweet/?url=')" class="twitter hoverable">
+          
+        </button>
+        <button mat-mini-fab (click)="onShare($event, 'viber://forward?text=')" class="viber hoverable">
+          <img class="viber__image" src="https://icon-library.com/images/viber-icon-png/viber-icon-png-11.jpg">
+        </button>
+      </div>
+</div>
+
+<mat-menu #readListMenu="matMenu">
+    <button mat-menu-item>Item 1</button>
+    <button mat-menu-item>Item 2</button>
+</mat-menu>

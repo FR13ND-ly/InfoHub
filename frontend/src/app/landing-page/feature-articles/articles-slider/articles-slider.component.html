@@ -1,0 +1,10 @@
+<div class="articles-slider mat-elevation-z4 appear" #slider *ngIf="articles$ | async as articles">
+    <span class="articles-slider__title" routerLink="/articol/{{ articles[selectedIndex]?.url }}">{{ articles[selectedIndex]?.title }}</span>
+    <div class="articles-slider__image-wrapper" routerLink="/articol/{{ articles[selectedIndex]?.url }}">
+        <img class="articles-slider__image" [src]="articles[selectedIndex]?.imageUrl">
+    </div>
+    <div class="articles-slider__selectors" #selectorsWrapper>
+        <div class="articles-slider__selector" [class.selected]="selectedIndex == i" *ngFor="let i of articles"
+            (click)="onSelectIndex(i)" [style.animation-delay.s]="i * .1"></div>
+    </div>
+</div>

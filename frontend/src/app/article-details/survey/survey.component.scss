@@ -1,0 +1,125 @@
+@use '@angular/material' as mat;
+
+.surveys {
+    margin-top: 1rem;
+    padding-top: .8rem;
+    border-radius: 6px;
+    overflow: hidden;
+    transform: scaleY(0);
+    transform-origin: top;
+}
+
+.question {
+    margin: 0;
+    padding: .5rem;
+    padding-top: 0;
+    opacity: 0;
+    &__index {
+        font-size: .8rem;
+    }
+}
+
+.main {
+    display: flex;
+    justify-content: space-between;
+}
+
+.arrows {
+    margin-right: .8rem;
+    display: flex;
+    height: max-content;
+    gap: 1px;
+    transform: scale(0);
+    .arrow {
+        padding: .2rem .5rem;
+        background-color: var(--primary-color);
+        color: #fff;
+        cursor: pointer;
+        user-select: none;
+        font-weight: bolder;
+        transition: .2s cubic-bezier(0, 0, .2, 1);
+        &:nth-child(1) {
+            border-radius: 3px 0 0 3px;
+        }
+        &:nth-child(2) {
+            border-radius: 0 3px 3px 0;
+        }
+        &:hover {
+            background-color: var(--primary-color-secondary);
+        }
+        &:active {
+            background-color: var(--primary-color);
+        }
+    }
+}
+
+.anwsers {
+    padding-left: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.answer {
+    padding: .8rem;
+    list-style: none;
+    background-color: var(--background-color-2);
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    box-sizing: border-box;
+    position: relative;
+    transform: translateX(-100%);
+    transition: .1s cubic-bezier(0, 0, .2, 1);
+    &:nth-child(1) {
+        // border: 3px dotted blue;
+    }
+    &:hover {
+        transition-duration: .1s;
+        background-color: var(--primary-color-secondary);
+        color: #fff;
+    }
+    &::before {
+        transform: scale(0);
+        content: attr(votes) ' voturi';
+        color: #fff;
+        padding: .2rem .45rem;
+        font-size: .75rem;
+        position: absolute;
+        right: 2%;
+        background-color: var(--primary-color);
+        border-radius: 3px;
+        @include mat.elevation(2);
+    }
+}
+
+.show {
+    animation: surveyShow .6s cubic-bezier(0.075, 0.82, 0.165, 1) forwards;
+    .answer {
+        animation: answerShow .6s cubic-bezier(0.075, 0.82, 0.165, 1) forwards;
+        &::before {
+            animation: scaleShow .5s .8s cubic-bezier(0.075, 0.82, 0.165, 1) forwards;
+        }
+    }
+    .question {
+        animation: tie-slide-in-up .4s .2s forwards;
+    }
+    .arrows {
+        animation: scaleShow .5s .2s cubic-bezier(0.075, 0.82, 0.165, 1) forwards;
+    }
+}
+
+@keyframes answerShow {
+    from { transform: translateX(-100%);}
+    to {transform: translateX(0);}
+}
+
+@keyframes scaleShow {
+    from { transform: scale(0); }
+    to { transform: scale(1); }
+}
+
+@keyframes surveyShow {
+    to { transform: scaleY(1); }
+}

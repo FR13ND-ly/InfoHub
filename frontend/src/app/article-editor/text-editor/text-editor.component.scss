@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300&display=swap');
+
+.text-editor {
+    width: 100%;
+    outline: none;
+    padding: .8rem;
+    box-sizing: border-box;
+    font-size: 1rem;
+    line-height: 1.4;
+    background-color: var(--background-color-2);
+    border-top: 1px solid var(--text-color);
+    height: 400px;
+    overflow: auto;
+    &:empty:before {
+        content: attr(placeholder);
+        color: var(--placeholder-color);
+    }
+}
+
+.code-view {
+    font-family: 'JetBrains Mono', monospace;
+}

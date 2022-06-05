@@ -1,0 +1,26 @@
+<mat-tab-group [selectedIndex]="selectedTabIndex" *ngIf="surveys.length" (selectedTabChange)="onTabChange()">
+    <mat-tab label="{{ i + 1 }}. Chestionar" *ngFor="let survey of surveys; let i = index">
+        <div class="survey">
+            <mat-form-field>
+                <input matInput placeholder="Întrebarea">
+            </mat-form-field>
+            <mat-form-field appearance="outline" *ngFor="let answer of survey.answers; let j = index">
+                <mat-label>Variantă de răspuns</mat-label>
+                <input matInput [(ngModel)]="answer[0]">
+                <button mat-icon-button matSuffix><mat-icon  color="warn" (click)="survey.answers.splice(j, 1)">delete</mat-icon></button>
+            </mat-form-field>
+            <div class="survey__actions">
+                <button mat-stroked-button color="primary" (click)="survey.answers.push([''])">+ Variantă de răspuns</button>
+                <button mat-stroked-button color="warn" (click)="surveys.splice(i, 1)">Șterge chestionar</button>
+            </div>
+        </div>
+    </mat-tab>
+    <mat-tab disabled>
+        <ng-template mat-tab-label>
+            <button mat-icon-button (click)="onAddSurvey()">
+                <mat-icon>add</mat-icon>
+            </button>
+        </ng-template>
+    </mat-tab>
+</mat-tab-group>
+<button class="activate-survey-button" (click)="onAddSurvey()" mat-flat-button color="accent" *ngIf="!surveys.length">Activează chestionarele</button>

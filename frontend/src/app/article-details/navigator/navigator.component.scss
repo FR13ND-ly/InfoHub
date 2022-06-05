@@ -1,0 +1,31 @@
+.moments {
+    position: fixed!important;
+    right: 1rem;
+    bottom: 1rem;
+    padding: 1rem;
+    padding-top: .7rem;
+    width: max-content;
+    background-color: white;
+    border-radius: 6px;
+    position: relative;
+    z-index: 1;
+}
+
+.curpins {
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.moment {
+    cursor: pointer;
+    transition: .2s;
+    &:hover {
+        color: blue;
+    }
+}
+
+.handler {
+    float: right;
+    cursor: move;
+    width: 24px;
+}
