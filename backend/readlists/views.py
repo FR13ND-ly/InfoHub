@@ -6,6 +6,7 @@ from articles.models import Article
 from django.views.decorators.csrf import csrf_exempt
 from django.http.response import JsonResponse
 from rest_framework.parsers import JSONParser
+from profiles.models import Profile
 
 @csrf_exempt
 def getLightLists(request):
@@ -103,29 +104,31 @@ def getLists(request, token):
 @csrf_exempt
 def getListInfo(request):
     data = JSONParser().parse(request)
-    if (not List.objects.filter(id=data['id']).count() and data['id'] != -1 and data['id'] != -2):
-        return JsonResponse("Nu am găsit această listă", safe=False)
-    user = Profile.objects.get(token=data['token'])
+    user = Profile.objects.get(token=data['user'])
     response = {
         "name": '',
-        "author": user.user.username,
+        "author": user.user.first_name,
         "public": False,
         "own": True,
-        "size": 0
+        "length": 0,
+        "editable" : True
     }
     articles_raw = []
     if data['id'] == -1:
-        response['size'] = len(View.objects.filter(user=data['token']))
+        response['length'] = len(View.objects.filter(user=data['user']))
         response['name'] = "Istoric"
+        response['editable'] = False
     elif data['id'] == -2:
-        response['size'] = len(Like.objects.filter(user=data['token']))
+        response['length'] = len(Like.objects.filter(user=data['user']))
         response['name'] = "Aprecieri"
+        response['editable'] = False
     else:
         nList = List.objects.get(id=data['id'])
-        response['size'] = len(ListItem.objects.filter(List=data['id']))
+        response['length'] = len(ListItem.objects.filter(List=data['id']))
         response['name'] = nList.name
         response['public'] = not nList.public
         response['own'] = nList.user == user.token
+        response['editable'] = nList.editable
         if (not response['own']):
             response['author'] = Profile.objects.get(
                 token=nList.user).user.username
@@ -133,7 +136,7 @@ def getListInfo(request):
 
 
 @csrf_exempt
-def getListArticles(request):
+def getListArticles(request, index=1):
     data = JSONParser().parse(request)
     response = {
         "articles": [],
@@ -141,30 +144,29 @@ def getListArticles(request):
     }
     articles_raw = []
     if data['id'] == -1:
-        articles_raw = View.objects.filter(user=data['token']).order_by("-date")
+        articles_raw = View.objects.filter(user=data['user']).order_by("-date")
     elif data['id'] == -2:
-        articles_raw = Like.objects.filter(user=data['token']).order_by("-date")
+        articles_raw = Like.objects.filter(user=data['user']).order_by("-date")
     else:
         articles_raw = ListItem.objects.filter(List=data['id'])
     response["noMoreArticles"] = (
-        len(articles_raw) - 30 * (data["index"] - 1)) < 30
-    for article_raw in articles_raw[30 * (data["index"] - 1): 30 * data["index"]]:
+        len(articles_raw) - 30 * (index - 1)) < 30
+    for article_raw in articles_raw[30 * (index - 1): 30 * index]:
         if (int(data['id']) > 0):
             if (not Article.objects.filter(id=article_raw.id)):
                 article_raw.delete()
                 continue
-            article = Article.objects.get(id=article_raw.id)
+            article = Article.objects.get(url=article_raw.id)
         else:
-            if (not Article.objects.filter(id=article_raw.article)):
+            if (not Article.objects.filter(url=article_raw.article)):
                 article_raw.delete()
                 continue
-            article = Article.objects.get(id=article_raw.article)
+            article = Article.objects.get(url=article_raw.article)
         response['articles'].append({
             "url": article.url,
             "title": article.title,
             "text": article.text,
-            "date": formatDate(article.date),
-            "cover": apiUrl + File.objects.get(id=article.cover).file.url
+            "imageUrl": getFile(article.coverImage)
         })
     return JsonResponse(response, safe=False)
 
@@ -172,6 +174,7 @@ def getListArticles(request):
 @csrf_exempt
 def addList(request):
     data = JSONParser().parse(request)
+    print(data)
     List.objects.create(
         name=data['name'],
         user=data['user'],

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Observable, switchMap } from 'rxjs';
+import { UserService } from 'src/app/shared/data-access/user.service';
 import { ReadListsService } from '../read-lists.service';
 
 @Component({
@@ -9,73 +11,36 @@ import { ReadListsService } from '../read-lists.service';
 })
 export class ListComponent implements OnInit {
 
-  constructor(private readListService : ReadListsService, private route: ActivatedRoute) { }
+  constructor(private readListService: ReadListsService, private route: ActivatedRoute, private userService: UserService) { }
 
-  listInfo = {
-    name : "Citește mai târziu",
-    author : "nu, tu",
-    imageUrl : "https://marmotamaps.com/de/fx/wallpaper/download/faszinationen/Marmotamaps_Wallpaper_Berchtesgaden_Desktop_1920x1080.jpg",
-    length : 13,
-    public : true
-  }
+  listInfo$: Observable<any> = this.userService.getUserUpdateListener().pipe(
+    switchMap((user) => this.route.paramMap.pipe(
+      switchMap((params: any) => this.readListService.getReadListInfo({
+          id: params.params.url == "istoric" ? -1 : params.params.url == "aprecieri" ? -2 : params.params.url,
+          user: user.uid
+        })
+      ))
+    )
+  )
 
-  articles = [
-    {
-      imageUrl : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5lvsXfIoXKRinJKhd7HaI9JKTPgRhRi64uUYxsjRN7UZDHNs3fZ1-5bFWnIXNxxzHtZg&usqp=CAU",
-      title : "Lorem ipsum dolor sit amet",
-      text : "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis repudiandae assumenda voluptatum corporis. Tempore, sunt quas esse non repellendus, eveniet vero porro impedit fuga explicabo id. Quo aut eaque neque ipsam, eos placeat cupiditate quisquam officia"
-    },
-    {
-      imageUrl : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5lvsXfIoXKRinJKhd7HaI9JKTPgRhRi64uUYxsjRN7UZDHNs3fZ1-5bFWnIXNxxzHtZg&usqp=CAU",
-      title : "Lorem ipsum dolor sit amet",
-      text : "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis repudiandae assumenda voluptatum corporis. Tempore, sunt quas esse non repellendus, eveniet vero porro impedit fuga explicabo id. Quo aut eaque neque ipsam, eos placeat cupiditate quisquam officia"
-    },
-    {
-      imageUrl : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5lvsXfIoXKRinJKhd7HaI9JKTPgRhRi64uUYxsjRN7UZDHNs3fZ1-5bFWnIXNxxzHtZg&usqp=CAU",
-      title : "Lorem ipsum dolor sit amet",
-      text : "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis repudiandae assumenda voluptatum corporis. Tempore, sunt quas esse non repellendus, eveniet vero porro impedit fuga explicabo id. Quo aut eaque neque ipsam, eos placeat cupiditate quisquam officia"
-    },
-    {
-      imageUrl : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5lvsXfIoXKRinJKhd7HaI9JKTPgRhRi64uUYxsjRN7UZDHNs3fZ1-5bFWnIXNxxzHtZg&usqp=CAU",
-      title : "Lorem ipsum dolor sit amet",
-      text : "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis repudiandae assumenda voluptatum corporis. Tempore, sunt quas esse non repellendus, eveniet vero porro impedit fuga explicabo id. Quo aut eaque neque ipsam, eos placeat cupiditate quisquam officia"
-    },
-    {
-      imageUrl : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5lvsXfIoXKRinJKhd7HaI9JKTPgRhRi64uUYxsjRN7UZDHNs3fZ1-5bFWnIXNxxzHtZg&usqp=CAU",
-      title : "Lorem ipsum dolor sit amet",
-      text : "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis repudiandae assumenda voluptatum corporis. Tempore, sunt quas esse non repellendus, eveniet vero porro impedit fuga explicabo id. Quo aut eaque neque ipsam, eos placeat cupiditate quisquam officia"
-    },
-    {
-      imageUrl : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5lvsXfIoXKRinJKhd7HaI9JKTPgRhRi64uUYxsjRN7UZDHNs3fZ1-5bFWnIXNxxzHtZg&usqp=CAU",
-      title : "Lorem ipsum dolor sit amet",
-      text : "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis repudiandae assumenda voluptatum corporis. Tempore, sunt quas esse non repellendus, eveniet vero porro impedit fuga explicabo id. Quo aut eaque neque ipsam, eos placeat cupiditate quisquam officia"
-    },
-    {
-      imageUrl : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5lvsXfIoXKRinJKhd7HaI9JKTPgRhRi64uUYxsjRN7UZDHNs3fZ1-5bFWnIXNxxzHtZg&usqp=CAU",
-      title : "Lorem ipsum dolor sit amet",
-      text : "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis repudiandae assumenda voluptatum corporis. Tempore, sunt quas esse non repellendus, eveniet vero porro impedit fuga explicabo id. Quo aut eaque neque ipsam, eos placeat cupiditate quisquam officia"
-    },
-    {
-      imageUrl : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5lvsXfIoXKRinJKhd7HaI9JKTPgRhRi64uUYxsjRN7UZDHNs3fZ1-5bFWnIXNxxzHtZg&usqp=CAU",
-      title : "Lorem ipsum dolor sit amet",
-      text : "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis repudiandae assumenda voluptatum corporis. Tempore, sunt quas esse non repellendus, eveniet vero porro impedit fuga explicabo id. Quo aut eaque neque ipsam, eos placeat cupiditate quisquam officia"
-    },
-    {
-      imageUrl : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5lvsXfIoXKRinJKhd7HaI9JKTPgRhRi64uUYxsjRN7UZDHNs3fZ1-5bFWnIXNxxzHtZg&usqp=CAU",
-      title : "Lorem ipsum dolor sit amet",
-      text : "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis repudiandae assumenda voluptatum corporis. Tempore, sunt quas esse non repellendus, eveniet vero porro impedit fuga explicabo id. Quo aut eaque neque ipsam, eos placeat cupiditate quisquam officia"
-    }
-  ]
+  articles$ : Observable<any> = this.userService.getUserUpdateListener().pipe(
+    switchMap((user) => this.route.paramMap.pipe(
+      switchMap((params: any) => this.readListService.getReadListArticles({
+          id: params.params.url == "istoric" ? -1 : params.params.url == "aprecieri" ? -2 : params.params.url,
+          user: user.uid
+        })
+      ))
+    )
+  )
 
   ngOnInit(): void {
   }
 
-  onChangeName(newName : string) {
-    console.log(newName)
+  onChangeName(newName: string) {
   }
 
   onChangeAccess() {
-    this.listInfo.public = !this.listInfo.public
+    // this.listInfo.public = !this.listInfo.public
   }
 
   onCopyLink() {

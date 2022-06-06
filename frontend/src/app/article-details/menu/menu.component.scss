@@ -99,8 +99,47 @@
 .list-item {
     display : flex;
     align-items : center;
-    padding: .5rem 1rem 0;
     box-sizing : border-box;
+    color : var(--text-color);
+    justify-content: space-between;
+    mat-icon {
+        transform: scale(.8) translateX(-.4rem);
+    }
+    &__name-wrapper {
+        display: flex;
+        gap: .5rem;
+    }
+}
+
+.add-list {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+
+
+.readlist-menu {
+    display: flex;
+    flex-direction: column;
+    padding: .5rem 1rem;
+    color: var(--text-color);
+    hr {
+        width: 100%;
+    }
+}
+
+.readlists {
+    display: flex;
+    flex-direction: column;
     gap: .5rem;
-    color : var(--text-color)
+    margin-bottom: .2rem;
+}
+
+.buttons-wrapper {
+    display: flex;
+    align-items: center;
+    vertical-align: middle;
+    justify-content: space-between;
 }

@@ -56,6 +56,10 @@ mat-sidenav-content {
   background-color: var(--background-color-1);
 }
 
+.readlist-menu .mat-form-field-wrapper {
+  padding-bottom: 0;
+}
+
 ::-webkit-scrollbar-track {
   background-color: transparent;
 }

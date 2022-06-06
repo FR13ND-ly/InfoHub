@@ -19,12 +19,12 @@ export class ReadListsService {
     return this.http.post(`${this.APIUrl}get-light/`, data)
   }
 
-  getReadListArticles(url: string) {
-    return this.http.get(`${this.APIUrl}articles/${url}/`)
+  getReadListArticles(data: any) {
+    return this.http.post(`${this.APIUrl}articles/`, data)
   }
 
-  getReadListInfo(url: string) {
-    return this.http.get(`${this.APIUrl}info/${url}/`)
+  getReadListInfo(data: any) {
+    return this.http.post(`${this.APIUrl}info/`, data)
   }
 
   addToList(data : any) {

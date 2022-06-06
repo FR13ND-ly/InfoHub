@@ -17,9 +17,34 @@
 </div>
 
 <mat-menu #readListMenu="matMenu">
-  <div class="list-item" *ngFor="let list of lists" (click) = "$event.stopPropagation()">
-    <mat-checkbox [(ngModel)]="list.added" (ngModelChange)="onAddToList(list.id)"></mat-checkbox>
-    <span class="list-item__name">{{list.name}}</span>
-    <mat-icon>{{ list.public ? 'public' : 'lock' }}</mat-icon>
+  <div class="readlist-menu" (click)="$event.stopPropagation()">
+    <div class="readlists">
+      <div class="list-item" *ngFor="let list of lists">
+        <div class="list-item__name-wrapper">
+          <mat-checkbox [(ngModel)]="list.added" (ngModelChange)="onAddToList(list.id)"></mat-checkbox>
+          <span class="list-item__name">{{list.name}}</span>
+        </div>
+        <mat-icon>{{ list.public ? 'public' : 'lock' }}</mat-icon>
+      </div>
+    </div>
+    <hr>
+    <div *ngIf="!showAddListMenu else addListMenu">
+      <div class="add-list" (click)="showAddListMenu = true; $event.stopPropagation()">
+        <mat-icon>add</mat-icon>
+        Creează un readlist nou
+      </div>
+    </div>
+    <ng-template #addListMenu>
+      <form #addListForm="ngForm" (submit)="onAddList(addListForm)">
+        <mat-form-field appearance="outline">
+          <mat-label>Introdu numele readlist-ului</mat-label>
+          <input matInput ngModel name="name">
+        </mat-form-field>
+        <div class="buttons-wrapper">
+          <mat-slide-toggle [ngModel]="false" name="access">Public</mat-slide-toggle>
+          <button color="primary" mat-flat-button>+</button>
+        </div>
+      </form>
+    </ng-template>
   </div>
 </mat-menu>

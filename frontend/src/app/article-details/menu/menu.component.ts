@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, timer } from 'rxjs';
@@ -22,6 +23,7 @@ export class MenuComponent implements AfterViewInit, OnInit {
   url! : string
   likes! : number
   liked! : string
+  showAddListMenu : boolean = false
 
   lists : any = []
   showSocials: boolean = false
@@ -92,7 +94,10 @@ export class MenuComponent implements AfterViewInit, OnInit {
       user : this.user.uid,
       article : this.url
     })
-    .subscribe((lists) => this.lists = lists)
+    .subscribe((lists) => {
+      this.lists = lists
+      this.showAddListMenu = false
+    })
   }
 
   onAddToList(list : number) {
@@ -100,5 +105,14 @@ export class MenuComponent implements AfterViewInit, OnInit {
       List : list,
       article : this.url
     }).subscribe()
+  }
+
+  onAddList(form : NgForm) {
+    this.readListsService.addReadList({
+      name : form.value.name,
+      access : form.value.access,
+      user : this.user.uid
+    }).subscribe(() => this.onGetList())
+    form.reset()
   }
 }

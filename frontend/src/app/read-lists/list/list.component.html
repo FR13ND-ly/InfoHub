@@ -1,12 +1,12 @@
-<div class="list-info mat-elevation-z4">
+<div class="list-info mat-elevation-z4" *ngIf="listInfo$ | async as listInfo">
     <div class="back" routerLink="/readlist">
         <mat-icon>arrow_back_ios_new</mat-icon>
         Înapoi
     </div>
     <div class="list-info__image-wrapper">
         <span class="list-info__length">{{ listInfo.length }} articole</span>
-        <img class="list-info__image" [src]="listInfo.imageUrl">
-        <div class="list-info__actions">
+        <img class="list-info__image" src="/assets/images/readlists-bg.jpg">
+        <div class="list-info__actions" *ngIf="listInfo.editable">
             <mat-icon matTooltip="Copie link-ul" *ngIf="listInfo.public" (click)="onCopyLink()">content_copy</mat-icon>
             <mat-icon [matTooltip]="listInfo.public ? 'Interzice acces pe link' : 'Permite acces pe link'" (click)="onChangeAccess()">{{ listInfo.public ? 'public' : 'lock' }}</mat-icon>
             <mat-icon matTooltip="Șterge lista" (click)="onDelete()">delete</mat-icon>
@@ -14,9 +14,10 @@
     </div> 
     <div class="list-info__content-wrapper">
         <b class="list-info__author">{{ listInfo.author }}</b>
-        <div class="list-info__name" (input)="onChangeName(name.innerText)" #name contenteditable matTooltip="Click pentru a edita">{{ listInfo.name }}</div>
+        <div class="list-info__name" *ngIf="listInfo.editable" (input)="onChangeName(name.innerText)" #name contenteditable matTooltip="Click pentru a edita">{{ listInfo.name }}</div>
+        <div class="list-info__name" *ngIf="!listInfo.editable">{{ listInfo.name }}</div>
     </div>
 </div>
-<div class="list-articles">
-    <app-article [articles]="articles" [left]="true"></app-article>
+<div class="list-articles" *ngIf="articles$ | async as articles">
+    <app-article [articles]="articles.articles" [left]="true"></app-article>
 </div>
