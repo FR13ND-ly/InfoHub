@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from .models import Profile
 from files.views import addUserPhoto, getFile, uploadFile
 from rest_framework import status
-
+from readlists.models import List
 
 @csrf_exempt
 def login(request):
@@ -15,6 +15,8 @@ def login(request):
         email=data['email']
     )
     if (created):
+        newList = List.objects.create(name = "Citește mai târziu", editable = False, user = data['uid'])
+        newList.save()
         user.username = data['uid']
         user.save()
     profile, created = Profile.objects.get_or_create(

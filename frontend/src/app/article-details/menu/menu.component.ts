@@ -1,7 +1,8 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { timer } from 'rxjs';
+import { Observable, timer } from 'rxjs';
+import { ReadListsService } from 'src/app/read-lists/read-lists.service';
 import { UserSidenavOpenService } from 'src/app/shared/data-access/user-sidenav-open.service';
 import { UserService } from 'src/app/shared/data-access/user.service';
 import { LikesService } from './data-access/likes.service';
@@ -13,7 +14,7 @@ import { LikesService } from './data-access/likes.service';
 })
 export class MenuComponent implements AfterViewInit, OnInit {
 
-  constructor(private likesService : LikesService, private userService : UserService, private route: ActivatedRoute, private _snackBar: MatSnackBar, private userSidenavOpen: UserSidenavOpenService) { }
+  constructor(private likesService : LikesService, private userService : UserService, private route: ActivatedRoute, private _snackBar: MatSnackBar, private userSidenavOpen: UserSidenavOpenService, private readListsService : ReadListsService) { }
 
   @ViewChild('menuRef') menuRef! : ElementRef
 
@@ -22,14 +23,16 @@ export class MenuComponent implements AfterViewInit, OnInit {
   likes! : number
   liked! : string
 
+  lists : any = []
   showSocials: boolean = false
 
   ngOnInit(): void {
-    this.route.params.subscribe((params : any) => this.url = params)
+    this.route.params.subscribe((params : any) => this.url = params.url)
     this.getLikes()
     this.userService.getUserUpdateListener().subscribe((user) => {
       this.user = user
       this.getLikes()
+      this.readListsService.addView({ article : this.url, user : this.user.uid}).subscribe()
     })
   }
 
@@ -82,5 +85,20 @@ export class MenuComponent implements AfterViewInit, OnInit {
     if (windowShare.focus) {
       windowShare.focus();
     }
+  }
+
+  onGetList() {
+    this.readListsService.getLightReadLists({
+      user : this.user.uid,
+      article : this.url
+    })
+    .subscribe((lists) => this.lists = lists)
+  }
+
+  onAddToList(list : number) {
+    this.readListsService.addToList({
+      List : list,
+      article : this.url
+    }).subscribe()
   }
 }

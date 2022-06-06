@@ -7,6 +7,7 @@ class List(models.Model):
     public = models.BooleanField(default = False)
     date = models.DateTimeField(default = timezone.now)
     editable = models.BooleanField(default = True)
+    icon = models.TextField(default="bookmark")
 
     def __str__(self):
         return self.name

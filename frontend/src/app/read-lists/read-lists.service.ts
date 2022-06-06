@@ -11,12 +11,12 @@ export class ReadListsService {
 
   readonly APIUrl = environment.apiUrl + 'read-lists/'
 
-  getReadLists(user : any) {
-    return this.http.post(`${this.APIUrl}get/all`, user)
+  getReadLists(token : any) {
+    return this.http.get(`${this.APIUrl}get/all/${token}/`)
   }
 
-  getLightReadLists(user : any) {
-    return this.http.post(`${this.APIUrl}get-light/`, user)
+  getLightReadLists(data : any) {
+    return this.http.post(`${this.APIUrl}get-light/`, data)
   }
 
   getReadListArticles(url: string) {
@@ -25,6 +25,10 @@ export class ReadListsService {
 
   getReadListInfo(url: string) {
     return this.http.get(`${this.APIUrl}info/${url}/`)
+  }
+
+  addToList(data : any) {
+    return this.http.post(`${this.APIUrl}add-to-list/`, data)
   }
 
   addReadList(data : any) {
@@ -37,5 +41,9 @@ export class ReadListsService {
 
   deleteReadList(url : any) {
     return this.http.delete(`${this.APIUrl}delete/${url}/`)
+  }
+
+  addView(data : any) {
+    return this.http.post(`${this.APIUrl}add-view/`, data)
   }
 }

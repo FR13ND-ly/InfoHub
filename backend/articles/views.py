@@ -5,6 +5,7 @@ from .models import Article
 from profiles.models import Profile
 from files.models import File
 from files.views import getFile
+from readlists.views import addView
 
 apiUrl = "http://infohub.pythonanywhere.com/api"
 
@@ -23,7 +24,6 @@ def getArticle(request, url):
     article = article[0]
     article.views += 1
     article.save()
-    print(getFile(article.coverImage))
     response = {
         "id": article.id,
         "title": article.title,

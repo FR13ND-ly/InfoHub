@@ -1,17 +1,22 @@
 from django.shortcuts import render
-from .models import List, ListItem
+from .models import List, ListItem, View
+from likes.models import Like
+from files.views import getFile
+from articles.models import Article
 from django.views.decorators.csrf import csrf_exempt
+from django.http.response import JsonResponse
+from rest_framework.parsers import JSONParser
 
 @csrf_exempt
 def getLightLists(request):
     data = JSONParser().parse(request)
     response = []
-    for ulist in List.objects.filter(user=data['token']):
+    for ulist in List.objects.filter(user=data['user']):
         response.append({
-            "pk": ulist.pk,
+            "id" : ulist.id,
             "name": ulist.name,
             "public": ulist.public,
-            "added": bool(ListItem.objects.filter(article=data['id'], List=ulist.pk))
+            "added": bool(ListItem.objects.filter(article=data['article'], List=ulist.pk))
         })
     return JsonResponse(response, safe=False)
 
@@ -19,9 +24,10 @@ def getLightLists(request):
 def addToList(request):
     data = JSONParser().parse(request)
     nlist, created = ListItem.objects.get_or_create(
-        List=data['pk'],
-        article=data['id']
+        List=data['List'],
+        article=data['article']
     )
+    print(created)
     if (created):
         nlist.save()
     else:
@@ -29,67 +35,67 @@ def addToList(request):
     return JsonResponse("ok", safe=False)
 
 @csrf_exempt
-def getLists(request, pk):
+def getLists(request, token):
     response = []
-    historic_raw = View.objects.filter(user=pk).order_by('date')
+    historic_raw = View.objects.filter(user=token).order_by('date')
     history = {
         "id": 'istoric',
         "name": "Istoric",
         "lastPreview": "",
         "preview": [],
+        "icon" : "history",
         "length": historic_raw.count()
     }
     if len(historic_raw):
         for historic in historic_raw[0: 3]:
-            if (not len(Article.objects.filter(id=historic.article))):
-                Article.objects.filter(id=historic.article).delete()
-            article = Article.objects.filter(id=historic.article)[0]
+            if (not len(Article.objects.filter(url=historic.article))):
+                Article.objects.filter(url=historic.article).delete()
+            article = Article.objects.filter(url=historic.article)[0]
             history['preview'].append({
                 "title": article.title,
                 "url": article.url,
-                "cover": apiUrl + File.objects.get(id=article.cover).file.url
+                "imageUrl": getFile(article.coverImage)
             })
-            history['lastPreview'] = apiUrl + \
-                File.objects.get(id=article.cover).file.url
+            history['lastPreview'] = getFile(article.coverImage)
     response.append(history)
-    likes_raw = Like.objects.filter(user=pk).order_by('-date')
+    likes_raw = Like.objects.filter(user=token).order_by('-date')
     likes = {
         "id": 'aprecieri',
         "name": "Apreciate",
         "lastPreview": "",
         "preview": [],
+        "icon" : "favorite",
         "length": likes_raw.count()
     }
     if len(likes_raw):
         for like in likes_raw[0: 3]:
-            article = Article.objects.filter(id=like.article)[0]
+            article = Article.objects.filter(url=like.article)[0]
             likes['preview'].append({
                 "title": article.title,
                 "url": article.url,
-                "cover": apiUrl + File.objects.get(id=article.cover).file.url
+                "imageUrl": getFile(article.coverImage)
             })
-            likes['lastPreview'] = apiUrl + \
-                File.objects.get(id=article.cover).file.url
+            likes['lastPreview'] = getFile(article.coverImage)
     response.append(likes)
-    for tlist in List.objects.filter(user=pk).order_by('date'):
+    for tlist in List.objects.filter(user=token).order_by('date'):
         rlist_raw = ListItem.objects.filter(List=tlist.id)
         rlist = {
             "id": tlist.id,
             "name": tlist.name,
             "lastPreview": "",
             "preview": [],
+            "icon" : tlist.icon,
             "length": rlist_raw.count()
         }
         if len(rlist_raw):
             for listItem in rlist_raw[0: 3]:
-                article = Article.objects.get(id=listItem.article)
+                article = Article.objects.get(url=listItem.article)
                 rlist['preview'].append({
                     "title": article.title,
                     "url": article.url,
-                    "cover": apiUrl + File.objects.get(id=article.cover).file.url
+                    "imageUrl": getFile(article.coverImage)
                 })
-                rlist['lastPreview'] = apiUrl + \
-                    File.objects.get(id=article.cover).file.url
+                rlist['lastPreview'] = getFile(article.coverImage)
         response.append(rlist)
     return JsonResponse(response, safe=False)
 
@@ -201,4 +207,11 @@ def changeTitleList(request):
     nList = List.objects.get(id=data['id'])
     nList.name = data['name']
     nList.save()
+    return JsonResponse("ok", safe=False)
+
+@csrf_exempt
+def addView(request):
+    data = JSONParser().parse(request)
+    newView = View.objects.create(article = data['article'], user = data['user'])
+    newView.save()
     return JsonResponse("ok", safe=False)

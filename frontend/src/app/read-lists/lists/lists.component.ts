@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { of } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
+import { UserService } from 'src/app/shared/data-access/user.service';
+import { ReadListsService } from '../read-lists.service';
 
 @Component({
   selector: 'app-lists',
@@ -8,97 +10,12 @@ import { of } from 'rxjs';
 })
 export class ListsComponent implements OnInit {
 
-  constructor() { }
-  lists$ = of([
-    {
-      url : '23',
-      name : "Bla bla bla",
-      remain : {
-        count : 12,
-        imageUrl : 'https://wallpapershome.com/images/pages/pic_h/23480.jpg'
-      },
-      articles : [
-        {
-          title : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo, tempore.',
-          imageUrl : 'https://wallpapershome.com/images/pages/pic_h/23480.jpg'
-        },
-        {
-          title : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo, tempore.',
-          imageUrl : 'https://wallpapershome.com/images/pages/pic_h/23480.jpg'
-        },
-        {
-          title : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo, tempore.',
-          imageUrl : 'https://wallpapershome.com/images/pages/pic_h/23480.jpg'
-        },
-      ]
-    },
-    {
-      url : '324',
-      name : "Bla bla bla",
-      remain : {
-        count : 12,
-        imageUrl : 'https://wallpapershome.com/images/pages/pic_h/23480.jpg'
-      },
-      articles : [
-        {
-          title : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo, tempore.',
-          imageUrl : 'https://wallpapershome.com/images/pages/pic_h/23480.jpg'
-        },
-        {
-          title : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo, tempore.',
-          imageUrl : 'https://wallpapershome.com/images/pages/pic_h/23480.jpg'
-        },
-        {
-          title : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo, tempore.',
-          imageUrl : 'https://wallpapershome.com/images/pages/pic_h/23480.jpg'
-        },
-      ]
-    },
-    {
-      url : '32432',
-      name : "Bla bla bla",
-      remain : {
-        count : 12,
-        imageUrl : 'https://wallpapershome.com/images/pages/pic_h/23480.jpg'
-      },
-      articles : [
-        {
-          title : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo, tempore.',
-          imageUrl : 'https://wallpapershome.com/images/pages/pic_h/23480.jpg'
-        },
-        {
-          title : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo, tempore.',
-          imageUrl : 'https://wallpapershome.com/images/pages/pic_h/23480.jpg'
-        },
-        {
-          title : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo, tempore.',
-          imageUrl : 'https://wallpapershome.com/images/pages/pic_h/23480.jpg'
-        },
-      ]
-    },
-    {
-      url : '52',
-      name : "Bla bla bla",
-      remain : {
-        count : 12,
-        imageUrl : 'https://wallpapershome.com/images/pages/pic_h/23480.jpg'
-      },
-      articles : [
-        {
-          title : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo, tempore.',
-          imageUrl : 'https://wallpapershome.com/images/pages/pic_h/23480.jpg'
-        },
-        {
-          title : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo, tempore.',
-          imageUrl : 'https://wallpapershome.com/images/pages/pic_h/23480.jpg'
-        },
-        {
-          title : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo, tempore.',
-          imageUrl : 'https://wallpapershome.com/images/pages/pic_h/23480.jpg'
-        },
-      ]
-    },
-  ])
+  constructor(private readListsService : ReadListsService, private userService : UserService) { }
+
+  lists$ : Observable<any> = this.userService.getUserUpdateListener().pipe(
+    switchMap((user : any) => this.readListsService.getReadLists(user.uid))
+  )
+  
   ngOnInit(): void {
   }
 
