@@ -7,16 +7,20 @@
         <span class="list-info__length">{{ listInfo.length }} articole</span>
         <img class="list-info__image" src="/assets/images/readlists-bg.jpg">
         <div class="list-info__actions" *ngIf="listInfo.editable">
+            <mat-icon [matMenuTriggerFor]="menu">{{ listInfo.icon }}</mat-icon>
             <mat-icon matTooltip="Copie link-ul" *ngIf="listInfo.public" (click)="onCopyLink()">content_copy</mat-icon>
-            <mat-icon [matTooltip]="listInfo.public ? 'Interzice acces pe link' : 'Permite acces pe link'" (click)="onChangeAccess()">{{ listInfo.public ? 'public' : 'lock' }}</mat-icon>
+            <mat-icon [matTooltip]="listInfo.public ? 'Interzice acces pe link' : 'Permite acces pe link'" (click)="onChangeAccess(listInfo)">{{ listInfo.public ? 'public' : 'lock' }}</mat-icon>
             <mat-icon matTooltip="Șterge lista" (click)="onDelete()">delete</mat-icon>
         </div>
     </div> 
     <div class="list-info__content-wrapper">
         <b class="list-info__author">{{ listInfo.author }}</b>
-        <div class="list-info__name" *ngIf="listInfo.editable" (input)="onChangeName(name.innerText)" #name contenteditable matTooltip="Click pentru a edita">{{ listInfo.name }}</div>
+        <div class="list-info__name" *ngIf="listInfo.editable" (input)="onChangeName(listInfo, name.innerText)" #name contenteditable matTooltip="Click pentru a edita">{{ listInfo.name }}</div>
         <div class="list-info__name" *ngIf="!listInfo.editable">{{ listInfo.name }}</div>
     </div>
+    <mat-menu #menu="matMenu">
+        <button class="list-icon-item" mat-menu-item *ngFor="let icon of icons" (click)="onChangeIcon(listInfo, icon)"><mat-icon>{{ icon }}</mat-icon></button>
+    </mat-menu>
 </div>
 <div class="list-articles" *ngIf="articles$ | async as articles">
     <app-article [articles]="articles.articles" [left]="true"></app-article>

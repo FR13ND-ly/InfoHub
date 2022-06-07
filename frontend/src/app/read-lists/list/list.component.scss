@@ -67,8 +67,16 @@
             cursor: text;
             text-decoration: underline;
         }
+    }   
+}
+
+.list-icon-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    mat-icon {
+        margin-right: 0;
     }
-    
 }
 
 .back {

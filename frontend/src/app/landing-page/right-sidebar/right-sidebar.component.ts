@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { WidgetsService } from 'src/app/widgets/data-access/widgets.service';
 
 @Component({
   selector: 'app-right-sidebar',
@@ -8,20 +9,17 @@ import { of } from 'rxjs';
 })
 export class RightSidebarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private widgetsService : WidgetsService) { }
 
-  widget$ = of({
-    url : '342',
-    imageUrl : "https://marmotamaps.com/de/fx/wallpaper/download/faszinationen/Marmotamaps_Wallpaper_Berchtesgaden_Desktop_1920x1080.jpg",
-    title : "Prima școală portocalie din Nisporeni"
-  })
 
-  weeklyImg = {
-    url : '',
-    title : "Ulitza pushkina",
-    author : "dom kalatushkina",
-    imageUrl : "https://material.angular.io/assets/img/examples/shiba2.jpg",
-  }
+  // weeklyImg = {
+  //   url : '',
+  //   title : "Ulitza pushkina",
+  //   author : "dom kalatushkina",
+  //   imageUrl : "https://material.angular.io/assets/img/examples/shiba2.jpg",
+  // }
+  widget$ : Observable<any> = this.widgetsService.getWidget(2)
+  weeklyImg$ : Observable<any> = this.widgetsService.getWidget(3)
 
   weeklyImgRevealed : boolean = false;
   

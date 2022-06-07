@@ -13,9 +13,6 @@ export class ArticleComponent implements AfterViewInit {
   @Input()
   left!: boolean
 
-  @Input()
-  hideDetails : boolean = false
-
   @Output() onBottom = new EventEmitter()
 
   @ViewChildren('articleRef') articlesRef!: QueryList<ElementRef>;

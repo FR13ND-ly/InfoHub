@@ -9,7 +9,7 @@ export class SearchService {
 
   constructor(private http: HttpClient) { }
 
-  readonly APIUrl = environment.apiUrl + 'search/'
+  readonly APIUrl = environment.apiUrl + 'articles/search/'
 
   search(text : string) {
     return this.http.post(this.APIUrl, {text})

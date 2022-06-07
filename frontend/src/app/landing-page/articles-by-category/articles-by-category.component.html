@@ -1,6 +1,6 @@
 <div class="categories mat-elevation-z6">
     <span class="category" (click)="onSelectCategory('economic')" [class.selected-category]="selected == 'economic'">Economic</span>
-    <span class="category" (click)="onSelectCategory('tehnologii')" [class.selected-category]="selected == 'tehvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvnologii'">Tehnologii</span>
+    <span class="category" (click)="onSelectCategory('tehnologii')" [class.selected-category]="selected == 'tehnologii'">Tehnologii</span>
     <span class="category" (click)="onSelectCategory('politic')" [class.selected-category]="selected == 'politic'">Politic</span>
     <span class="category" (click)="onSelectCategory('inovații')" [class.selected-category]="selected == 'inovații'">Inovații</span>
     <span class="category" (click)="onSelectCategory('stil de viață')" [class.selected-category]="selected == 'stil de viață'">Stil de viață</span>
@@ -9,29 +9,29 @@
 </div>
 <div class="articles" #articlesWrapper *ngIf="articles$ | async as articles">
     <div class="left-side-articles">
-        <div class="left-side-article mat-elevation-z4" routerLink="/articol/{{articles[0].url}}">
-            <img class="left-side-article__image" [src]="articles[0].imageUrl">
-            <span class="left-side-article__title">{{ articles[0].title }}</span>
+        <div class="left-side-article mat-elevation-z4" routerLink="/articol/{{articles[0]?.url}}">
+            <img class="left-side-article__image" [src]="articles[0]?.imageUrl">
+            <span class="left-side-article__title">{{ articles[0]?.title }}</span>
         </div>
-        <div class="left-side-article mat-elevation-z4" routerLink="/articol/{{articles[1].url}}">
-            <img class="left-side-article__image" [src]="articles[1].imageUrl">
-            <span class="left-side-article__title">{{ articles[1].title }}</span>
+        <div class="left-side-article mat-elevation-z4" routerLink="/articol/{{articles[1]?.url}}">
+            <img class="left-side-article__image" [src]="articles[1]?.imageUrl">
+            <span class="left-side-article__title">{{ articles[1]?.title }}</span>
         </div>
     </div>
     <div class="right-side-articles">
-        <div class="feature-article mat-elevation-z4" routerLink="/articol/{{articles[2].url}}">
-            <img class="feature-article__image" [src]="articles[2].imageUrl">
+        <div class="feature-article mat-elevation-z4" routerLink="/articol/{{articles[2]?.url}}">
+            <img class="feature-article__image" [src]="articles[2]?.imageUrl">
             <div class="feature-article__category" [attr.category]="selected"></div>
-            <span class="feature-article__title">{{ articles[2].title }}</span>
+            <span class="feature-article__title">{{ articles[2]?.title }}</span>
         </div>
         <div class="right-side-small-articles">
-            <div class="small-article mat-elevation-z4" routerLink="/articol/{{articles[3].url}}">
-                <span class="small-article__title">{{ articles[3].title }}</span>
-                <img class="small-article__image" [src]="articles[3].imageUrl">
+            <div class="small-article mat-elevation-z4" routerLink="/articol/{{articles[3]?.url}}">
+                <span class="small-article__title">{{ articles[3]?.title }}</span>
+                <img class="small-article__image" [src]="articles[3]?.imageUrl">
             </div>
-            <div class="small-article mat-elevation-z4" routerLink="/articol/{{articles[4].url}}">
-                <span class="small-article__title">{{ articles[4].title }}</span>
-                <img class="small-article__image" [src]="articles[4].imageUrl">
+            <div class="small-article mat-elevation-z4" routerLink="/articol/{{articles[4]?.url}}">
+                <span class="small-article__title">{{ articles[4]?.title }}</span>
+                <img class="small-article__image" [src]="articles[4]?.imageUrl">
             </div>
         </div>
     </div>

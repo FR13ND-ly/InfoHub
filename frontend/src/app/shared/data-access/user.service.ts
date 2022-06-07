@@ -11,7 +11,7 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  private userUpdated = new Subject<any>()
+  private userUpdated = new BehaviorSubject<any>(false)
   readonly APIUrl = environment.apiUrl + 'user/'
 
   provider = new GoogleAuthProvider();

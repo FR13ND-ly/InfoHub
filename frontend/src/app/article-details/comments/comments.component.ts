@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { first, Observable, switchMap } from 'rxjs';
 import { UserSidenavOpenService } from 'src/app/shared/data-access/user-sidenav-open.service';
 import { UserService } from 'src/app/shared/data-access/user.service';
 import { CommentsService } from './data-access/comments.service';
@@ -15,24 +16,23 @@ export class CommentsComponent implements OnInit, AfterViewInit {
 
   @ViewChildren('commentRef') commentsRef! : QueryList<ElementRef>
 
-  comments : any[] = []
+  comments$ : Observable<any> = this.route.params.pipe(
+    first((params : any) => this.url = params.url),
+    switchMap((params : any) => this.commentsService.getComments(params.url))
+  )
   
   user! : any
   url! : string
   observer = new IntersectionObserver((comments) => {this.observeArticles(comments)});
 
   ngOnInit(): void {
-    this.route.params.subscribe((params : any) => this.url = params['url'])
     this.userService.getUserUpdateListener().subscribe((user) => {
       this.user = user
     })
-    this.getComments()
   }
 
   getComments() {
-    this.commentsService.getComments(this.url).subscribe((res : any) => {
-      this.comments = res
-    })
+    this.comments$ = this.commentsService.getComments(this.url)
   }
 
   ngAfterViewInit() {
@@ -69,8 +69,7 @@ export class CommentsComponent implements OnInit, AfterViewInit {
     }
     this.commentsService.addComment(data).
     subscribe(() => {
-      data.date = "Numai ce"
-      this.comments.unshift(data)
+      this.getComments()
     })
     form.reset()
   }
@@ -79,7 +78,7 @@ export class CommentsComponent implements OnInit, AfterViewInit {
     if (!confirm("Ești sigur?")) return
     this.commentsService.removeComment(id)
     .subscribe(() => {
-      this.comments.splice(index, 1)
+      this.getComments()
     })
   }
 }

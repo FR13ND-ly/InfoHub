@@ -4,7 +4,7 @@
         <img class="articles-slider__image" [src]="articles[selectedIndex]?.imageUrl">
     </div>
     <div class="articles-slider__selectors" #selectorsWrapper>
-        <div class="articles-slider__selector" [class.selected]="selectedIndex == i" *ngFor="let i of articles"
+        <div class="articles-slider__selector" [class.selected]="selectedIndex == i" *ngFor="let _ of articles; let i = index"
             (click)="onSelectIndex(i)" [style.animation-delay.s]="i * .1"></div>
     </div>
 </div>

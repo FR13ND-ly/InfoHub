@@ -35,8 +35,8 @@ export class ReadListsService {
     return this.http.post(`${this.APIUrl}add/`, data)
   }
 
-  editReadList(data : any) {
-    return this.http.put(`${this.APIUrl}edit/`, data)
+  editReadList(data : any, id : any) {
+    return this.http.put(`${this.APIUrl}edit/${id}/`, data)
   }
 
   deleteReadList(url : any) {

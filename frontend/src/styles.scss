@@ -28,7 +28,7 @@ $dark-theme: mat.define-dark-theme(
   --background-color-1: #eee;
   --background-color-2: #fff;
   --primary-color: #1976d2;
-  --primary-color-secondary: hsl(240, 100%, 50%);
+  --primary-color-secondary: #0d47a1;
   --accent-color: teal;
   --text-color: #212121;
   --placeholder-color: #8e8e8e;
@@ -81,6 +81,10 @@ mat-sidenav-content {
   &:active {
       background-color: #a7a8a8;
   }
+}
+
+.mat-menu-panel {
+  background-color: var(--background-color-2)!important;
 }
 
 .first-paragraph {

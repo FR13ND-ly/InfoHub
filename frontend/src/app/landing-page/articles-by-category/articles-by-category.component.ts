@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, timer } from 'rxjs';
 import { ArticlesService } from 'src/app/shared/data-access/articles.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { ArticlesService } from 'src/app/shared/data-access/articles.service';
 })
 export class ArticlesByCategoryComponent implements AfterViewInit {
 
-  constructor(private articlesService : ArticlesService) { }
+  constructor(private elRef : ElementRef, private articlesService : ArticlesService) { }
 
   @ViewChild('articlesWrapper') articlesWrapper! : ElementRef
 
@@ -21,17 +21,17 @@ export class ArticlesByCategoryComponent implements AfterViewInit {
     let observer = new IntersectionObserver((articles) => {
       articles.forEach((article : IntersectionObserverEntry) => {
         if (article.isIntersecting) {
-          article.target.classList.add('show')
+          document.querySelector('app-articles-by-category .articles')?.classList.add('show')
           observer.unobserve(article.target)
         }
       })
     }, {threshold : .3})
-    if (this.articlesWrapper) {
-      observer.observe(this.articlesWrapper.nativeElement)
-    }
+    observer.observe(this.elRef.nativeElement)
   }
 
   onSelectCategory(category : string) {
     this.selected = category
+    document.querySelector('app-articles-by-category .articles')?.classList.remove('show')
+    timer(0).subscribe(() => document.querySelector('app-articles-by-category .articles')?.classList.add('show'))
   }
 }

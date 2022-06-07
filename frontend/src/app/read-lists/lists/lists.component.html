@@ -5,9 +5,12 @@
             <span class="article__title">{{ article.title }}</span>
             <img class="article__image" [src]="article.imageUrl">
         </div>
-        <div class="last mat-elevation-z4" [style.animation-delay.s]=".1 * i * (list.preview.length + 1) + list.preview.length * .1">
+        <div class="last mat-elevation-z4" *ngIf="list.length > 3" [style.animation-delay.s]=".1 * i * (list.preview.length + 1) + list.preview.length * .1">
             <span class="last__title">{{ list.length - list.preview.length }} <span *ngIf="list.length > 3">+</span></span>
             <img class="last__image" [src]="list.lastPreview">
+        </div>
+        <div class="empty-list" *ngIf="!list.length">
+            <h2>Readlist-a nu conține niciun articol</h2>
         </div>
     </div>
 </div>
