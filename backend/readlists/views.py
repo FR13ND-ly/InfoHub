@@ -28,7 +28,6 @@ def addToList(request):
         List=data['List'],
         article=data['article']
     )
-    print(created)
     if (created):
         nlist.save()
     else:
@@ -38,7 +37,7 @@ def addToList(request):
 @csrf_exempt
 def getLists(request, token):
     response = []
-    historic_raw = View.objects.filter(user=token).order_by('date')
+    historic_raw = View.objects.filter(user=token).order_by('-date')
     history = {
         "id": 'istoric',
         "name": "Istoric",
@@ -111,7 +110,8 @@ def getListInfo(request):
         "public": False,
         "own": True,
         "length": 0,
-        "editable" : True
+        "editable" : True,
+        "icon" : ''
     }
     articles_raw = []
     if data['id'] == -1:
@@ -129,6 +129,7 @@ def getListInfo(request):
         response['public'] = not nList.public
         response['own'] = nList.user == user.token
         response['editable'] = nList.editable
+        response['icon'] = nList.icon
         if (not response['own']):
             response['author'] = Profile.objects.get(
                 token=nList.user).user.username
@@ -148,7 +149,7 @@ def getListArticles(request, index=1):
     elif data['id'] == -2:
         articles_raw = Like.objects.filter(user=data['user']).order_by("-date")
     else:
-        articles_raw = ListItem.objects.filter(List=data['id'])
+        articles_raw = ListItem.objects.filter(List=data['id']).order_by("-date")
     response["noMoreArticles"] = (
         len(articles_raw) - 30 * (index - 1)) < 30
     for article_raw in articles_raw[30 * (index - 1): 30 * index]:
@@ -174,7 +175,6 @@ def getListArticles(request, index=1):
 @csrf_exempt
 def addList(request):
     data = JSONParser().parse(request)
-    print(data)
     List.objects.create(
         name=data['name'],
         user=data['user'],
@@ -200,8 +200,14 @@ def changePublicList(request):
     return JsonResponse("ok", safe=False)
 
 @csrf_exempt
-def editList(request):
-    return
+def editList(request, id):
+    data = JSONParser().parse(request)
+    readList = List.objects.get(id = id)
+    readList.name = data['name']
+    readList.public = not data['public']
+    readList.icon = data['icon']
+    readList.save()
+    return JsonResponse("ok", safe=False)
 
 
 @csrf_exempt

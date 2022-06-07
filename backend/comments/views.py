@@ -2,19 +2,21 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
 from .models import Comment
+from profiles.models import Profile
 
 apiUrl = "http://infohub.pythonanywhere.com/api"
 
 def getComments(request, url):
     comments = []
+    print(url)
     for comment in Comment.objects.filter(article=url).order_by("-date"):
         author = Profile.objects.get(token=comment.author).user
         comments.append({
             "id": comment.pk,
             "text": comment.text,
-            "username": author.username,
+            "username": author.first_name,
             "byStaff": author.is_staff,
-            "date": formatDate(comment.date),
+            "date": comment.date,
             "photoUrl" : comment.photoUrl
         })
     return JsonResponse(comments, safe=False)

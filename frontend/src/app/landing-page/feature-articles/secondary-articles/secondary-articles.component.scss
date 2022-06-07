@@ -1,9 +1,8 @@
 :host {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    display: grid;
     gap: 1rem;
     height: 82vh;
+    grid-template-rows: repeat(3, 1fr);
 }
 
 .show {

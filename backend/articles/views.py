@@ -95,10 +95,13 @@ def getArticles(request, index):
         articles.append({
             "url": article.url,
             "title": article.title,
-            "date": formatDate(article.date),
+            
             "text": article.text,
             "hideViews": article.hideViews,
-            "views": article.views,
+            "details" : {
+                "views": article.views,
+                "date": formatDate(article.date),
+            },
             "imageUrl": getFile(article.coverImage)
         })
     response = {
@@ -125,7 +128,7 @@ def getSlider(request):
         response.append({
             "url": article.url,
             "title": article.title,
-            "imageUrl": apiUrl + File.objects.get(id=article.coverImage).file.url
+            "imageUrl": getFile(article.coverImage)
         })
     return JsonResponse(response, safe=False)
 

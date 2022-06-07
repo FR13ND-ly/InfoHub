@@ -9,6 +9,7 @@ urlpatterns = [
     path('articles/', views.getListArticles),
     path('add-to-list/', views.addToList),
     path('add/', views.addList),
+    path('edit/<str:id>/', views.editList),
     path('info/<str:pk>/', views.editList),
-    path('delete/<str:pk>/', views.deleteList),
+    path('delete/<str:id>/', views.deleteList),
 ]
