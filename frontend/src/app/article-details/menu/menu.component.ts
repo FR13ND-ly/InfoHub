@@ -30,7 +30,6 @@ export class MenuComponent implements AfterViewInit, OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params : any) => this.url = params.url)
-    this.getLikes()
     this.userService.getUserUpdateListener().subscribe((user) => {
       this.user = user
       this.getLikes()
@@ -67,7 +66,9 @@ export class MenuComponent implements AfterViewInit, OnInit {
       this.likesService.interact({
         token : this.user.uid,
         url : this.url
-      }).subscribe(() => this.getLikes())
+      }).subscribe()
+      this.likes += this.liked == 'favorite' ? -1 : 1
+      this.liked = this.liked == 'favorite' ? 'favorite_outline' : "favorite" 
     }
     else {
       let snackbar = this._snackBar.open("Trebuie să te autentifici", "Autentificare", {duration: 3000});

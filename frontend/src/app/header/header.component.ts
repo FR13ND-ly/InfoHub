@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { ScrollDispatcher } from '@angular/cdk/scrolling';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { SearchSidenavOpenService } from '../shared/data-access/search-sidenav-open.service';
 import { UserSidenavOpenService } from '../shared/data-access/user-sidenav-open.service';
 
@@ -9,10 +10,18 @@ import { UserSidenavOpenService } from '../shared/data-access/user-sidenav-open.
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private searchSideNavOpenService : SearchSidenavOpenService, private userSideNavOpenService : UserSidenavOpenService) { }
+  constructor(private searchSideNavOpenService : SearchSidenavOpenService, private userSideNavOpenService : UserSidenavOpenService, private scrollDispatcher: ScrollDispatcher) { }
   
+  @ViewChild('header') headerRef! : ElementRef<HTMLElement>
+
   ngOnInit(): void {
     this.onSetTheme()
+    this.scrollDispatcher.scrolled().
+        subscribe((cdk: any) => {
+          this.headerRef.nativeElement.classList.toggle('sticked', cdk.getElementRef().nativeElement.scrollTop > 30)
+          // )
+  
+        })
   }
 
   onOpenSearchSidenav() {

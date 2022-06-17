@@ -54,10 +54,9 @@ export class SurveyComponent implements AfterViewInit {
       this.articlesService.vote({
         id : variant.id, 
         user : this.user.uid
-      }).subscribe(() => {
-        variant.votes += variant.voted ? -1 : 1
-        variant.voted = !variant.voted
-      })
+      }).subscribe()
+      variant.votes += variant.voted ? -1 : 1
+      variant.voted = !variant.voted
     }
     else {
       let snackbar = this._snackBar.open("Trebuie să te autentifici", "Autentificare", {duration: 3000});
