@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-surveys',
@@ -11,23 +11,30 @@ export class SurveysComponent implements OnInit {
 
   selectedTabIndex : number = 0
 
-  surveys : any = []
+  @Input() surveys : any = []
+  @Output() surveysChange = new EventEmitter()
+  surveysResponse : any = []
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.surveysResponse = this.surveys
+  }
+
+  onChange(): void {
+    this.surveysChange.emit(JSON.parse(JSON.stringify(this.surveysResponse)))
   }
 
 
   onAddSurvey() {
-    this.surveys.push(
+    this.surveysResponse.push(
       {
         question : "",
-        answers : [[''], ['']]
+        variants : [[''], ['']]
       }
     )
-    this.selectedTabIndex = this.surveys.length - 1;
+    this.selectedTabIndex = this.surveysResponse.length - 1;
   }
 
   onTabChange() {
-    if (this.selectedTabIndex == this.surveys.length) this.selectedTabIndex--
+    if (this.selectedTabIndex == this.surveysResponse.length) this.selectedTabIndex--
   }
 }

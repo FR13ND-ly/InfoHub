@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { first, Observable, switchMap } from 'rxjs';
+import { first, Observable, of, switchMap } from 'rxjs';
 import { UserService } from 'src/app/shared/data-access/user.service';
 import { ReadListsService } from '../read-lists.service';
 
@@ -50,27 +50,23 @@ export class ListComponent implements OnInit {
   ]
   
   listInfo$: Observable<any> = this.userService.getUserUpdateListener().pipe(
-    switchMap((user) => this.route.params.pipe(
-      first((params : any) => this. id = params.url),
-      switchMap((params: any) => this.readListService.getReadListInfo({
-          id: params.url == "istoric" ? -1 : params.url == "aprecieri" ? -2 : params.url,
-          user: user.uid
-        })
-      ))
+    switchMap((user) => this.readListService.getReadListInfo({
+        id: this.route.snapshot.paramMap.get('url') == "istoric" ? -1 : this.route.snapshot.paramMap.get('url') == "aprecieri" ? -2 : this.route.snapshot.paramMap.get('url'),
+        user: user.uid
+      })
     )
   )
 
   articles$ : Observable<any> = this.userService.getUserUpdateListener().pipe(
-    switchMap((user) => this.route.paramMap.pipe(
-      switchMap((params: any) => this.readListService.getReadListArticles({
-          id: params.params.url == "istoric" ? -1 : params.params.url == "aprecieri" ? -2 : params.params.url,
-          user: user.uid
-        })
-      ))
+    switchMap((user) => this.readListService.getReadListArticles({
+        id: this.route.snapshot.paramMap.get('url') == "istoric" ? -1 : this.route.snapshot.paramMap.get('url') == "aprecieri" ? -2 : this.route.snapshot.paramMap.get('url'),
+        user: user.uid
+      })
     )
   )
 
   ngOnInit(): void {
+    this.id = this.route.snapshot.paramMap.get('url')
   }
 
   onChangeName(listInfo : any, newName: string) {

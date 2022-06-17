@@ -47,4 +47,12 @@ export class ArticlesService {
   getArticlesByCategory(tag : string) {
     return this.http.get(`${this.APIUrl}category-articles/${tag}/`)
   }
+
+  getSurvey(data : any) {
+    return this.http.post(`${this.APIUrl}survey/`, data)
+  }
+
+  vote(data : any) {
+    return this.http.post(`${this.APIUrl}vote/`, data)
+  }
 }

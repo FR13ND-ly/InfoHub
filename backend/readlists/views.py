@@ -103,7 +103,9 @@ def getLists(request, token):
 @csrf_exempt
 def getListInfo(request):
     data = JSONParser().parse(request)
-    user = Profile.objects.get(token=data['user'])
+    if not data.get('user'):
+        return JsonResponse({}, safe=False)
+    user = Profile.objects.get(token=data.get('user'))
     response = {
         "name": '',
         "author": user.user.first_name,
@@ -143,6 +145,8 @@ def getListArticles(request, index=1):
         "articles": [],
         "noMoreArticles": True,
     }
+    if not data.get('user'):
+        return JsonResponse(response, safe=False)
     articles_raw = []
     if data['id'] == -1:
         articles_raw = View.objects.filter(user=data['user']).order_by("-date")
@@ -150,14 +154,13 @@ def getListArticles(request, index=1):
         articles_raw = Like.objects.filter(user=data['user']).order_by("-date")
     else:
         articles_raw = ListItem.objects.filter(List=data['id']).order_by("-date")
-    response["noMoreArticles"] = (
-        len(articles_raw) - 30 * (index - 1)) < 30
+    response["noMoreArticles"] = (len(articles_raw) - 30 * (index - 1)) < 30
     for article_raw in articles_raw[30 * (index - 1): 30 * index]:
         if (int(data['id']) > 0):
-            if (not Article.objects.filter(id=article_raw.id)):
+            if (not Article.objects.filter(url=article_raw.article)):
                 article_raw.delete()
                 continue
-            article = Article.objects.get(url=article_raw.id)
+            article = Article.objects.get(url=article_raw.article)
         else:
             if (not Article.objects.filter(url=article_raw.article)):
                 article_raw.delete()

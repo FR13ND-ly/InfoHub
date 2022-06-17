@@ -31,6 +31,6 @@ export class EditorialArticlesComponent implements OnInit {
 
   onOpenSearchSideNav() {
     this.searchSidenavOpenService.changeOpenSearchNav(true)
-    this.updateSearchTextService.setSearchText('#editorial')
+    this.updateSearchTextService.setSearchText('#opiniieditorial')
   }
 }

@@ -7,7 +7,6 @@ class Comment(models.Model):
     text = models.TextField(null=True)
     article = models.TextField(null=True)
     date = models.DateTimeField(default=timezone.now)
-    photoUrl = models.TextField(null=True)
 
     def __str__(self):
         return self.text

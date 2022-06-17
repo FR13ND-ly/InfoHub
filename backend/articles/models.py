@@ -21,3 +21,19 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title + " #" + str(self.id)
+
+class Survey(models.Model):
+    article = models.TextField(default='')
+    question = models.CharField(max_length=200)
+    def __str__(self):
+        return self.question
+
+class Variant(models.Model):
+    survey = models.TextField(default='')
+    content = models.CharField(max_length=200)
+    def __str__(self):
+        return self.content
+
+class Vote(models.Model):
+    user = models.TextField(default='')
+    variant = models.TextField(default='') 

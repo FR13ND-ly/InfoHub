@@ -39,10 +39,6 @@
                 <mat-label>Autor</mat-label>
                 <input matInput [(ngModel)]="widgets[2].author">
             </mat-form-field>
-            <mat-form-field>
-                <mat-label>Link</mat-label>
-                <input matInput [(ngModel)]="widgets[2].link">
-            </mat-form-field>
             <button mat-flat-button color="accent" (click)="onChangeImage(widgets[2], 2)">Schimbă imaginea</button>
             <div class="widget__actions">
                 <button class="widget__save-btn" mat-flat-button color="primary" (click)="onSave(widgets[2], 2)">Salvează</button>

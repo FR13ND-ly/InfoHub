@@ -3,21 +3,21 @@ from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
 from .models import Comment
 from profiles.models import Profile
+from files.views import getFile
 
 apiUrl = "http://infohub.pythonanywhere.com/api"
 
 def getComments(request, url):
     comments = []
-    print(url)
     for comment in Comment.objects.filter(article=url).order_by("-date"):
-        author = Profile.objects.get(token=comment.author).user
+        author = Profile.objects.get(token=comment.author)
         comments.append({
             "id": comment.pk,
             "text": comment.text,
-            "username": author.first_name,
-            "byStaff": author.is_staff,
+            "username": author.user.first_name,
+            "byStaff": author.user.is_staff,
             "date": comment.date,
-            "photoUrl" : comment.photoUrl
+            "photoUrl" : getFile(author.image, "users/")
         })
     return JsonResponse(comments, safe=False)
 
@@ -27,8 +27,7 @@ def addComment(request):
     Comment.objects.create(
         author=data['author'],
         text=data['text'],
-        article=data['article'],
-        photoUrl=data['photoUrl']
+        article=data['article']
     ).save()
     return JsonResponse("ok", safe=False)
 

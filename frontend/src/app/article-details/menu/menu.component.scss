@@ -53,12 +53,12 @@
     display: flex; 
     column-gap: .5rem;
     .facebook {
-        background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1024px-Facebook_Logo_%282019%29.png");
+        background-image: url("/assets/images/social/facebook.png");
         animation: socialAppear .2s ;
         background-size: 100%;
     }
     .twitter {
-        background-image: url("https://www.pngkey.com/png/full/2-27646_twitter-logo-png-transparent-background-logo-twitter-png.png");
+        background-image: url("/assets/images/social/twitter.png");
         animation: socialAppear .4s ;
         background-size: 100%;
     }

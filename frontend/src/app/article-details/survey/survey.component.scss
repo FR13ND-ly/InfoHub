@@ -72,8 +72,9 @@
     position: relative;
     transform: translateX(-100%);
     transition: .1s cubic-bezier(0, 0, .2, 1);
-    &:nth-child(1) {
-        // border: 3px dotted blue;
+    &__icon {
+        transform: scale(.8);
+        margin-right: .2rem;
     }
     &:hover {
         transition-duration: .1s;

@@ -1,7 +1,7 @@
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
-from .models import Article
+from .models import Article, Survey, Variant, Vote
 from profiles.models import Profile
 from files.models import File
 from files.views import getFile
@@ -55,6 +55,7 @@ def getArticleToEdit(request, url):
         "coverImage": article.coverImage,
         "imageUrl": getFile(article.coverImage),
         "coverImageDescription": article.coverImageDescription,
+        "surveys" : getSurveysToEdit(article.url)
     }
     return JsonResponse(response, safe=False)
 
@@ -74,6 +75,16 @@ def editArticle(request):
     article.coverImage = data['coverImage']
     article.coverImageDescription = data["coverImageDescription"]
     article.framework = False
+    for survey in Survey.objects.filter(article=article.url):
+        for variant in Variant.objects.filter(survey=survey.id):
+            variant.delete()
+        survey.delete()
+    for survey in data['surveys']:
+        newSurvey = Survey.objects.create(
+            article=article.url, question=survey['question'])
+        newSurvey.save()
+        for variant in survey['variants']:
+            Variant.objects.create(survey=newSurvey.id, content=variant[0]).save()
     article.save()
     return JsonResponse(article.url, safe=False)
 
@@ -135,7 +146,7 @@ def getSlider(request):
 def getRightSideArticles(request):
     response = []
     articles = Article.objects.filter(draft=False).order_by("-date")
-    for article in articles[6: 9]:
+    for article in articles[5 : 9]:
         response.append({
             "url": article.url,
             "title": article.title,
@@ -197,3 +208,48 @@ def search(request):
                 if prepare(word) in prepare(wordOfText) and articleToAppend not in response:
                     response.append(articleToAppend)
     return JsonResponse(response, safe=False)
+
+def getSurveysToEdit(article):
+    response = []
+    for survey in Survey.objects.filter(article=article):
+        surveyRaw = {
+            "id" : survey.id,
+            "question" : survey.question,
+            "variants" : [],
+        }
+        for variant in Variant.objects.filter(survey=survey.id):
+            surveyRaw['variants'].append([variant.content])
+        response.append(surveyRaw)
+    return response
+
+@csrf_exempt
+def getSurvey(request):
+    data = JSONParser().parse(request)
+    surveysRaw = Survey.objects.filter(article=data['url'])
+    surveys = []
+    for survey in surveysRaw:
+        survey_raw = ({
+            "id": survey.id,
+            "question": survey.question,
+            "variants": [],
+            "votes": 0
+        })
+        variants = Variant.objects.filter(survey=survey.id)
+        for variant in variants:
+            survey_raw['votes'] += Vote.objects.filter(variant=variant.id).count()
+            variant = {
+                "id": variant.id,
+                "content": variant.content,
+                "voted": bool(Vote.objects.filter(user=data.get('user'), variant=variant.id).count()),
+                "votes": Vote.objects.filter(variant=variant.id).count()
+            }
+            survey_raw['variants'].append(variant)
+        surveys.append(survey_raw)
+    return JsonResponse(surveys, safe=False)
+
+@csrf_exempt
+def vote(request):
+    data = JSONParser().parse(request)
+    vote, created = Vote.objects.get_or_create(variant=data['id'], user=data['user'])
+    vote.save() if created else vote.delete()
+    return JsonResponse("ok", safe=False)

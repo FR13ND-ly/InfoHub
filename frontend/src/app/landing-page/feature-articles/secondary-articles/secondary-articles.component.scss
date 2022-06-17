@@ -19,7 +19,12 @@
     overflow: hidden;
     cursor: pointer;
     opacity: 0;
-    
+    &__widget-icon {
+        position: absolute;
+        right: .5rem;
+        top: .5rem;
+        z-index: 9;
+    }
     &__title {
         position: absolute;
         font-size: 1.2rem;
@@ -41,6 +46,10 @@
         transform: scale(1.2);
         filter: brightness(.4);
     }
+}
+
+.activated-widget:nth-child(3) {
+    display: none;
 }
 
 @media only screen and (max-width: 600px) {

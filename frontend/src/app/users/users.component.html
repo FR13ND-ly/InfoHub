@@ -1,0 +1,10 @@
+<ng-container *ngIf="users$ | async as users">
+    <div class="mat-elevation-z4 user" *ngFor="let user of users">
+        <span>{{ user.id }}.</span>
+        <div class="user-details"><img class="user-image" [src]="user.imageUrl"> {{ user.username }}</div>
+        <span>{{ user.date }}</span>
+        <mat-slide-toggle [checked]="user.allowChangeAvatar" (change)="user.allowChangeAvatar = !user.allowChangeAvatar; onUpdateUser(user)">Poate schimba avatarul</mat-slide-toggle>
+        <mat-slide-toggle [checked]="user.allowWriteComments" (change)="user.allowWriteComments = !user.allowWriteComments; onUpdateUser(user)">Acces comentarii</mat-slide-toggle>
+        <div><button mat-raised-button (click)="onSetDefaultAvatar(user.id)">Setează avatar implicit</button></div>
+    </div>
+</ng-container>

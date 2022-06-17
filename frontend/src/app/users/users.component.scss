@@ -1,0 +1,23 @@
+.user {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    padding: .6rem;
+    margin-bottom: .6rem;
+    border-radius: 6px;
+    box-sizing: border-box;
+    background-color: var(--background-color-2);
+}
+
+.user-details {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+.user-image {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}

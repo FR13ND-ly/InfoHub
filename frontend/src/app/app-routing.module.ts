@@ -9,6 +9,7 @@ const routes: Routes = [
   {path: "articol/:url/edit", loadChildren: () => import('./article-editor/article-editor.module').then(m => m.ArticleEditorModule)},
   {path: "ciorne", loadChildren: () => import('./drafts/drafts.module').then(m => m.DraftsModule)},
   {path: "widgets", loadChildren: () => import('./widgets/widgets.module').then(m => m.WidgetsModule)},
+  {path: "utilizatori", loadChildren: () => import('./users/users.module').then(m => m.UsersModule)},
   {path: "readlist", loadChildren: () => import('./read-lists/read-lists.module').then(m => m.ReadListsModule)},
   
 ];

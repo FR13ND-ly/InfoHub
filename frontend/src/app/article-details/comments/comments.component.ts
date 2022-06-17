@@ -21,14 +21,11 @@ export class CommentsComponent implements OnInit, AfterViewInit {
     switchMap((params : any) => this.commentsService.getComments(params.url))
   )
   
-  user! : any
+  user$ : Observable<any> = this.userService.getUserUpdateListener()
   url! : string
   observer = new IntersectionObserver((comments) => {this.observeArticles(comments)});
 
   ngOnInit(): void {
-    this.userService.getUserUpdateListener().subscribe((user) => {
-      this.user = user
-    })
   }
 
   getComments() {
@@ -59,19 +56,20 @@ export class CommentsComponent implements OnInit, AfterViewInit {
     })
   }
 
-  onAddComment(form : any) {
+  onAddComment(form : any, user : any, comments : Array<any>) {
     let data : any = {
-      username : this.user.displayName,
-      author : this.user.uid,
+      username : user.displayName,
+      author : user.uid,
       text : form.form.value.text,
       article : this.url,
-      photoUrl : this.user.photoURL
+      image : user.image
     }
-    this.commentsService.addComment(data).
-    subscribe(() => {
-      this.getComments()
-    })
-    form.reset()
+    this.commentsService.addComment(data)
+      .subscribe(() => {
+        data.date = "Numai ce..."
+        comments.unshift(data)
+        form.reset()
+      })
   }
 
   onDeleteComment(id : number, index : number) {

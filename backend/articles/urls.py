@@ -10,5 +10,7 @@ urlpatterns = [
     path('category-articles/<str:tag>/', views.getCategoryArticles),
     path('edit/', views.editArticle),
     path('search/', views.search),
+    path('survey/', views.getSurvey),
+    path('vote/', views.vote),
     path('<str:url>/', views.getArticle),
 ]

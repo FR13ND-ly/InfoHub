@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'likes',
     'profiles',
     'readlists',
-    'surveys',
     'widgets',
     'corsheaders',
     'rest_framework',

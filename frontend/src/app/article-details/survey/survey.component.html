@@ -1,12 +1,38 @@
-<div class="surveys mat-elevation-z4" #surveyRef>
+<ng-container *ngIf="surveys$ | async as surveys">
+  <div class="surveys mat-elevation-z4" #surveyRef *ngIf="surveys.length">
     <div class="main">
-        <h2 class="question"><span class="question__index">{{ surveyIndex + 1 }}.</span> {{ surveys[surveyIndex].question }}</h2>
-        <div class="arrows" *ngIf="surveys.length - 1">
-            <div class="arrow mat-elevation-z3" (click)="onChangeSurveyPrev()"><</div>
-            <div class="arrow mat-elevation-z3" (click)="onChangeSurveyNext()">></div>
+      <h2 class="question">
+        <span class="question__index" *ngIf="surveys.length > 1"
+          >{{ surveyIndex + 1 }}.</span
+        >
+        {{ surveys[surveyIndex].question }}
+      </h2>
+      <div class="arrows" *ngIf="surveys.length - 1">
+        <div
+          class="arrow mat-elevation-z3"
+          (click)="onChangeSurveyPrev(surveys.length)"
+        >
+          <
         </div>
+        <div
+          class="arrow mat-elevation-z3"
+          (click)="onChangeSurveyNext(surveys.length)"
+        >
+          >
+        </div>
+      </div>
     </div>
     <ul class="anwsers">
-        <li class="answer" *ngFor="let answer of surveys[surveyIndex].answers; let i = index" [style.animation-delay.s]="i * .1 + .2" [attr.votes]="answer.votes">{{ answer.text }}</li>
+      <li
+        class="answer"
+        (click)="onVote(answer, surveys[surveyIndex].variants)"
+        *ngFor="let answer of surveys[surveyIndex].variants; let i = index"
+        [style.animation-delay.s]="i * 0.1 + 0.2"
+        [attr.votes]="answer.votes"
+      >
+        <mat-icon class="answer__icon">check_box{{ answer.voted ? '' : '_outline_blank' }}</mat-icon>
+        {{ answer.content }}
+      </li>
     </ul>
-</div>
+  </div>
+</ng-container>

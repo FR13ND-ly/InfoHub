@@ -56,4 +56,16 @@ export class UserService {
       })
     })
   }
+
+  getUsers() {
+    return this.http.get(`${this.APIUrl}all/`)
+  }
+
+  updateUser(data : any) {
+    return this.http.put(`${this.APIUrl}update/`, data)
+  }
+
+  setDefaultAvatar(id : number) {
+    return this.http.get(`${this.APIUrl}default-avatar/${id}/`)
+  }
 }

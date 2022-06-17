@@ -12,6 +12,14 @@
     overflow: hidden;
     text-decoration: none;
     background-color: var(--background-color-2);
+    position: relative;
+    &__icon {
+        position: absolute;
+        right: .5rem;
+        top: .5rem;
+        z-index: 9;
+        color: #fff;
+    }
     &__image {
         width: 100%;
         height: auto;

@@ -9,7 +9,7 @@
         <div class="left-side">
             <app-tags [tags]="article.tags"></app-tags>
             <app-preview-image [imageUrl]="article.imageUrl" [(coverImage)]="article.coverImage" [(coverImageDescription)]="article.coverImageDescription"></app-preview-image>
-            <app-surveys></app-surveys>
+            <app-surveys [(surveys)]="article.surveys"></app-surveys>
         </div>
         <div class="control-panel mat-elevation-z4">
             <!-- <button mat-icon-button *ngIf="url" class="go-to-text-button" routerLink="/articol/{{url}}"><mat-icon>open_in_new</mat-icon></button> -->
