@@ -5,6 +5,8 @@
     </svg>
     <div *ngIf="!minimalize">
         <h3 class="curpins">Cuprins:</h3>
-        <div class="moment" *ngFor="let moment of moments" (click)="onGoToTitle(moment.element)">{{ moment.content }}</div>
+        <ul class="list">
+            <li class="moment" *ngFor="let moment of moments" (click)="onGoToTitle(moment.element)">{{ moment.content }}</li>
+        </ul>
     </div>
 </div>

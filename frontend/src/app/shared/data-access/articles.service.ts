@@ -55,4 +55,8 @@ export class ArticlesService {
   vote(data : any) {
     return this.http.post(`${this.APIUrl}vote/`, data)
   }
+
+  getAditionalArticles(url : string) {
+    return this.http.get(`${this.APIUrl}aditional-articles/${url}/`)
+  }
 }
