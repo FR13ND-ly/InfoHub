@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { combineLatestWith, delay, Observable, of } from 'rxjs';
 import { ArticlesService } from 'src/app/shared/data-access/articles.service';
 import { WidgetsService } from 'src/app/widgets/data-access/widgets.service';
 
@@ -12,11 +12,12 @@ export class SecondaryArticlesComponent implements AfterViewInit {
 
   constructor(private elRef : ElementRef, private articlesService : ArticlesService, private widgetsService : WidgetsService) { }
 
-  articles$ : Observable<any[]> = this.articlesService.getRightSide()
+  articles$ : Observable<any[]> = this.articlesService.getRightSide().pipe(
+    delay(500),
+    combineLatestWith(this.widgetsService.getWidget(1))
+  )
   
   observer = new IntersectionObserver((articles) => {this.observeArticles(articles)});
-
-  widget$ : Observable<any> = this.widgetsService.getWidget(1)
 
   @ViewChildren('articleRef') articlesRef!: QueryList<ElementRef>;
 

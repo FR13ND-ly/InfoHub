@@ -1,4 +1,4 @@
-<div class="articles-slider mat-elevation-z4 appear" #slider *ngIf="articles$ | async as articles">
+<div class="articles-slider mat-elevation-z4 appear" #slider *ngIf="articles$ | async as articles else loading">
     <span class="articles-slider__title" routerLink="/articol/{{ articles[selectedIndex]?.url }}">{{ articles[selectedIndex]?.title }}</span>
     <div class="articles-slider__image-wrapper" routerLink="/articol/{{ articles[selectedIndex]?.url }}">
         <img class="articles-slider__image" [src]="articles[selectedIndex]?.imageUrl">
@@ -8,3 +8,6 @@
             (click)="onSelectIndex(i)" [style.animation-delay.s]="i * .1"></div>
     </div>
 </div>
+<ng-template #loading class="loading">
+    <div class="loading__slider"></div>
+</ng-template>

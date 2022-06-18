@@ -78,6 +78,18 @@
     background-color: var(--primary-color);
 }
 
+.loading {
+    &__slider {
+        border-radius: 6px;
+        overflow: hidden;
+        height: 82vh;
+        position: relative;
+        width: 100%;
+        background-color: #ccc;
+        animation: loading 1.4s infinite alternate;
+    }
+}
+
 @keyframes jump {
     0% {transform: translateY(0);}
     50% {transform: translateY(-4px);}

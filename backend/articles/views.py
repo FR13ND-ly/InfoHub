@@ -179,7 +179,7 @@ def getSlider(request):
 def getRightSideArticles(request):
     response = []
     articles = Article.objects.filter(draft=False).order_by("-date")
-    for article in articles[5 : 9]:
+    for article in articles[5 : 8]:
         response.append({
             "url": article.url,
             "title": article.title,

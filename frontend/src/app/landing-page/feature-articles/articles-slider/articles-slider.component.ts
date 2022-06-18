@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { delay, Observable } from 'rxjs';
 import { timer } from 'rxjs';
 import { interval, Subscription } from 'rxjs';
 import { ArticlesService } from 'src/app/shared/data-access/articles.service';
@@ -18,7 +18,9 @@ export class ArticlesSliderComponent implements OnInit, OnDestroy {
   @ViewChild('selectorsWrapper') selectorsWrapper! : ElementRef
   @ViewChild('slider') slider! : ElementRef
 
-  articles$ : Observable<Array<any>> = this.articleService.getSlider() 
+  articles$ : Observable<Array<any>> = this.articleService.getSlider().pipe(
+    delay(500)
+  )
 
   sliderInterval! : Subscription
   repeatAnimationInterval! : Subscription
