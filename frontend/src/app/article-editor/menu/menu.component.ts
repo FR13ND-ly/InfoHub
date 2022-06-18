@@ -76,6 +76,7 @@ export class MenuComponent implements OnInit {
     if (this.codeView) return
     this.textEditor.focus()
     document.execCommand(style, false, value);
+    this.textEditor.focus()
   }
 
   onAddYoutubeVideo() {

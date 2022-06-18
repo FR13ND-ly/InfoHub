@@ -1,1 +1,1 @@
-<div class="text-editor" placeholder="Text" contenteditable (input)="onChange(textEditor.innerHTML)" [innerHTML]="editorText" spellcheck="false" #textEditor></div>
+<div class="text-editor" placeholder="Text" contenteditable (focus)="onChange(textEditor.innerHTML)" (input)="onChange(textEditor.innerHTML)" [innerHTML]="editorText" spellcheck="false" #textEditor></div>

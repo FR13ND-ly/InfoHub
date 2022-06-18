@@ -13,12 +13,13 @@ export class TextEditorComponent implements OnInit {
   @Output() textChange = new EventEmitter()
 
   editorText! : string
+
   ngOnInit(): void {
     timer(100).subscribe(() => this.editorText = this.text)
   }
 
   onChange(text : string) {
-    this.textChange.emit(text)
+    timer(0).subscribe(() => this.textChange.emit(text))
   }
 
 }

@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { ArticlesService } from '../shared/data-access/articles.service';
 
 @Component({
   selector: 'app-article-details',

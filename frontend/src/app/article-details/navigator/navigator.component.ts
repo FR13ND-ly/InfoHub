@@ -17,7 +17,6 @@ export class NavigatorComponent implements AfterViewInit {
   ]
   ngAfterViewInit(): void {
     timer(0).subscribe(() => {
-      console.log(document.querySelectorAll('.text'))
       document.querySelectorAll('.text h1')?.forEach((element : any) => {
         this.moments.push({
           "content" : element.innerText,

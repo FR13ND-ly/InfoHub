@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, switchMap } from 'rxjs';
+import { delay, Observable, switchMap } from 'rxjs';
+import { LoadingService } from 'src/app/shared/data-access/loading.service';
 import { UserService } from 'src/app/shared/data-access/user.service';
 import { ReadListsService } from '../read-lists.service';
 
@@ -10,13 +11,16 @@ import { ReadListsService } from '../read-lists.service';
 })
 export class ListsComponent implements OnInit {
 
-  constructor(private readListsService : ReadListsService, private userService : UserService) { }
+  constructor(private readListsService : ReadListsService, private userService : UserService, private loadingService : LoadingService) { }
 
   lists$ : Observable<any> = this.userService.getUserUpdateListener().pipe(
+    delay(500),
     switchMap((user : any) => this.readListsService.getReadLists(user.uid))
   )
   
   ngOnInit(): void {
+    this.loadingService.setLoading(true)
+    this.lists$.subscribe(() => this.loadingService.setLoading(false))
   }
 
 }

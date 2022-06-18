@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { first, Observable, of, switchMap } from 'rxjs';
+import { combineLatest, combineLatestWith, concat, delay, first, Observable, of, switchMap } from 'rxjs';
+import { LoadingService } from 'src/app/shared/data-access/loading.service';
 import { UserService } from 'src/app/shared/data-access/user.service';
 import { ReadListsService } from '../read-lists.service';
 
@@ -11,7 +12,7 @@ import { ReadListsService } from '../read-lists.service';
 })
 export class ListComponent implements OnInit {
 
-  constructor(private readListService: ReadListsService, private route: ActivatedRoute, private userService: UserService) { }
+  constructor(private readListService: ReadListsService, private route: ActivatedRoute, private userService: UserService, private loadingService : LoadingService) { }
   
   id! : any
 
@@ -66,7 +67,12 @@ export class ListComponent implements OnInit {
   )
 
   ngOnInit(): void {
+    this.loadingService.setLoading(true)
     this.id = this.route.snapshot.paramMap.get('url')
+    this.articles$.pipe(
+      delay(500),
+      combineLatestWith(this.listInfo$)
+    ).subscribe(() => this.loadingService.setLoading(false))
   }
 
   onChangeName(listInfo : any, newName: string) {
