@@ -100,3 +100,25 @@
     border-radius: 6px;
     background-color: var(--background-color-2);
 }
+
+.loading {
+    &__main, &__tags, &__preview-image, &__surveys, &__control-panel, &__additional-articles {
+        border-radius: 6px;
+        background-color: #ccc;
+        animation: loading 1.4s infinite;
+    }
+    &__main {
+        height: 30rem;
+        animation-direction: alternate;
+    }
+    &__tags {
+        height: 3rem;
+    }
+    &__preview-image, &__surveys {
+        height: 15rem;
+    }
+    &__control-panel, &__additional-articles {
+        height: 8rem;
+        animation-direction: alternate;
+    }
+}

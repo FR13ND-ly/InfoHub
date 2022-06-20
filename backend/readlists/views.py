@@ -12,7 +12,7 @@ from profiles.models import Profile
 def getLightLists(request):
     data = JSONParser().parse(request)
     response = []
-    for ulist in List.objects.filter(user=data['user']):
+    for ulist in List.objects.filter(user=data.get('user')):
         response.append({
             "id" : ulist.id,
             "name": ulist.name,

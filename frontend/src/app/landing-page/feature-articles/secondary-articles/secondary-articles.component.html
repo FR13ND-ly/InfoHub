@@ -3,7 +3,7 @@
         <span class="article__title">{{ article.title }}</span>
         <img class="article__image" src="article__image" [src]="article.imageUrl">
     </div>
-    <div class="article mat-elevation-z4" #articleRef routerLink="/articol/{{ articles[1].url }}" *ngIf="articles[1].activated">
+    <div class="article widget mat-elevation-z4" #articleRef routerLink="/articol/{{ articles[1].url }}" *ngIf="articles[1].activated">
         <mat-icon class="article__widget-icon">paid</mat-icon>
         <span class="article__title">{{ articles[1].text }}</span>
         <img class="article__image" src="article__image" [src]="articles[1].imageUrl">

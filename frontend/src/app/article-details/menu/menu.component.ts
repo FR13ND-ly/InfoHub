@@ -2,7 +2,7 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
 import { NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, timer } from 'rxjs';
+import { delay, filter, Observable, switchMap, timer } from 'rxjs';
 import { ReadListsService } from 'src/app/read-lists/read-lists.service';
 import { UserSidenavOpenService } from 'src/app/shared/data-access/user-sidenav-open.service';
 import { UserService } from 'src/app/shared/data-access/user.service';
@@ -21,31 +21,29 @@ export class MenuComponent implements AfterViewInit, OnInit {
 
   user! : any
   url! : string
-  likes! : number
-  liked! : string
   showAddListMenu : boolean = false
 
-  lists : any = []
+  likesInfo$ : Observable<any> =  this.userService.getUserUpdateListener().pipe(
+    switchMap((user) => this.likesService.getLikes({
+      user : user.uid,
+      article : this.route.snapshot.paramMap.get('url')
+    })
+  ))
+
+  lists$ : Observable<any> = this.userService.getUserUpdateListener().pipe(
+    filter((user : any) => user),
+    switchMap((user) => this.readListsService.getLightReadLists({
+      user : user.uid,
+      article : this.route.snapshot.paramMap.get('url')
+    }))
+  )
   showSocials: boolean = false
 
   ngOnInit(): void {
     this.route.params.subscribe((params : any) => this.url = params.url)
     this.userService.getUserUpdateListener().subscribe((user) => {
       this.user = user
-      this.getLikes()
       this.readListsService.addView({ article : this.url, user : this.user.uid}).subscribe()
-    })
-  }
-
-  getLikes() {
-    this.likesService.getLikes(
-      {
-        token : this.user ? this.user.uid : '',
-        url : this.url
-      }
-    ).subscribe((res : any) => {
-      this.likes = res.likes
-      this.liked = res.liked
     })
   }
 
@@ -61,14 +59,14 @@ export class MenuComponent implements AfterViewInit, OnInit {
     observer.observe(this.menuRef.nativeElement)
   }
 
-  onLikeInteract() {
+  onLikeInteract(likesInfo : any) {
     if (this.user) {
       this.likesService.interact({
-        token : this.user.uid,
-        url : this.url
+        user : this.user.uid,
+        article : this.url
       }).subscribe()
-      this.likes += this.liked == 'favorite' ? -1 : 1
-      this.liked = this.liked == 'favorite' ? 'favorite_outline' : "favorite" 
+      likesInfo.likes += likesInfo.liked == 'favorite' ? -1 : 1
+      likesInfo.liked = likesInfo.liked == 'favorite' ? 'favorite_outline' : "favorite" 
     }
     else {
       let snackbar = this._snackBar.open("Trebuie să te autentifici", "Autentificare", {duration: 3000});
@@ -91,14 +89,14 @@ export class MenuComponent implements AfterViewInit, OnInit {
   }
 
   onGetList() {
-    this.readListsService.getLightReadLists({
-      user : this.user.uid,
-      article : this.url
-    })
-    .subscribe((lists) => {
-      this.lists = lists
-      this.showAddListMenu = false
-    })
+    this.lists$ = this.userService.getUserUpdateListener().pipe(
+      delay(500),
+      switchMap((user) => this.readListsService.getLightReadLists({
+        user : user.uid,
+        article : this.route.snapshot.paramMap.get('url')
+      }))
+    )
+    this.lists$.subscribe(() => this.showAddListMenu = false)
   }
 
   onAddToList(list : number) {

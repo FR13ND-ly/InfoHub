@@ -35,12 +35,17 @@ export class ArticleComponent implements OnInit, OnDestroy {
     this.article$.subscribe((article: any) => {
       this.setMeta(article);
       this.loadingService.setLoading(false);
-      timer(0).subscribe(() => {
-        this.scrollDispatcher.scrolled().subscribe((cdk: any) => {
-          this.readProgress.setProgress(
-            (cdk.getElementRef().nativeElement.scrollTop / ((<HTMLElement>document.querySelector('article-details-article'))?.offsetHeight )) * 100)
-        });
-      })
+      let articleSize = (<HTMLElement>document.querySelector('article-details-article'))?.offsetHeight
+      if (articleSize > 1000) {
+        timer(0).subscribe(() => {
+          this.scrollDispatcher.scrolled().subscribe((cdk: any) => {
+            let scrollTop = cdk.getElementRef().nativeElement.scrollTop;
+            
+            this.readProgress.setProgress(
+              (scrollTop / (articleSize - articleSize / 4)) * 100)
+          });
+        })
+      }
     });
     
   }
@@ -81,5 +86,6 @@ export class ArticleComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.readProgress.setProgress(0)
+    this.titleService.setTitle('InfoHub')
   }
 }

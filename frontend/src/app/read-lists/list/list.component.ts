@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { combineLatest, combineLatestWith, concat, delay, first, Observable, of, switchMap } from 'rxjs';
+import { combineLatest, combineLatestWith, concat, delay, filter, first, Observable, of, switchMap } from 'rxjs';
 import { LoadingService } from 'src/app/shared/data-access/loading.service';
 import { UserService } from 'src/app/shared/data-access/user.service';
 import { ReadListsService } from '../read-lists.service';
@@ -51,6 +51,8 @@ export class ListComponent implements OnInit {
   ]
   
   listInfo$: Observable<any> = this.userService.getUserUpdateListener().pipe(
+    delay(500),
+    filter((user : any) => user),
     switchMap((user) => this.readListService.getReadListInfo({
         id: this.route.snapshot.paramMap.get('url') == "istoric" ? -1 : this.route.snapshot.paramMap.get('url') == "aprecieri" ? -2 : this.route.snapshot.paramMap.get('url'),
         user: user.uid
@@ -59,6 +61,8 @@ export class ListComponent implements OnInit {
   )
 
   articles$ : Observable<any> = this.userService.getUserUpdateListener().pipe(
+    delay(500),
+    filter((user : any) => user),
     switchMap((user) => this.readListService.getReadListArticles({
         id: this.route.snapshot.paramMap.get('url') == "istoric" ? -1 : this.route.snapshot.paramMap.get('url') == "aprecieri" ? -2 : this.route.snapshot.paramMap.get('url'),
         user: user.uid

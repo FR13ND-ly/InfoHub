@@ -151,3 +151,30 @@
         color: var(--primary-color);
     }
 }
+
+.loading {
+    &__list {
+        display: flex;
+        flex-direction: column;
+    }
+    &__list-title {
+        width: 75px;
+        height: .8rem;
+        padding: .5rem 1rem;
+        border-radius: 6px;
+        background-color: #ccc;
+        margin-bottom: 1rem;
+        animation: loading 1.4s infinite alternate;
+    }
+    &__list-articles {
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: repeat(4, 1fr);
+    }
+    &__list-article {
+        border-radius: 6px;
+        height: 10rem;
+        background-color: #ccc;
+        animation: loading 1.4s infinite;
+    }
+}

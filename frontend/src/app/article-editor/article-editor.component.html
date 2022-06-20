@@ -1,4 +1,4 @@
-<ng-container *ngIf="article$ | async as article">
+<ng-container *ngIf="article$ | async as article else loading">
     <div class="main mat-elevation-z4">
         <input class="title-input" [(ngModel)]="article!.title" placeholder="Titlu">
         <input class="subtitle-input" [(ngModel)]="article!.subtitle" placeholder="Subtitlu">
@@ -37,3 +37,17 @@
         </div>
     </div>
 </ng-container>
+<ng-template #loading class="loading">
+    <div class="loading__main"></div>
+    <div class="additional-content">
+        <div class="left-side">
+            <div class="loading__tags"></div>
+            <div class="loading__preview-image"></div>
+            <div class="loading__surveys"></div>
+        </div>
+        <div class="right-side">
+            <div class="loading__control-panel"></div>
+            <div class="loading__additional-articles"></div>
+        </div>
+    </div>
+</ng-template>

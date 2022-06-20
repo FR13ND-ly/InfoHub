@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Observable, switchMap } from 'rxjs';
+import { ActivatedRoute, Params } from '@angular/router';
+import { delay, Observable, switchMap } from 'rxjs';
 import { ArticlesService } from '../shared/data-access/articles.service';
 import { LoadingService } from '../shared/data-access/loading.service';
 
@@ -14,7 +14,8 @@ export class ArticleEditorComponent implements OnInit {
   constructor(private route: ActivatedRoute, private articleService : ArticlesService,  private loadingService : LoadingService) { }
   
   article$ : Observable<any> = this.route.paramMap.pipe(
-    switchMap((params : any)  => this.articleService.getArticleToEdit(params.params.url)
+    delay(500),
+    switchMap((params : Params)  => this.articleService.getArticleToEdit(params['params'].url)
     )
   )
 
@@ -25,7 +26,6 @@ export class ArticleEditorComponent implements OnInit {
 
   onPublish(article : any) {
     this.loadingService.setLoading(true)
-    console.log(article.text)
     this.articleService.editArticle(article).subscribe(
       () => this.loadingService.setLoading(false)
     )

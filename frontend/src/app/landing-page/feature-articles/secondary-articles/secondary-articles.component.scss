@@ -53,6 +53,10 @@
     display: none;
 }
 
+.widget {
+    animation-delay: .3s;
+}
+
 .loading {
     display: grid;
     gap: 1rem;

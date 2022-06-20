@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { delay, Observable, switchMap } from 'rxjs';
+import { delay, filter, Observable, switchMap } from 'rxjs';
 import { LoadingService } from 'src/app/shared/data-access/loading.service';
 import { UserService } from 'src/app/shared/data-access/user.service';
 import { ReadListsService } from '../read-lists.service';
@@ -15,6 +15,7 @@ export class ListsComponent implements OnInit {
 
   lists$ : Observable<any> = this.userService.getUserUpdateListener().pipe(
     delay(500),
+    filter((user : any) => user),
     switchMap((user : any) => this.readListsService.getReadLists(user.uid))
   )
   
