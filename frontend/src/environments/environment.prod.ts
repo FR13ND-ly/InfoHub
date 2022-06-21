@@ -7,6 +7,6 @@ export const environment = {
     messagingSenderId: "408224212281",
     appId: "1:408224212281:web:48e2e8ce5d3132700074e8"
   },
-  apiUrl : "https://infohub.pythonanywhere.com/api/",
+  apiUrl : "https://infohub.pythonanywhere.com/",
   production: true
 };

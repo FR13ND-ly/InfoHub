@@ -6,7 +6,7 @@
         <span class="article__title">{{ article.title }}</span>
         <p class="article__text hide-on-mob">{{ article.text | articlePreview : 45 }}</p>
         <p class="article__text hide-on-large">{{ article.text | articlePreview : 25 }}</p>
-        <div *ngIf="article.details" class="hide-on-mob">
+        <div *ngIf="article.details">
             <div class="divider"></div>
             <div class="article__details">
                 <div class="article__details-set"><mat-icon>access_time</mat-icon> {{ article.details.date }}</div>

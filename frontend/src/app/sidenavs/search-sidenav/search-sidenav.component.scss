@@ -13,6 +13,7 @@
     right: 2rem;
     top: 2rem;
     transform: scale(1.5);
+    z-index: 2;
 }
 
 .search-input {
@@ -40,6 +41,10 @@
         width: 90%;
         margin-left: 5%;
         align-items: center;
+    }
+
+    .search-input {
+        font-size: 1rem;
     }
     .close-button {
         position: absolute;

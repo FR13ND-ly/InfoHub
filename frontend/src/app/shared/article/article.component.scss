@@ -93,6 +93,9 @@
 }
 
 @media only screen and (max-width: 600px) {
+    :host {
+        gap: .5rem;
+    }
     .article { 
         &__image-wrapper {
             width: 30%;
@@ -110,6 +113,9 @@
         }
         &:hover {
             transform: none;
+        }
+        &__details {
+            display: none;
         }
     }
 }
