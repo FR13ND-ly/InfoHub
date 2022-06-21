@@ -33,7 +33,7 @@ def addToList(request):
         nlist.save()
     else:
         nlist.delete()
-    return JsonResponse("ok", safe=False)
+    return JsonResponse({}, status=status.HTTP_200_OK)
 
 @csrf_exempt
 def getLists(request, token):

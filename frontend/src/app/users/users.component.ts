@@ -21,6 +21,7 @@ export class UsersComponent implements OnInit {
   }
 
   onSetDefaultAvatar(id : number) {
+    if (!confirm('Ești sigur?')) return
     this.userService.setDefaultAvatar(id).subscribe()
   }
 

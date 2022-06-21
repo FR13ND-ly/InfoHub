@@ -67,16 +67,17 @@ export class CommentsComponent implements OnInit, AfterViewInit {
     this.commentsService.addComment(data)
       .subscribe(() => {
         data.date = "Numai ce..."
+        data.photoUrl = user.imageUrl
         comments.unshift(data)
         form.reset()
       })
   }
 
-  onDeleteComment(id : number, index : number) {
+  onDeleteComment(id : number, index : number, comments : any) {
     if (!confirm("Ești sigur?")) return
     this.commentsService.removeComment(id)
     .subscribe(() => {
-      this.getComments()
+      comments.splice(index, 1)
     })
   }
 }

@@ -14,7 +14,7 @@
     </ng-template>
     <div class="comments">
         <div class="comment" *ngFor="let comment of comments; let i = index" [style.transition-delay]="i * .1" #commentRef>
-            <!-- <button class="comment__delete-button" mat-icon-button *ngIf="user?.isStaff" (click)="onDeleteComment(comment.id, i)"><mat-icon>delete</mat-icon></button> -->
+            <button class="comment__delete-button" mat-icon-button *ngIf="(user$ | async)?.isStaff && comment.id" (click)="onDeleteComment(comment.id, i, comments)"><mat-icon>delete</mat-icon></button>
             <img class="comment__user-photo" [src]="comment.photoUrl">
             <div class="comment__content-wrapper">
                 <b class="comment__username">{{ comment.username }}<span class="comment__date">{{ comment.date }}</span></b>

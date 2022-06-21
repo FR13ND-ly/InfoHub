@@ -153,18 +153,21 @@ def getArticles(request, index):
         "articles": articles,
         "noMoreArticles": (len(articles_total_raw) - 7 * (index - 1)) < 7
     }
-    return JsonResponse(response, safe=False)
+    return JsonResponse(response, status=status.HTTP_200_OK)
 
 def getDrafts(request):
     articles = []
     for article in Article.objects.filter(draft=True):
-        articles.append({
-            "url": article.url,
-            "title": article.title,
-            "text": article.text,
-            "imageUrl": getFile(article.coverImage)
-        })
-    return JsonResponse(articles, safe=False)
+        if article.title != "":
+            articles.append({
+                "url": article.url,
+                "title": article.title,
+                "text": article.text,
+                "imageUrl": getFile(article.coverImage)
+            })
+        else:
+            article.delete()
+    return JsonResponse(articles, status=status.HTTP_200_OK, safe=False)
 
 def getSlider(request):
     response = []
@@ -175,7 +178,7 @@ def getSlider(request):
             "title": article.title,
             "imageUrl": getFile(article.coverImage)
         })
-    return JsonResponse(response, safe=False)
+    return JsonResponse(response, status=status.HTTP_200_OK, safe=False)
 
 def getRightSideArticles(request):
     response = []
@@ -186,7 +189,7 @@ def getRightSideArticles(request):
             "title": article.title,
             "imageUrl": getFile(article.coverImage)
         })
-    return JsonResponse(response, safe=False)
+    return JsonResponse(response, status=status.HTTP_200_OK, safe=False)
 
 def getCategoryArticles(request, tag):
     response = []
@@ -196,12 +199,12 @@ def getCategoryArticles(request, tag):
             "title": article.title,
             "imageUrl": getFile(article.coverImage)
         })
-    return JsonResponse(response, safe=False)
+    return JsonResponse(response, status=status.HTTP_200_OK, safe=False)
 
 @csrf_exempt
 def deleteArticle(request, url):
     Article.objects.get(url=url).delete()
-    return JsonResponse("ok", safe=False)
+    return JsonResponse(response, status=status.HTTP_200_OK)
 
 @csrf_exempt
 def search(request):
@@ -242,7 +245,7 @@ def search(request):
             for wordOfText in prepareWordList(article.text.split(' ')):
                 if prepare(word) in prepare(wordOfText) and articleToAppend not in response:
                     response.append(articleToAppend)
-    return JsonResponse(response, safe=False)
+    return JsonResponse(response, status=status.HTTP_200_OK, safe=False)
 
 def getSurveysToEdit(article):
     response = []
@@ -280,11 +283,11 @@ def getSurvey(request):
             }
             survey_raw['variants'].append(variant)
         surveys.append(survey_raw)
-    return JsonResponse(surveys, safe=False)
+    return JsonResponse(surveys, status=status.HTTP_200_OK, safe=False)
 
 @csrf_exempt
 def vote(request):
     data = JSONParser().parse(request)
     vote, created = Vote.objects.get_or_create(variant=data['id'], user=data['user'])
     vote.save() if created else vote.delete()
-    return JsonResponse("ok", safe=False)
+    return JsonResponse({}, status=status.HTTP_200_OK)
