@@ -31,7 +31,12 @@ export class ArticleEditorComponent implements OnInit {
 
   onPublish(article: any) {
     this.loadingService.setLoading(true);
-    this.articleService.editArticle(article).subscribe((res: any) => {
+    let textEditor = document.getElementById('text-editor')
+    let articleToPush : any = {...article}
+    if (textEditor?.classList.contains('code-view')) {
+      articleToPush.text = textEditor.innerText
+    }
+    this.articleService.editArticle(articleToPush).subscribe((res: any) => {
       this.loadingService.setLoading(false);
       article.framework = false;
       article.url = res;

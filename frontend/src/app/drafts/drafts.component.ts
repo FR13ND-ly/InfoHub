@@ -1,30 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 import { ArticlesService } from '../shared/data-access/articles.service';
-import { UserService } from '../shared/data-access/user.service';
 
 @Component({
   selector: 'app-drafts',
   templateUrl: './drafts.component.html',
   styleUrls: ['./drafts.component.scss']
 })
-export class DraftsComponent implements OnInit {
+export class DraftsComponent {
 
-  constructor(private articlesService : ArticlesService, private userService : UserService, private router : Router) { }
+  constructor(private articlesService : ArticlesService) { }
   
-  articles = []
-  
-  user : any = false
-
-  ngOnInit(): void { 
-    this.userService.getUserUpdateListener().subscribe((user) => {
-      if (!user?.isStaff) {
-        this.router.navigate(['/']);
-      }
-      this.articlesService.getDrafts()
-      .subscribe((res : any) => this.articles = res)
-    })
-    
-  }
+  articles$ : Observable<any> = this.articlesService.getDrafts()
 
 }

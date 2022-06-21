@@ -108,6 +108,7 @@ def editArticle(request):
     article.coverImage = data['coverImage']
     article.coverImageDescription = data["coverImageDescription"]
     article.framework = False
+    article.restrictComments = data.get('restrictComments', False)
     for survey in Survey.objects.filter(article=article.url):
         for variant in Variant.objects.filter(survey=survey.id):
             variant.delete()

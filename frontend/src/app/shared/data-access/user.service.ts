@@ -11,7 +11,7 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  private userUpdated = new BehaviorSubject<any>(false)
+  private userUpdated = new BehaviorSubject<any>(null)
   readonly APIUrl = environment.apiUrl + 'user/'
 
   provider = new GoogleAuthProvider();
@@ -46,7 +46,7 @@ export class UserService {
 
   logout() {
     signOut(this.auth)
-    this.userUpdated.next(false)
+    this.userUpdated.next(null)
   }
 
   setUserImage(data : any) {

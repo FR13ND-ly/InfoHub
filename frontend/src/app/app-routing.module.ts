@@ -1,22 +1,71 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthenticatedGuard } from './guards/authenticated.guard';
+import { AuthorizedGuard } from './guards/authorized.guard';
+import { DesktopGuard } from './guards/desktop.guard';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 
 const routes: Routes = [
-  {path: "", component : LandingPageComponent},
-  {path: "articol/nou", loadChildren: () => import('./article-editor/article-editor.module').then(m => m.ArticleEditorModule)},
-  {path: "articol/:url", loadChildren: () => import('./article-details/article-details.module').then(m => m.ArticleDetailsModule)},
-  {path: "articol/:url/edit", loadChildren: () => import('./article-editor/article-editor.module').then(m => m.ArticleEditorModule)},
-  {path: "ciorne", loadChildren: () => import('./drafts/drafts.module').then(m => m.DraftsModule)},
-  {path: "widgets", loadChildren: () => import('./widgets/widgets.module').then(m => m.WidgetsModule)},
-  {path: "utilizatori", loadChildren: () => import('./users/users.module').then(m => m.UsersModule)},
-  {path: "readlist", loadChildren: () => import('./read-lists/read-lists.module').then(m => m.ReadListsModule)},
-  {path: "404", loadChildren: () => import('./page-not-found/page-not-found.module').then(m => m.PageNotFoundModule)},
-  {path: "**", redirectTo: "404"}
+  { path: '', component: LandingPageComponent },
+  {
+    path: 'articol/nou',
+    loadChildren: () =>
+      import('./article-editor/article-editor.module').then(
+        (m) => m.ArticleEditorModule
+      ),
+    canActivate: [AuthorizedGuard, DesktopGuard]
+  },
+  {
+    path: 'articol/:url',
+    loadChildren: () =>
+      import('./article-details/article-details.module').then(
+        (m) => m.ArticleDetailsModule
+      ),
+  },
+  {
+    path: 'articol/:url/edit',
+    loadChildren: () =>
+      import('./article-editor/article-editor.module').then(
+        (m) => m.ArticleEditorModule
+      ),
+    canActivate: [AuthorizedGuard, DesktopGuard]
+  },
+  {
+    path: 'ciorne',
+    loadChildren: () =>
+      import('./drafts/drafts.module').then((m) => m.DraftsModule),
+    canActivate: [AuthorizedGuard]
+  },
+  {
+    path: 'widgets',
+    loadChildren: () =>
+      import('./widgets/widgets.module').then((m) => m.WidgetsModule),
+    canActivate: [AuthorizedGuard, DesktopGuard]
+  },
+  {
+    path: 'utilizatori',
+    loadChildren: () =>
+      import('./users/users.module').then((m) => m.UsersModule),
+    canActivate: [AuthorizedGuard, DesktopGuard]
+  },
+  {
+    path: 'readlist',
+    loadChildren: () =>
+      import('./read-lists/read-lists.module').then((m) => m.ReadListsModule),
+      canActivate: [AuthenticatedGuard]
+  },
+  {
+    path: '404',
+    loadChildren: () =>
+      import('./page-not-found/page-not-found.module').then(
+        (m) => m.PageNotFoundModule
+      ),
+  },
+  { path: '**', redirectTo: '404' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

@@ -92,15 +92,6 @@ export class MenuComponent implements OnInit {
     firstParagraph.classList = 'first-paragraph';
   }
 
-  onSetLink() {
-    this.format('formatBlock', 'a')
-    let a = (<any>window.getSelection()).anchorNode.parentNode;
-    let link = prompt("Inserează un link");
-    
-    console.log(a)
-  //   // a.href = link;
-  }
-
   onSetView() {
     if (this.codeView) this.textEditor.innerHTML = this.textEditor.innerText
     else this.textEditor.innerText = this.textEditor.innerHTML
@@ -155,10 +146,5 @@ export class MenuComponent implements OnInit {
       default:
         return '50%'
     }
-
-  }
-
-  onAddGallery() {
-
   }
 }
