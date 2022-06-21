@@ -24,6 +24,7 @@
 @media only screen and (max-width: 600px) {
     .feature-articles {
         display: flex;
+        gap: .5rem;
         flex-direction: column;
         app-articles-slider {
             width: 100%;

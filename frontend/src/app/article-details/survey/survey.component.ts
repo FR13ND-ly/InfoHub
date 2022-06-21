@@ -32,7 +32,7 @@ export class SurveyComponent implements AfterViewInit {
     let observer = new IntersectionObserver((entries) => {
       entries.forEach((surveyEntry : IntersectionObserverEntry) => {
         if (surveyEntry.isIntersecting) {
-          surveyEntry.target.querySelector('.surveys')!.classList.add('show')
+          surveyEntry.target.querySelector('.surveys')!?.classList.add('show')
           observer.unobserve(surveyEntry.target)
         }
       })

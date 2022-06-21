@@ -14,7 +14,7 @@
 </div>
 <ul class="actions">
     <div *ngIf="user?.isStaff">
-        <li class="action" routerLink="/articol/nou" (click)="onCloseUserSideNav()">
+        <li class="action hide-on-mob" routerLink="/articol/nou" (click)="onCloseUserSideNav()">
             <mat-icon>edit</mat-icon>
             Adaugă un articol
         </li>
@@ -22,11 +22,11 @@
             <mat-icon>edit_notifications</mat-icon>
             Ciorne
         </li>
-        <li class="action" routerLink="/widgets" (click)="onCloseUserSideNav()">
+        <li class="action hide-on-mob" routerLink="/widgets" (click)="onCloseUserSideNav()">
             <mat-icon>widgets</mat-icon>
             Widgete
         </li>
-        <li class="action" routerLink="/utilizatori" (click)="onCloseUserSideNav()">
+        <li class="action hide-on-mob" routerLink="/utilizatori" (click)="onCloseUserSideNav()">
             <mat-icon>manage_accounts</mat-icon>
             Utilizatori
         </li>

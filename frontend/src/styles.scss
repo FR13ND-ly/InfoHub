@@ -50,12 +50,13 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  overflow-y: overlap;
+  
 }
 
 mat-sidenav-content {
   background-color: var(--background-color-1);
   transition: .2s ease-in-out;
+  overflow-y: overlap;
 }
 
 .readlist-menu .mat-form-field-wrapper {
@@ -144,12 +145,31 @@ app-surveys .mat-tab-labels :last-child.mat-tab-label {
   display: none !important;
 }
 
-@media only screen and (max-width: 601px) {
+.hide-on-mob {
+  display: flex;
+}
+
+@media only screen and (max-width: 600px) {
+
+  .first-paragraph {
+    font-weight: bold;
+    &::first-letter {
+      padding: 0 .5rem;
+      margin: 0 .3rem -1.5rem 0;
+      font-family: "IBM Plex Mono";
+      font-size: 4rem;
+      float: left;
+      line-height: 1;
+    }
+  }
+  ::-webkit-scrollbar { 
+    display: none; 
+  }
   .hide-on-mob {
       display: none !important;
   }
   .hide-on-large {
-      display: block !important;
+      display: flex !important;
   }
   blockquote {
       line-height: 1.5em;

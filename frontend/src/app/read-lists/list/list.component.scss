@@ -1,3 +1,5 @@
+@use '@angular/material' as mat;
+
 :host {
     display: flex;
     gap: 1rem;
@@ -169,3 +171,51 @@
         animation: loading 1.4s infinite alternate;
     }
 }
+
+.list-info-mobile {
+    background-color: var(--primary-color);
+    padding: 1rem;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    justify-content: space-between;
+    z-index: 2;
+    @include mat.elevation(20);
+    &__data {
+        display: flex;
+        flex-direction: column;
+    }
+    &__author {
+        font-weight: bold;
+    }
+    &__name {
+        font-size: 1rem;
+    }
+    &__actions {
+        display: flex;
+        gap: 1rem;
+    }
+}
+@media only screen and (max-width: 600px) {
+    :host {
+        flex-direction: column;
+    }
+    .list-info, .list-articles {
+        width: 100%;
+    }
+    .loading-info {
+        display: none;
+    }
+    
+    .loading-articles {
+        width: 100%;    
+    }
+    .loading-article__text {
+        width: 85%;
+        height: 3rem;
+    }
+ }

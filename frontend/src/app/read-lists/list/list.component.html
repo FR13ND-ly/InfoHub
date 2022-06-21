@@ -1,4 +1,4 @@
-<div class="list-info mat-elevation-z4" *ngIf="listInfo$ | async as listInfo else loadingInfo">
+<div class="list-info mat-elevation-z4 hide-on-mob" *ngIf="listInfo$ | async as listInfo else loadingInfo">
     <div class="back" routerLink="/readlist">
         <mat-icon>arrow_back_ios_new</mat-icon>
         Înapoi
@@ -24,6 +24,17 @@
 </div>
 <div class="list-articles" *ngIf="articles$ | async as articles else loadingArticles">
     <app-article [articles]="articles.articles" [left]="true" (onScrollToEnd)="onLoadMoreArticles(articles)"></app-article>
+</div>
+<div class="list-info-mobile hide-on-large" *ngIf="listInfo$ | async as listInfo">
+    <div class="list-info-mobile__data">
+        <span class="list-info-mobile__author">{{ listInfo.author }}</span>
+        <span class="list-info-mobile__name">{{ listInfo.name }}</span>
+    </div>
+    <div class="list-info-mobile__actions">
+        <mat-icon matTooltip="Copie link-ul" *ngIf="listInfo.public" (click)="onCopyLink()">content_copy</mat-icon>
+        <mat-icon [matTooltip]="listInfo.public ? 'Interzice acces pe link' : 'Permite acces pe link'" (click)="onChangeAccess(listInfo)">{{ listInfo.public ? 'public' : 'lock' }}</mat-icon>
+        <mat-icon matTooltip="Șterge lista" (click)="onDelete()">delete</mat-icon>
+    </div>
 </div>
 <ng-template #loadingInfo >
     <div class="loading-info mat-elevation-z4">

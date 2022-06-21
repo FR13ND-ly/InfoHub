@@ -1,6 +1,6 @@
 <div class="menu" #menuRef>
     <button mat-raised-button (click)="onLikeInteract(likesInfo)" class="like-button" *ngIf="likesInfo$ | async as likesInfo"><mat-icon color="warn">{{ likesInfo.liked }}</mat-icon> {{ likesInfo.likes }}</button>
-    <button mat-raised-button class="edit-button" routerLink="edit/" *ngIf="user?.isStaff"><mat-icon color="accent">edit</mat-icon></button>
+    <button mat-raised-button class="edit-button hide-on-mob" routerLink="edit/" *ngIf="user?.isStaff"><mat-icon color="accent">edit</mat-icon></button>
     <button mat-raised-button *ngIf="user" [matMenuTriggerFor]="readListMenu" class="readlists-button"><mat-icon color="primary">add_to_photos</mat-icon></button>
     <button mat-icon-button class="share-button" (click)="showSocials = !showSocials"><mat-icon>share</mat-icon></button>
     <div class="socials" *ngIf="showSocials">

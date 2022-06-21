@@ -75,6 +75,9 @@
     :host {
         flex-direction: row;
         height: 6rem;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: 1fr;
+        gap: .5rem;
     }
     .article__title {
         font-size: .7rem;

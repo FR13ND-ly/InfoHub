@@ -11,7 +11,13 @@
 }
 
 @media only screen and (max-width: 600px) {
-    .extra-content app-comments {
-        width: 100%;
+    .extra-content {
+        flex-direction: column-reverse;
+        app-comments {
+            width: 100%;
+        }
+        app-more-articles {
+            width: 100%;
+        }
     }
 }

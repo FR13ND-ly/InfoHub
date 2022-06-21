@@ -101,10 +101,12 @@
             padding: .7rem .7rem .3rem;
         }
         &__title {
-            font-size: 1.2rem;
+            font-size: .9rem;
+            line-height: normal;
         }
         &__text {
             font-size: .7rem;
+            line-height: normal;
         }
         &:hover {
             transform: none;

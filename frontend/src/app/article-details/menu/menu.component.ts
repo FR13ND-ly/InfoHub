@@ -25,7 +25,7 @@ export class MenuComponent implements AfterViewInit, OnInit {
 
   likesInfo$ : Observable<any> =  this.userService.getUserUpdateListener().pipe(
     switchMap((user) => this.likesService.getLikes({
-      user : user.uid,
+      user : user?.uid,
       article : this.route.snapshot.paramMap.get('url')
     })
   ))

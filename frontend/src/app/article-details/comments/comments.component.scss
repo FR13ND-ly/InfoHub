@@ -75,3 +75,25 @@
 .show {
     animation: tie-slide-in-right .3s cubic-bezier(0.42, 0, 0, 1.2) forwards;
 }
+
+@media only screen and (max-width: 600px) {
+    .add-comment {
+        gap: .6rem;
+        margin-top: -.8rem;
+        margin-bottom: 1rem;
+        &__user-photo {
+            height: 35px;
+            width: 35px;
+        }
+    }
+    .comment {
+        gap: .3rem;
+        &__user-photo {
+            width: 35px;
+            height: 35px;
+        }
+        &__delete-button {
+            display: none;
+        }
+    }
+}
