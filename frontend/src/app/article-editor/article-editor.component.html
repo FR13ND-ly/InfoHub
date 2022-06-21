@@ -21,7 +21,7 @@
                 <mat-checkbox [(ngModel)]="article.restrictComments">Restricționează comentariile</mat-checkbox>
                 <div class="control-panel__actions">
                     <button mat-flat-button color="primary" (click)="onPublish(article)">{{ article.framework ? "Publică" : "Salvează" }}</button>
-                    <button mat-flat-button color="warn" *ngIf="!article.framework">Șterge</button>
+                    <button mat-flat-button color="warn" (click)="onDelete(article.url)" *ngIf="!article.framework">Șterge</button>
                 </div>
             </div>
             <div class="aditional-articles mat-elevation-z4">

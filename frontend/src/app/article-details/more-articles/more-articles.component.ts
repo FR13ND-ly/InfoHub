@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, ViewChildren } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Observable, switchMap } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, switchMap, timer } from 'rxjs';
 import { ArticlesService } from 'src/app/shared/data-access/articles.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { ArticlesService } from 'src/app/shared/data-access/articles.service';
 })
 export class MoreArticlesComponent implements AfterViewInit {
 
-  constructor(private route : ActivatedRoute, private articlesService : ArticlesService) { }
+  constructor(private route : ActivatedRoute, private articlesService : ArticlesService, private router : Router) { }
 
   @ViewChild('articlesRef') articlesRef! : ElementRef
 
@@ -28,6 +28,12 @@ export class MoreArticlesComponent implements AfterViewInit {
       })
     }, {threshold : .2})
     observer.observe(this.articlesRef.nativeElement)
+  }
+
+  onGoToArticle(url : any) {
+    this.router.navigate(['/articol', url]).then(() => {
+      document.querySelector('mat-sidenav-content')?.scrollTo({top: 0, behavior: 'smooth'})
+    })
   }
 
 }

@@ -7,7 +7,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { Observable } from 'rxjs';
+import { filter, Observable } from 'rxjs';
 import { LoadingService } from '../shared/data-access/loading.service';
 import { ReadProgressService } from '../shared/data-access/read-progress.service';
 import { SearchSidenavOpenService } from '../shared/data-access/search-sidenav-open.service';
@@ -34,7 +34,10 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.onSetTheme();
-    this.scrollDispatcher.scrolled().subscribe((cdk: any) => {
+    this.scrollDispatcher.scrolled().pipe(
+      filter((cdk : any) => !cdk.dir)
+    )
+    .subscribe((cdk: any) => {
       this.headerRef.nativeElement.classList.toggle(
         'sticked',
         cdk.getElementRef().nativeElement.scrollTop > 30

@@ -59,4 +59,8 @@ export class ArticlesService {
   getAditionalArticles(url : string) {
     return this.http.get(`${this.APIUrl}aditional-articles/${url}/`)
   }
+
+  deleteArticle(url : string) {
+    return this.http.delete(`${this.APIUrl}delete/${url}/`)
+  }
 }

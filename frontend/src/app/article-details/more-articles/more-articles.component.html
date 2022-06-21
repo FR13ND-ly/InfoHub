@@ -1,5 +1,5 @@
 <div class="articles" #articlesRef>
-    <div class="article mat-elevation-z4" routerLink="/articol/{{ article.url }}" *ngFor="let article of articles$ | async; let i = index" [style.animation-delay.s]="i * .1">
+    <div (click)="onGoToArticle(article.url)" class="article mat-elevation-z4" *ngFor="let article of articles$ | async; let i = index" [style.animation-delay.s]="i * .1">
         <img class="article__image" [src]="article.imageUrl">
         <span class="article__title">{{ article.title }}</span>
     </div>

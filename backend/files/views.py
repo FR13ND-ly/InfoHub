@@ -72,4 +72,4 @@ def getFile(id, path=""):
 def compressImage(id, path=""):
     image = settings.MEDIA_ROOT + path + '/' + os.path.basename(File.objects.get(id = id).file.name)
     im = Image.open(image)
-    im.save(image, optimize=True, quality = 30)
+    im.save(image, optimize=True, quality = 40)

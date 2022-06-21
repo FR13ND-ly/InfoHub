@@ -11,7 +11,8 @@ const routes: Routes = [
   {path: "widgets", loadChildren: () => import('./widgets/widgets.module').then(m => m.WidgetsModule)},
   {path: "utilizatori", loadChildren: () => import('./users/users.module').then(m => m.UsersModule)},
   {path: "readlist", loadChildren: () => import('./read-lists/read-lists.module').then(m => m.ReadListsModule)},
-  
+  {path: "404", loadChildren: () => import('./page-not-found/page-not-found.module').then(m => m.PageNotFoundModule)},
+  {path: "**", redirectTo: "404"}
 ];
 
 @NgModule({

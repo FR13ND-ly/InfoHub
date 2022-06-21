@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Observable, of, timer } from 'rxjs';
+import { delay, Observable, of, timer } from 'rxjs';
 import { ArticlesService } from 'src/app/shared/data-access/articles.service';
 
 @Component({
@@ -31,7 +31,10 @@ export class ArticlesByCategoryComponent implements AfterViewInit {
 
   onSelectCategory(category : string) {
     this.selected = category
-    document.querySelector('app-articles-by-category .articles')?.classList.remove('show')
-    timer(0).subscribe(() => document.querySelector('app-articles-by-category .articles')?.classList.add('show'))
+    this.articles$ = this.articlesService.getArticlesByCategory(this.selected)
+    this.articles$.subscribe(() => {
+      document.querySelector('app-articles-by-category .articles')?.classList.remove('show')
+      timer(100).subscribe(() => document.querySelector('app-articles-by-category .articles')?.classList.add('show'))
+    })
   }
 }

@@ -6,5 +6,6 @@
         <mat-slide-toggle [checked]="user.allowChangeAvatar" (change)="user.allowChangeAvatar = !user.allowChangeAvatar; onUpdateUser(user)">Poate schimba avatarul</mat-slide-toggle>
         <mat-slide-toggle [checked]="user.allowWriteComments" (change)="user.allowWriteComments = !user.allowWriteComments; onUpdateUser(user)">Acces comentarii</mat-slide-toggle>
         <div><button mat-raised-button (click)="onSetDefaultAvatar(user.id)">Setează avatar implicit</button></div>
+        <button mat-icon-button (click)="onDelete(user.id)" color="warn"><mat-icon>delete</mat-icon></button>
     </div>
 </ng-container>

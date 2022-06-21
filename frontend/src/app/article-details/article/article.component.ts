@@ -1,8 +1,8 @@
 import { ScrollDispatcher } from '@angular/cdk/scrolling';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
-import { delay, first, Observable, switchMap, timer } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { catchError, delay, filter, first, Observable, Subscription, switchMap, timer } from 'rxjs';
 import { ArticlesService } from 'src/app/shared/data-access/articles.service';
 import { LoadingService } from 'src/app/shared/data-access/loading.service';
 import { ReadProgressService } from 'src/app/shared/data-access/read-progress.service';
@@ -14,6 +14,7 @@ import { ReadProgressService } from 'src/app/shared/data-access/read-progress.se
 })
 export class ArticleComponent implements OnInit, OnDestroy {
   constructor(
+    private router : Router,
     private route: ActivatedRoute,
     private articlesService: ArticlesService,
     private titleService: Title,
@@ -26,9 +27,15 @@ export class ArticleComponent implements OnInit, OnDestroy {
   article$: Observable<any> = this.route.paramMap.pipe(
     delay(500),
     switchMap((params: any) =>
-      this.articlesService.getArticle(params.params.url)
-    )
+      this.articlesService.getArticle(params.params.url).pipe(
+        catchError(async (err) => {
+          this.router.navigate(['/404'])
+          this.loadingService.setLoading(false);
+        })
+      )
+    ),
   );
+  scrollDispatcherSub!: Subscription
 
   ngOnInit(): void {
     this.loadingService.setLoading(true);
@@ -38,11 +45,13 @@ export class ArticleComponent implements OnInit, OnDestroy {
       let articleSize = (<HTMLElement>document.querySelector('article-details-article'))?.offsetHeight
       if (articleSize > 1000) {
         timer(0).subscribe(() => {
-          this.scrollDispatcher.scrolled().subscribe((cdk: any) => {
+          this.scrollDispatcherSub = this.scrollDispatcher.scrolled().pipe(
+            filter((cdk : any) => !cdk.dir)
+          )
+          .subscribe((cdk: any) => {
             let scrollTop = cdk.getElementRef().nativeElement.scrollTop;
-            
             this.readProgress.setProgress(
-              (scrollTop / (articleSize - articleSize / 4)) * 100)
+              scrollTop / articleSize * 100 )
           });
         })
       }
@@ -87,5 +96,6 @@ export class ArticleComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.readProgress.setProgress(0)
     this.titleService.setTitle('InfoHub')
+    this.scrollDispatcherSub?.unsubscribe()
   }
 }

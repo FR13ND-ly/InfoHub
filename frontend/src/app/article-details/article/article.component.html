@@ -1,4 +1,4 @@
-<article *ngIf="article$ | async as article else loading">
+<article *ngIf="article$ | async as article else loading" id="article">
     <app-tags [tags]="article.tags"></app-tags>
     <app-titles [title]="article.title" [subtitle]="article.subtitle"></app-titles>
     <app-details [details]="article.details"></app-details>

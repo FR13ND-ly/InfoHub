@@ -13,7 +13,7 @@ export class ArticleComponent implements AfterViewInit {
   @Input()
   left!: boolean
 
-  @Output() onBottom = new EventEmitter()
+  @Output() onScrollToEnd = new EventEmitter()
 
   @ViewChildren('articleRef') articlesRef!: QueryList<ElementRef>;
 
@@ -35,7 +35,7 @@ export class ArticleComponent implements AfterViewInit {
     articles.forEach((article : IntersectionObserverEntry) => {
       if (article.isIntersecting){
         if (article.target == this.articlesRef.last.nativeElement) {
-          this.onBottom.emit()
+          this.onScrollToEnd.emit()
         }
         article.target.classList.add("show")
         this.observer.unobserve(article.target)

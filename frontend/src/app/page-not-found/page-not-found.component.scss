@@ -1,0 +1,21 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+}
+
+.title {
+    margin-top: 4rem;
+    font-size: 12rem;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.description {
+    font-size: 1.6rem;
+    width: 60%;
+    margin-left: 20%;
+    line-height: normal;
+}

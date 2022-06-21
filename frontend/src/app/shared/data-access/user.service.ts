@@ -68,4 +68,8 @@ export class UserService {
   setDefaultAvatar(id : number) {
     return this.http.get(`${this.APIUrl}default-avatar/${id}/`)
   }
+
+  deleteUser(id : number) {
+    return this.http.delete(`${this.APIUrl}delete/${id}/`)
+  }
 }

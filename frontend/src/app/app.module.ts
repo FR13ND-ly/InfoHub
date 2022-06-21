@@ -18,15 +18,12 @@ import { LiveComponent } from './landing-page/live/live.component';
 import { EditorialArticlesComponent } from './landing-page/editorial-articles/editorial-articles.component';
 import { FilesDialogComponent } from './files-dialog/files-dialog.component';
 import { AboutComponent } from './about/about.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { UserSidenavComponent } from './sidenavs/user-sidenav/user-sidenav.component';
 import { LoginComponent } from './sidenavs/user-sidenav/login/login.component';
 import { UserViewComponent } from './sidenavs/user-sidenav/user-view/user-view.component';
 import { FormsModule } from '@angular/forms';
 import { SearchSidenavComponent } from './sidenavs/search-sidenav/search-sidenav.component';
 import { ArticleModule } from './shared/article/article.module';
-import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
-import { environment } from '../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -45,7 +42,6 @@ import { HttpClientModule } from '@angular/common/http';
     EditorialArticlesComponent,
     FilesDialogComponent,
     AboutComponent,
-    PageNotFoundComponent,
     UserSidenavComponent,
     LoginComponent,
     UserViewComponent,
@@ -59,8 +55,6 @@ import { HttpClientModule } from '@angular/common/http';
     ArticleModule,
     FormsModule,
     HttpClientModule,
-    // provideFirebaseApp(() => initializeApp(environment.firebase)),
-    // provideAuth(() => getAuth()),
   ],
   providers: [],
   bootstrap: [AppComponent]

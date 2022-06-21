@@ -23,4 +23,9 @@ export class UsersComponent implements OnInit {
   onSetDefaultAvatar(id : number) {
     this.userService.setDefaultAvatar(id).subscribe()
   }
+
+  onDelete(id : number) {
+    if (!confirm('Ești sigur?')) return
+    this.userService.deleteUser(id).subscribe(() => this.users$ = this.userService.getUsers())
+  }
 }
