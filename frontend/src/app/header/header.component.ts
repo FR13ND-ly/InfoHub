@@ -2,16 +2,13 @@ import { ScrollDispatcher } from '@angular/cdk/scrolling';
 import {
   Component,
   ElementRef,
-  HostListener,
-  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
 import { filter, Observable } from 'rxjs';
-import { LoadingService } from '../shared/data-access/loading.service';
-import { ReadProgressService } from '../shared/data-access/read-progress.service';
-import { SearchSidenavOpenService } from '../shared/data-access/search-sidenav-open.service';
-import { UserSidenavOpenService } from '../shared/data-access/user-sidenav-open.service';
+import { Store } from '@ngrx/store';
+import { setUserSidenavState } from '../state/user-sidenav-open/user-sidenav-open.actions';
+import { setSearchSidenavOpen } from '../state/search-sidenav/search-sidenav.actions';
 
 @Component({
   selector: 'app-header',
@@ -20,17 +17,14 @@ import { UserSidenavOpenService } from '../shared/data-access/user-sidenav-open.
 })
 export class HeaderComponent implements OnInit {
   constructor(
-    private searchSideNavOpenService: SearchSidenavOpenService,
-    private userSideNavOpenService: UserSidenavOpenService,
     private scrollDispatcher: ScrollDispatcher,
-    private loadingService: LoadingService,
-    private readProgress : ReadProgressService
+    private store: Store<any>
   ) {}
 
   @ViewChild('header') headerRef!: ElementRef<HTMLElement>;
 
-  loading$: Observable<boolean> = this.loadingService.getLoadingListener();
-  progress$ : Observable<number> = this.readProgress.getProgressListener()
+  loading$: Observable<boolean> = this.store.select('loading')
+  progress$ : Observable<number> = this.store.select('readProgress')
 
   ngOnInit(): void {
     this.onSetTheme();
@@ -46,11 +40,11 @@ export class HeaderComponent implements OnInit {
   }
 
   onOpenSearchSidenav() {
-    this.searchSideNavOpenService.changeOpenSearchNav(true);
+    this.store.dispatch(setSearchSidenavOpen({state : true}))
   }
 
   onOpenUserSidenav() {
-    this.userSideNavOpenService.changeOpenUserNav(true);
+    this.store.dispatch(setUserSidenavState({state : true}))
   }
 
   onChangeTheme() {

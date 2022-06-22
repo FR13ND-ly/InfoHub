@@ -5,7 +5,7 @@
     </div>
     <div class="list-info__image-wrapper">
         <span class="list-info__length">{{ listInfo.length }} articole</span>
-        <img class="list-info__image" src="/assets/images/readlists-bg.jpg">
+        <img class="list-info__image" src="/assets/images/readlists-bg.webp">
         <div class="list-info__actions" *ngIf="listInfo.editable && listInfo.own">
             <mat-icon [matMenuTriggerFor]="menu">{{ listInfo.icon }}</mat-icon>
             <mat-icon matTooltip="Copie link-ul" *ngIf="listInfo.public" (click)="onCopyLink()">content_copy</mat-icon>

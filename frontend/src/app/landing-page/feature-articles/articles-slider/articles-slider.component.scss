@@ -85,7 +85,7 @@
         height: 82vh;
         position: relative;
         width: 100%;
-        background-color: #ccc;
+        background-color: var(--loading-color);
         animation: loading 1.4s infinite alternate;
     }
 }

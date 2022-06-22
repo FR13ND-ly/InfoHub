@@ -19,6 +19,7 @@
         overflow: hidden;
         object-fit: cover;
         border-radius: 50%;
+        user-select: none;
     }
     &__input {
         border: 0;

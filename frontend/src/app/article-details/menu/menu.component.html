@@ -1,35 +1,82 @@
 <div class="menu" #menuRef>
-    <button mat-raised-button (click)="onLikeInteract(likesInfo)" class="like-button" *ngIf="likesInfo$ | async as likesInfo"><mat-icon color="warn">{{ likesInfo.liked }}</mat-icon> {{ likesInfo.likes }}</button>
-    <button mat-raised-button class="edit-button hide-on-mob" routerLink="edit/" *ngIf="user?.isStaff"><mat-icon color="accent">edit</mat-icon></button>
-    <button mat-raised-button *ngIf="user" [matMenuTriggerFor]="readListMenu" class="readlists-button"><mat-icon color="primary">add_to_photos</mat-icon></button>
-    <button mat-icon-button class="share-button" (click)="showSocials = !showSocials"><mat-icon>share</mat-icon></button>
-    <div class="socials" *ngIf="showSocials">
-        <button mat-mini-fab (click)="onShare($event, 'http://www.facebook.com/sharer.php?u=')" class="facebook hoverable">
-          f
-        </button>
-        <button mat-mini-fab (click)="onShare($event, 'http://twitter.com/intent/tweet/?url=')" class="twitter hoverable">
-          
-        </button>
-        <button mat-mini-fab (click)="onShare($event, 'viber://forward?text=')" class="viber hoverable">
-          <img class="viber__image" src="/assets/images/social/viber.jpg">
-        </button>
-      </div>
+  <button
+    mat-raised-button
+    (click)="onLikeInteract(likesInfo)"
+    class="like-button"
+    *ngIf="likesInfo$ | async as likesInfo"
+  >
+    <mat-icon color="warn">{{ likesInfo.liked }}</mat-icon>
+    <span *ngIf="!likesInfo.hideLikes">{{ likesInfo.likes }}</span>
+  </button>
+  <button
+    mat-raised-button
+    class="edit-button hide-on-mob"
+    routerLink="edit/"
+    *ngIf="user?.isStaff"
+  >
+    <mat-icon color="accent">edit</mat-icon>
+  </button>
+  <button
+    mat-raised-button
+    *ngIf="user"
+    [matMenuTriggerFor]="readListMenu"
+    class="readlists-button"
+  >
+    <mat-icon color="primary">add_to_photos</mat-icon>
+  </button>
+  <button
+    mat-icon-button
+    class="share-button"
+    (click)="showSocials = !showSocials"
+  >
+    <mat-icon>share</mat-icon>
+  </button>
+  <div class="socials" *ngIf="showSocials">
+    <button
+      mat-mini-fab
+      (click)="onShare($event, 'http://www.facebook.com/sharer.php?u=')"
+      class="facebook hoverable"
+    >
+      f
+    </button>
+    <button
+      mat-mini-fab
+      (click)="onShare($event, 'http://twitter.com/intent/tweet/?url=')"
+      class="twitter hoverable"
+    ></button>
+    <button
+      mat-mini-fab
+      (click)="onShare($event, 'viber://forward?text=')"
+      class="viber hoverable"
+    >
+    </button>
+  </div>
 </div>
 
 <mat-menu #readListMenu="matMenu" (close)="showAddListMenu = false">
-  <div class="readlist-menu" (click)="$event.stopPropagation()" *ngIf="lists$ | async as lists else loadingReadLists">
+  <div
+    class="readlist-menu"
+    (click)="$event.stopPropagation()"
+    *ngIf="lists$ | async as lists; else loadingReadLists"
+  >
     <div class="readlists">
       <div class="list-item" *ngFor="let list of lists">
         <div class="list-item__name-wrapper">
-          <mat-checkbox [(ngModel)]="list.added" (ngModelChange)="onAddToList(list.id)"></mat-checkbox>
-          <span class="list-item__name">{{list.name}}</span>
+          <mat-checkbox
+            [(ngModel)]="list.added"
+            (ngModelChange)="onAddToList(list.id)"
+          ></mat-checkbox>
+          <span class="list-item__name">{{ list.name }}</span>
         </div>
-        <mat-icon>{{ list.public ? 'public' : 'lock' }}</mat-icon>
+        <mat-icon>{{ list.public ? "public" : "lock" }}</mat-icon>
       </div>
     </div>
-    <hr>
-    <div *ngIf="!showAddListMenu else addListMenu">
-      <div class="add-list" (click)="showAddListMenu = true; $event.stopPropagation()">
+    <hr />
+    <div *ngIf="!showAddListMenu; else addListMenu">
+      <div
+        class="add-list"
+        (click)="showAddListMenu = true; $event.stopPropagation()"
+      >
         <mat-icon>add</mat-icon>
         Creează un readlist nou
       </div>
@@ -38,10 +85,12 @@
       <form #addListForm="ngForm" (submit)="onAddList(addListForm)">
         <mat-form-field appearance="outline">
           <mat-label>Introdu numele readlist-ului</mat-label>
-          <input matInput ngModel name="name">
+          <input matInput ngModel name="name" />
         </mat-form-field>
         <div class="buttons-wrapper">
-          <mat-slide-toggle [ngModel]="false" name="access">Public</mat-slide-toggle>
+          <mat-slide-toggle [ngModel]="false" name="access"
+            >Public</mat-slide-toggle
+          >
           <button color="primary" mat-flat-button>+</button>
         </div>
       </form>

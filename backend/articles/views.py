@@ -8,13 +8,11 @@ from files.views import getFile
 from readlists.views import addView
 from rest_framework import status
 
-
 def formatDate(date):
     new_date = date.strftime("%d %B %Y, %H:%M").split()
     new_date[1] = new_date[1].capitalize()
     new_date = " ".join(new_date)
     return new_date
-
 
 def getArticle(request, url):
     article = Article.objects.filter(url=url)
@@ -30,6 +28,7 @@ def getArticle(request, url):
         "subtitle": article.subtitle,
         "draft" : article.draft,
         "details" : {
+            "hideDate" : article.hideDate,
             "date": formatDate(article.date),
             "hideViews": article.hideViews,
             "views": article.views,
@@ -57,6 +56,9 @@ def getArticleToEdit(request, url):
         "framework" : article.framework,
         "subtitle": article.subtitle,
         "hideViews": article.hideViews,
+        "hideLikes": article.hideLikes,
+        "hideDate": article.hideDate,
+        "restrictComments": article.restrictComments,
         "tags": article.tags.split(',' if article.tags.strip() else None),
         "coverImage": article.coverImage,
         "imageUrl": getFile(article.coverImage),
@@ -103,7 +105,10 @@ def editArticle(request):
     article.subtitle = data['subtitle']
     article.text = data['text']
     article.draft = data['draft']
-    article.hideViews = data['hideViews']
+    article.hideViews = data.get('hideViews')
+    article.hideDate = data.get('hideDate')
+    article.hideLikes = data.get('hideLikes')
+    article.restrictComments = data.get('restrictComments')
     article.tags = ",".join(data['tags']).replace('#', '').lower()
     article.coverImage = data['coverImage']
     article.coverImageDescription = data["coverImageDescription"]
@@ -141,11 +146,11 @@ def getArticles(request, index):
         articles.append({
             "url": article.url,
             "title": article.title,
-            
             "text": article.text,
-            "hideViews": article.hideViews,
             "details" : {
+                "hideViews" : article.hideViews, 
                 "views": article.views,
+                "hideDate": article.hideDate,
                 "date": formatDate(article.date),
             },
             "imageUrl": getFile(article.coverImage)

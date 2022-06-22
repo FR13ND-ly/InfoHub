@@ -1,20 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import {
   catchError,
-  combineLatest,
   combineLatestWith,
-  concat,
   delay,
   filter,
-  first,
   map,
   Observable,
-  of,
   switchMap,
 } from 'rxjs';
-import { LoadingService } from 'src/app/shared/data-access/loading.service';
 import { UserService } from 'src/app/shared/data-access/user.service';
+import { setLoading } from 'src/app/state/loading/loading.actions';
 import { ReadListsService } from '../read-lists.service';
 
 @Component({
@@ -28,7 +25,7 @@ export class ListComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private userService: UserService,
-    private loadingService: LoadingService
+    private store: Store<{ loading: boolean }>
   ) {}
 
   id!: any;
@@ -44,27 +41,18 @@ export class ListComponent implements OnInit {
     'star',
     'bolt',
     'block',
-    'settings_accesibility',
-    'star_half',
-    'token',
-    'account_circle',
     'info',
     'schedule',
     'language',
     'task_alt',
     'event',
     'event_note',
-    'light_bulb',
     'priority_high',
-    'build',
     'all_inclusive',
     'notification_important',
     'collections_bookmark',
-    'rule',
     'push_pin',
-    'hourglass_full',
     'new_label',
-    'gesture',
     'eco',
   ];
 
@@ -82,7 +70,7 @@ export class ListComponent implements OnInit {
         user: user.uid,
       }).pipe(
         catchError(async (err) => { 
-          this.loadingService.setLoading(true);
+          this.store.dispatch(setLoading({state : false}))
           this.router.navigate(['/404'])
         }),
       )
@@ -107,11 +95,11 @@ export class ListComponent implements OnInit {
   );
 
   ngOnInit(): void {
-    this.loadingService.setLoading(true);
+    this.store.dispatch(setLoading({state : true}))
     this.id = this.route.snapshot.paramMap.get('url');
     this.articles$
       .pipe(delay(500), combineLatestWith(this.listInfo$))
-      .subscribe(() => this.loadingService.setLoading(false));
+      .subscribe(() => this.store.dispatch(setLoading({state : false})));
   }
 
   onChangeName(listInfo: any, newName: string) {
@@ -147,7 +135,7 @@ export class ListComponent implements OnInit {
 
   onLoadMoreArticles(articles: any) {
     if (articles.noMoreArticles) return;
-    this.loadingService.setLoading(true);
+    this.store.dispatch(setLoading({state : true}))
     this.readListService
       .getReadListArticles({
         id: this.id == 'istoric' ? -1 : this.id == 'aprecieri' ? -2 : this.id,
@@ -155,7 +143,7 @@ export class ListComponent implements OnInit {
         index: ++this.index,
       })
       .subscribe((res: any) => {
-        this.loadingService.setLoading(false);
+        this.store.dispatch(setLoading({state : false}))
         articles.articles.push(...res.articles);
         articles.noMoreArticles = res.noMoreArticles;
       });

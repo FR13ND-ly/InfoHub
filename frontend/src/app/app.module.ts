@@ -25,6 +25,14 @@ import { FormsModule } from '@angular/forms';
 import { SearchSidenavComponent } from './sidenavs/search-sidenav/search-sidenav.component';
 import { ArticleModule } from './shared/article/article.module';
 import { HttpClientModule } from '@angular/common/http';
+import { WeatherComponent } from './landing-page/weather/weather.component';
+import { StoreModule } from '@ngrx/store';
+import { loadingReducer } from './state/loading/loading.reducer';
+import { readProgressReducer } from './state/read-progress/read-progress.reducer';
+import { userSidenavOpenReducer } from './state/user-sidenav-open/user-sidenav-open.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { searchSidenavReducer } from './state/search-sidenav/search-sidenav.reducer';
+
 
 @NgModule({
   declarations: [
@@ -46,6 +54,7 @@ import { HttpClientModule } from '@angular/common/http';
     LoginComponent,
     UserViewComponent,
     SearchSidenavComponent,
+    WeatherComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,6 +64,13 @@ import { HttpClientModule } from '@angular/common/http';
     ArticleModule,
     FormsModule,
     HttpClientModule,
+    StoreModule.forRoot({
+      loading : loadingReducer,
+      readProgress : readProgressReducer,
+      userSidenavOpen : userSidenavOpenReducer,
+      searchSidenav : searchSidenavReducer
+    }),
+    EffectsModule.forRoot([])
   ],
   providers: [],
   bootstrap: [AppComponent]

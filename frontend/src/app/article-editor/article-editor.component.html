@@ -18,6 +18,7 @@
                 <mat-checkbox [(ngModel)]="article.draft">Ciornă</mat-checkbox>
                 <mat-checkbox [(ngModel)]="article.hideViews">Nu afișa numărul de vizualizări</mat-checkbox>
                 <mat-checkbox [(ngModel)]="article.hideDate">Nu afișa data publicării</mat-checkbox>
+                <mat-checkbox [(ngModel)]="article.hideLikes">Nu afișa numărul de like-uri</mat-checkbox>
                 <mat-checkbox [(ngModel)]="article.restrictComments">Restricționează comentariile</mat-checkbox>
                 <div class="control-panel__actions">
                     <button mat-flat-button color="primary" (click)="onPublish(article)">{{ article.framework ? "Publică" : "Salvează" }}</button>

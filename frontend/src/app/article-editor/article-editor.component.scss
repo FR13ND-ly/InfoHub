@@ -104,7 +104,7 @@
 .loading {
     &__main, &__tags, &__preview-image, &__surveys, &__control-panel, &__additional-articles {
         border-radius: 6px;
-        background-color: #ccc;
+        background-color: var(--loading-color);
         animation: loading 1.4s infinite;
     }
     &__main {

@@ -1,10 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-export const getState = createAction(
-    '[Loading Bar] Get State'
-)
-
-export const setState = createAction(
+export const setLoading = createAction(
     '[Loading Bar] Set State',
     props<{ state : boolean }>()
 )

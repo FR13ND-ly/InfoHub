@@ -1,30 +1,33 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { SearchSidenavOpenService } from './shared/data-access/search-sidenav-open.service';
-import { UserSidenavOpenService } from './shared/data-access/user-sidenav-open.service';
 import { UserService } from './shared/data-access/user.service';
+import { setUserSidenavState } from './state/user-sidenav-open/user-sidenav-open.actions';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  
-  constructor(private searchSideNavOpenService : SearchSidenavOpenService,  private userSideNavOpenService : UserSidenavOpenService, private userService : UserService) {}
+  constructor(
+    private userService: UserService,
+    private store: Store<any>
+  ) {}
 
-  searchSideNavOpen$ : Observable<boolean> = this.searchSideNavOpenService.getOpenUpdateListener()
-  userSideNavOpen$ : Observable<boolean> = this.userSideNavOpenService.getOpenUpdateListener()
+  searchSideNav$: Observable<any> = this.store.select('searchSidenav')
+  userSideNavOpen$: Observable<boolean> = this.store.select('userSidenavOpen')
 
   ngOnInit(): void {
-    this.userService.initiliaze()
+    this.searchSideNav$.subscribe((res) => console.log(res))
+    this.userService.initiliaze();
   }
 
   onDeactivate() {
-    document.querySelector('mat-sidenav-content')!.scrollTo(0, 0)
+    document.querySelector('mat-sidenav-content')!.scrollTo(0, 0);
   }
 
   onCloseUserSidenav() {
-    this.userSideNavOpenService.changeOpenUserNav(false)
+    this.store.dispatch(setUserSidenavState({ state : false }))
   }
 }

@@ -2,7 +2,7 @@
     <mat-sidenav #userSideNav [opened]="userSideNavOpen$ | async" (closedStart)="onCloseUserSidenav()">
        <app-user-sidenav></app-user-sidenav>
     </mat-sidenav>
-    <mat-sidenav #left position="end" [opened]="searchSideNavOpen$ | async">
+    <mat-sidenav #left position="end" [opened]="(searchSideNav$ | async).open">
        <app-search-sidenav></app-search-sidenav>
     </mat-sidenav>
     <div class="content">

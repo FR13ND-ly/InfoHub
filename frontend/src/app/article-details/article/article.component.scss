@@ -6,7 +6,7 @@
         gap: .8rem;
     }
     &__tag {
-        background-color: #ccc;
+        background-color: var(--loading-color);
         width: 75px;
         height: 1rem;
         padding: .8rem 1.2rem;
@@ -14,7 +14,7 @@
         animation: loading 1.4s infinite alternate;
     }
     &__title {
-        background-color: #ccc;
+        background-color: var(--loading-color);
         width: 90%;
         margin: 1.6% 0;
         height: 7rem;
@@ -22,7 +22,7 @@
         animation: loading 1.4s infinite alternate;
     }
     &__subtitle {
-        background-color: #ccc;
+        background-color: var(--loading-color);
         width: 80%;
         height: 4rem;
         border-radius: 10px;
@@ -32,12 +32,12 @@
         margin-top: 1.6%;
         width: 100%;
         height: 30rem;
-        background-color: #ccc;
+        background-color: var(--loading-color);
         border-radius: 10px;
         animation: loading 1.4s infinite;
     }
     &__line {
-        background-color: #ccc;
+        background-color: var(--loading-color);
         height: 2rem;
         width: 100%;
         border-radius: 10px;
@@ -58,7 +58,7 @@
             animation: loading 1.4s infinite alternate;
         }
         &__title {
-            background-color: #ccc;
+            background-color: var(--loading-color);
             width: 90%;
             margin: 1.6% 0;
             height: 4rem;
@@ -66,7 +66,7 @@
             animation: loading 1.4s infinite alternate;
         }
         &__subtitle {
-            background-color: #ccc;
+            background-color: var(--loading-color);
             width: 80%;
             height: 2rem;
             border-radius: 10px;
@@ -76,12 +76,12 @@
             margin-top: 1.6%;
             width: 100%;
             height: 15rem;
-            background-color: #ccc;
+            background-color: var(--loading-color);
             border-radius: 10px;
             animation: loading 1.4s infinite;
         }
         &__line {
-            background-color: #ccc;
+            background-color: var(--loading-color);
             height: 1rem;
             width: 100%;
             margin-top: .5rem!important;

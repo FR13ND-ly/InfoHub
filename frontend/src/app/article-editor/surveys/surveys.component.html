@@ -7,10 +7,10 @@
             <mat-form-field appearance="outline" *ngFor="let answer of survey.variants; let j = index">
                 <mat-label>Variantă de răspuns</mat-label>
                 <input matInput [(ngModel)]="answer[0]" (input)="onChange()">
-                <button mat-icon-button matSuffix><mat-icon  color="warn" (click)="surveysResponse.answers.splice(j, 1); onChange()">delete</mat-icon></button>
+                <button mat-icon-button matSuffix><mat-icon  color="warn" (click)="survey.variants.splice(j, 1); onChange()">delete</mat-icon></button>
             </mat-form-field>
             <div class="survey__actions">
-                <button mat-stroked-button color="primary" (click)="surveysResponse.answers.push(['']); onChange()">+ Variantă de răspuns</button>
+                <button mat-stroked-button color="primary" (click)="survey.variants.push(['']); onChange()">+ Variantă de răspuns</button>
                 <button mat-stroked-button color="warn" (click)="surveysResponse.splice(i, 1); onChange()">Șterge chestionar</button>
             </div>
         </div>

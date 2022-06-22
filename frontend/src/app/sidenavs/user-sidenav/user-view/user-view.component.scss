@@ -31,6 +31,7 @@
     flex-direction: column;
     position: relative;
     user-select: none;
+    min-height: 150px;
     &__wrapper {
         position: absolute;
         z-index: 1;

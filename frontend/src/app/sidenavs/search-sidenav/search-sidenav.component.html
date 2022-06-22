@@ -3,5 +3,5 @@
     <mat-label>Caută</mat-label>
     <input matInput placeholder="Caută" [class.tag]="searchText.trim()[0] == '#'" [(ngModel)]="searchText" (ngModelChange)="onSearch(searchText)">
 </mat-form-field>
-<h1 *ngIf="!articles?.length && searchText.trim().length">Niciun rezultat</h1>
+<h1 *ngIf="!articles?.length && searchText.trim().length && !loading">Niciun rezultat</h1>
 <app-article [articles]="articles"></app-article>

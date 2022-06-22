@@ -110,27 +110,6 @@
 
 @media only screen and (max-width: 600px) {
     :host {
-        margin-top: .7rem;
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: .5rem;
-        align-items: center;
-        position: relative;
-    }
-    .editorial {
-        height: 6rem;
-        opacity: 1;
-        &__title {
-            font-size: .7rem;
-            line-height: normal;
-            width: 90%;
-            margin-bottom: .3rem;
-        }
-        &:nth-of-type(4) {
-            display: none;
-        }
-    }
-    .more-articles {
         display: none;
     }
 }

@@ -113,7 +113,7 @@
         width: 100%;
         border-radius: 6px;
         height: 10rem;
-        background-color: #ccc;
+        background-color: var(--loading-color);
         animation: loading 1.4s infinite;
     }
     &__title {
@@ -121,7 +121,7 @@
         height: .8rem;
         padding: .5rem 1rem;
         border-radius: 6px;
-        background-color: #ccc;
+        background-color: var(--loading-color);
         margin: 1rem;
         animation: loading 1.4s infinite alternate;
     }
@@ -144,7 +144,7 @@
     &__image {
         height: inherit;
         width: 20%;
-        background-color: #ccc;
+        background-color: var(--loading-color);
         animation: loading 1.4s infinite alternate;
     }
     &__content-wrapper {
@@ -157,7 +157,7 @@
         height: .8rem;
         padding: .5rem 1rem;
         border-radius: 6px;
-        background-color: #ccc;
+        background-color: var(--loading-color);
         margin-top: 1rem;
         animation: loading 1.4s infinite alternate;
     }
@@ -166,7 +166,7 @@
         height: 4rem;
         padding: .5rem 1rem;
         border-radius: 6px;
-        background-color: #ccc;
+        background-color: var(--loading-color);
         margin: 1rem 0;
         animation: loading 1.4s infinite alternate;
     }

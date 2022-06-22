@@ -1,0 +1,32 @@
+<ng-container *ngIf="weather$ | async as weather">
+    <div class="weather__feature">
+        <img class="weather__icon" [src]="weather.current.condition.icon">
+        <div class="weather__future-content-wrapper">
+            <span class="weather__temp">{{ weather.current.temp_c }}°C</span>
+            <div class="divider"></div>
+            <div class="weather-section">
+                <span class="weather-section__title">Temperatura resimțită</span>
+                <span class="weather-section__content">{{ weather.current.feelslike_c }}°C</span>
+            </div>
+        </div>
+    </div>
+    <div class="weather__secondary">
+        <div class="weather-section">
+            <span class="weather-section__title">Umiditate</span>
+            <span class="weather-section__content">{{ weather.current.humidity }}%</span>
+        </div>
+        <div class="weather-section">
+            <span class="weather-section__title">Vânt VNV</span>
+            <span class="weather-section__content">{{ weather.current.wind_kph }} km/h</span>
+        </div>
+        <div class="weather-section">
+            <span class="weather-section__title">Presiune</span>
+            <span class="weather-section__content">{{ weather.current.pressure_mb / 1000 }} hPa</span>
+        </div>
+        <div class="weather-section">
+            <span class="weather-section__title">Vizibilitate</span>
+            <span class="weather-section__content">{{ weather.current.vis_km }} km</span>
+        </div>
+    </div>
+
+</ng-container>

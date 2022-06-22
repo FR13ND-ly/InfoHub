@@ -1,51 +1,58 @@
 import { Component, OnInit } from '@angular/core';
-import { UserSidenavOpenService } from 'src/app/shared/data-access/user-sidenav-open.service';
+import { Store } from '@ngrx/store';
 import { UserService } from 'src/app/shared/data-access/user.service';
+import { setUserSidenavState } from 'src/app/state/user-sidenav-open/user-sidenav-open.actions';
 
 @Component({
   selector: 'app-user-view',
   templateUrl: './user-view.component.html',
-  styleUrls: ['./user-view.component.scss']
+  styleUrls: ['./user-view.component.scss'],
 })
 export class UserViewComponent implements OnInit {
+  constructor(
+    private userService: UserService,
+    private store: Store<any>
+  ) {}
 
-  constructor(private userSideNavOpenService : UserSidenavOpenService, private userService : UserService) { }
-
-  user! : any
+  user!: any;
 
   ngOnInit(): void {
     this.userService.getUserUpdateListener().subscribe((user) => {
-      this.user = user
-    })
+      this.user = user;
+    });
   }
 
   onCloseUserSideNav() {
-    this.userSideNavOpenService.changeOpenUserNav(false)
+    this.store.dispatch(setUserSidenavState({state : true}))
   }
 
   onLogout() {
-    this.userService.logout()
-  } 
+    this.userService.logout();
+  }
 
   onChangeTheme() {
-    localStorage.setItem('theme', 
+    localStorage.setItem(
+      'theme',
       !localStorage.getItem('theme') ? 'dark-theme' : ''
-    )
-    this.onSetTheme()
+    );
+    this.onSetTheme();
   }
 
   onSetTheme() {
-    document.body.classList.toggle('dark-theme', !!localStorage.getItem('theme'))
+    document.body.classList.toggle(
+      'dark-theme',
+      !!localStorage.getItem('theme')
+    );
   }
 
-  onSetUserImage(e : any) {
-    let file = e.target.files[0]
-    let formData = new FormData()
-    formData.append('file', file, file.name)
+  onSetUserImage(e: any) {
+    let file = e.target.files[0];
+    let formData = new FormData();
+    formData.append('file', file, file.name);
     let data = {
-      file : formData,
-      token : this.user.uid
-    }
-    this.userService.setUserImage(data)
+      file: formData,
+      token: this.user.uid,
+    };
+    this.userService.setUserImage(data);
   }
 }

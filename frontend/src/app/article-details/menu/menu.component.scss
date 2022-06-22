@@ -25,11 +25,18 @@
 .like-button {
     display: flex;
     align-items: center;
-    font-size: 1.1rem;
+    justify-content: center;
+    font-size: 1.2rem;
     transition-delay: .7s;
     mat-icon {
         font-size: 1.4rem;
-        margin-right: -.15rem;
+        padding: 0;
+        line-height: normal;
+    }
+    span {
+        display: inline-flex;
+        transform: translateY(-1px);
+        padding: 0 .1rem;
     }
 }
 
@@ -53,27 +60,19 @@
     display: flex; 
     column-gap: .5rem;
     .facebook {
-        background-image: url("/assets/images/social/facebook.png");
+        background-image: url("/assets/images/social/facebook.webp");
         animation: socialAppear .2s ;
         background-size: 100%;
     }
     .twitter {
-        background-image: url("/assets/images/social/twitter.png");
+        background-image: url("/assets/images/social/twitter.webp");
         animation: socialAppear .4s ;
         background-size: 100%;
     }
     .viber {
-        background-color: #59267c;
-        animation: socialAppear .6s ;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        &__image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            overflow: hidden;
-        }
+        background-image: url("/assets/images/social/viber.webp");
+        animation: socialAppear .4s ;
+        background-size: 100%;
     }
 }
 

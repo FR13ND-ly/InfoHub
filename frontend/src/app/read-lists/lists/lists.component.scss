@@ -162,7 +162,7 @@
         height: .8rem;
         padding: .5rem 1rem;
         border-radius: 6px;
-        background-color: #ccc;
+        background-color: var(--loading-color);
         margin-bottom: 1rem;
         animation: loading 1.4s infinite alternate;
     }
@@ -174,7 +174,7 @@
     &__list-article {
         border-radius: 6px;
         height: 10rem;
-        background-color: #ccc;
+        background-color: var(--loading-color);
         animation: loading 1.4s infinite;
     }
 }
