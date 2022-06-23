@@ -23,7 +23,7 @@ export class UserViewComponent implements OnInit {
   }
 
   onCloseUserSideNav() {
-    this.store.dispatch(setUserSidenavState({state : true}))
+    this.store.dispatch(setUserSidenavState({state : false}))
   }
 
   onLogout() {

@@ -7,6 +7,7 @@
     [class.selected]="includes(image)"/>
 </div>
 <div class="actions">
+  <button mat-icon-button (click)="loadMore()" *ngIf="!noMoreImages"><mat-icon>file_download</mat-icon></button>
   <input type="file" (change)="onAddFile($event)" #file hidden>
   <button mat-stroked-button (click)="file.click()" color="accent">Încarcă imagine</button>
   <button

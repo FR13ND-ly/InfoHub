@@ -24,8 +24,8 @@
 @media only screen and (max-width: 600px) {
     .feature-articles {
         display: flex;
-        gap: .5rem;
         flex-direction: column;
+        gap: .7rem;
         app-articles-slider {
             width: 100%;
         }
@@ -33,7 +33,10 @@
             width: 100%;
         }
     }
-    .articles app-articles-list {
-        width: 100%;
+    .articles {
+        margin-top: .7rem;
+        app-articles-list {
+            width: 100%;
+        }
     }
 }

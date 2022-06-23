@@ -1,8 +1,6 @@
 <div class="article-backdrop" *ngFor="let article of articles" #articleRef>
     <div class="article mat-elevation-z4" [class.left]="left" routerLink="/articol/{{article.url}}">
-        <div class="article__image-wrapper">
-            <img class="article__image" [src]="article.imageUrl" load="lazy">
-        </div>
+        <img class="article__image" [src]="article.imageUrl" load="lazy">
         <div class="article__content-wrapper">
             <span class="article__title">{{ article.title }}</span>
             <p class="article__text hide-on-mob">{{ article.text | articlePreview : 45 }}</p>

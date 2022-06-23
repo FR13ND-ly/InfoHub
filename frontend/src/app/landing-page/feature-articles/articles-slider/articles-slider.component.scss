@@ -102,31 +102,19 @@
 }
 
 @media only screen and (max-width: 600px) {
+    
     .articles-slider {
         height: 30vh;
         &__title {
-            bottom: 15%;
-            left: 5%;
+            bottom: 1rem;
+            left: 1rem;
             font-size: 1.1rem;
-            font-weight: bold;
-            color: #fff; 
-            width: 80%;
-            line-height: normal;
+            width: 90%;
         }
     }
     .articles-slider {
         &__selectors {
-            display: flex;
-            position: absolute;
-            bottom: 1rem;
-            right: 1rem;
-            gap: .5rem;
-            z-index: 2;
-        }
-        &__selector {
-            width: 13px;
-            height: 13px;
-            border-radius: 50%;
+            display: none;
         }
     }
     .loading {

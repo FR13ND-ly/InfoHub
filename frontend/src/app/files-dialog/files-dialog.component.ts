@@ -13,7 +13,7 @@ export class FilesDialogComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data : FilesDialogData, private fileService : FilesService) { }
 
-  images! : Array<any>
+  images : Array<any> = []
 
   index: number = 1
   noMoreImages : boolean = true
@@ -24,7 +24,7 @@ export class FilesDialogComponent implements OnInit {
 
   getFiles() {
     this.fileService.getFiles(this.index).subscribe((res : any)=> {
-      this.images = res.files
+      this.images.push(...res.files)
       this.noMoreImages = res.noMoreFiles
     })
   }
@@ -43,6 +43,11 @@ export class FilesDialogComponent implements OnInit {
     })
   }
 
+  loadMore() {
+    this.index++
+    this.getFiles()
+  }
+
   onSelectImage(image : any) {
     if (this.includes(image)) this.removeImage(image) 
     else {
@@ -56,7 +61,10 @@ export class FilesDialogComponent implements OnInit {
     let formData = new FormData()
     formData.append('file', file, file.name)
     this.fileService.addFile(formData).subscribe(() => {
-      this.getFiles()
+      this.index = 1
+      this.fileService.getFiles(this.index).subscribe((res : any)=> {
+        this.images = res.files
+      })
     })
   }
 }

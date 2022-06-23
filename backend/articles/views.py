@@ -89,7 +89,7 @@ def getAditionalArticles(request, url):
             response.append({
                 "url": article.url,
                 "title": article.title,
-                "imageUrl": getFile(article.coverImage)
+                "imageUrl": getFile(article.coverImage, "/medium/")
             })
         else:
             aditionalArticle.delete()
@@ -110,7 +110,8 @@ def editArticle(request):
     article.hideLikes = data.get('hideLikes')
     article.restrictComments = data.get('restrictComments')
     article.tags = ",".join(data['tags']).replace('#', '').lower()
-    article.coverImage = data['coverImage']
+    if (article.coverImage != data['coverImage']):
+        article.coverImage = data['coverImage']
     article.coverImageDescription = data["coverImageDescription"]
     article.framework = False
     article.restrictComments = data.get('restrictComments', False)
@@ -153,7 +154,7 @@ def getArticles(request, index):
                 "hideDate": article.hideDate,
                 "date": formatDate(article.date),
             },
-            "imageUrl": getFile(article.coverImage)
+            "imageUrl": getFile(article.coverImage, "/small/")
         })
     response = {
         "articles": articles,
@@ -169,7 +170,7 @@ def getDrafts(request):
                 "url": article.url,
                 "title": article.title,
                 "text": article.text,
-                "imageUrl": getFile(article.coverImage)
+                "imageUrl": getFile(article.coverImage, "/medium/")
             })
         else:
             article.delete()
@@ -182,7 +183,7 @@ def getSlider(request):
         response.append({
             "url": article.url,
             "title": article.title,
-            "imageUrl": getFile(article.coverImage)
+            "imageUrl": getFile(article.coverImage, "/large/")
         })
     return JsonResponse(response, status=status.HTTP_200_OK, safe=False)
 
@@ -193,7 +194,7 @@ def getRightSideArticles(request):
         response.append({
             "url": article.url,
             "title": article.title,
-            "imageUrl": getFile(article.coverImage)
+            "imageUrl": getFile(article.coverImage, "/medium/")
         })
     return JsonResponse(response, status=status.HTTP_200_OK, safe=False)
 
@@ -203,7 +204,7 @@ def getCategoryArticles(request, tag):
         response.append({
             "url": article.url,
             "title": article.title,
-            "imageUrl": getFile(article.coverImage)
+            "imageUrl": getFile(article.coverImage, "/medium/")
         })
     return JsonResponse(response, status=status.HTTP_200_OK, safe=False)
 
