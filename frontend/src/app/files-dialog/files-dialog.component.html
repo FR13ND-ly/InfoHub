@@ -1,11 +1,12 @@
 <div class="images-wrapper">
   <img
     *ngFor="let image of images"
-    class="image"
+    class="image mat-elevation-z2"
     [src]="image.imageUrl"
     (click)="onSelectImage(image)"
     [class.selected]="includes(image)"/>
 </div>
+<mat-progress-bar mode="indeterminate" [style.opacity]="loading ? '100%' : '0'"></mat-progress-bar>
 <div class="actions">
   <button mat-icon-button (click)="loadMore()" *ngIf="!noMoreImages"><mat-icon>file_download</mat-icon></button>
   <input type="file" (change)="onAddFile($event)" #file hidden>
@@ -18,3 +19,4 @@
     Continuă
   </button>
 </div>
+

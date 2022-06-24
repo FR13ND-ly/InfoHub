@@ -24,6 +24,9 @@
 </div>
 <div class="list-articles" *ngIf="articles$ | async as articles else loadingArticles">
     <app-article [articles]="articles.articles" [left]="true" (onScrollToEnd)="onLoadMoreArticles(articles)"></app-article>
+    <div class="empty-list" *ngIf="!articles.length">
+        <h2>Lista e goală</h2>
+    </div>
 </div>
 <div class="list-info-mobile hide-on-large" *ngIf="listInfo$ | async as listInfo">
     <div class="list-info-mobile__data">

@@ -1,11 +1,13 @@
 :host {
     display: flex;
     width: 100%;
+    min-height: 10rem;
     max-height: 90vh;
     border-radius: 10px;
     overflow: hidden;
     position: relative;
     user-select: none;
+    background-color: var(--loading-color);
 }
 
 .image {

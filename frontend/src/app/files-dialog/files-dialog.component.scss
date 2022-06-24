@@ -25,6 +25,7 @@
     cursor: pointer;
     transition: .1s;
     border-radius: 3px;
+    background-color: var(--loading-color);
     &:hover {
         filter: brightness(.8);
     }

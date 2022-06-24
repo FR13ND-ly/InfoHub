@@ -30,7 +30,6 @@ import { StoreModule } from '@ngrx/store';
 import { loadingReducer } from './state/loading/loading.reducer';
 import { readProgressReducer } from './state/read-progress/read-progress.reducer';
 import { userSidenavOpenReducer } from './state/user-sidenav-open/user-sidenav-open.reducer';
-import { EffectsModule } from '@ngrx/effects';
 import { searchSidenavReducer } from './state/search-sidenav/search-sidenav.reducer';
 
 
@@ -70,7 +69,6 @@ import { searchSidenavReducer } from './state/search-sidenav/search-sidenav.redu
       userSidenavOpen : userSidenavOpenReducer,
       searchSidenav : searchSidenavReducer
     }),
-    EffectsModule.forRoot([])
   ],
   providers: [],
   bootstrap: [AppComponent]

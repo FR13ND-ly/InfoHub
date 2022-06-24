@@ -19,7 +19,6 @@ export class AppComponent implements OnInit {
   userSideNavOpen$: Observable<boolean> = this.store.select('userSidenavOpen')
 
   ngOnInit(): void {
-    this.searchSideNav$.subscribe((res) => console.log(res))
     this.userService.initiliaze();
   }
 

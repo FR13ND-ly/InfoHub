@@ -1,6 +1,6 @@
 <div class="articles" #articlesRef>
     <div (click)="onGoToArticle(article.url)" class="article mat-elevation-z4" *ngFor="let article of articles$ | async; let i = index" [style.animation-delay.s]="i * .1">
-        <img class="article__image" [src]="article.imageUrl">
+        <img class="article__image" [src]="article.imageUrl" loading="lazy">
         <span class="article__title">{{ article.title }}</span>
     </div>
 </div>

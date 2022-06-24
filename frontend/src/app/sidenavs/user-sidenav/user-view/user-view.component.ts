@@ -14,6 +14,8 @@ export class UserViewComponent implements OnInit {
     private store: Store<any>
   ) {}
 
+  loading : boolean = false
+
   user!: any;
 
   ngOnInit(): void {
@@ -46,6 +48,7 @@ export class UserViewComponent implements OnInit {
   }
 
   onSetUserImage(e: any) {
+    this.loading = true
     let file = e.target.files[0];
     let formData = new FormData();
     formData.append('file', file, file.name);
@@ -53,6 +56,6 @@ export class UserViewComponent implements OnInit {
       file: formData,
       token: this.user.uid,
     };
-    this.userService.setUserImage(data);
+    this.userService.setUserImage(data).subscribe(() => this.loading = false);
   }
 }

@@ -10,28 +10,28 @@
 <div class="articles" #articlesWrapper *ngIf="articles$ | async as articles else loading">
     <div class="left-side-articles">
         <div class="left-side-article mat-elevation-z4" routerLink="/articol/{{articles[0]?.url}}">
-            <img class="left-side-article__image" [src]="articles[0]?.imageUrl">
+            <img class="left-side-article__image" [src]="articles[0]?.imageUrl" loading="lazy">
             <span class="left-side-article__title">{{ articles[0]?.title }}</span>
         </div>
         <div class="left-side-article mat-elevation-z4" routerLink="/articol/{{articles[1]?.url}}">
-            <img class="left-side-article__image" [src]="articles[1]?.imageUrl">
+            <img class="left-side-article__image" [src]="articles[1]?.imageUrl" loading="lazy">
             <span class="left-side-article__title">{{ articles[1]?.title }}</span>
         </div>
     </div>
     <div class="right-side-articles">
         <div class="feature-article mat-elevation-z4" routerLink="/articol/{{articles[2]?.url}}">
-            <img class="feature-article__image" [src]="articles[2]?.imageUrl">
+            <img class="feature-article__image" [src]="articles[2]?.imageUrl" loading="lazy">
             <div class="feature-article__category" [attr.category]="selected"></div>
             <span class="feature-article__title">{{ articles[2]?.title }}</span>
         </div>
         <div class="right-side-small-articles">
             <div class="small-article mat-elevation-z4" routerLink="/articol/{{articles[3]?.url}}">
                 <span class="small-article__title">{{ articles[3]?.title }}</span>
-                <img class="small-article__image" [src]="articles[3]?.imageUrl">
+                <img class="small-article__image" [src]="articles[3]?.imageUrl" loading="lazy">
             </div>
             <div class="small-article mat-elevation-z4" routerLink="/articol/{{articles[4]?.url}}">
                 <span class="small-article__title">{{ articles[4]?.title }}</span>
-                <img class="small-article__image" [src]="articles[4]?.imageUrl">
+                <img class="small-article__image" [src]="articles[4]?.imageUrl" loading="lazy">
             </div>
         </div>
     </div>

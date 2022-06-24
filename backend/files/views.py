@@ -11,9 +11,10 @@ from django.core.files.base import ContentFile
 from PIL import Image
 import PIL
 from rest_framework import status
+import environ
 
-
-apiUrl = "http://localhost:8000"
+env = environ.Env()
+apiUrl = env('apiURL')
 
 
 def getFiles(request, index):

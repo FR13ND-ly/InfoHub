@@ -1,7 +1,7 @@
 <div class="user-data">
     <div class="user-data__wrapper">
         <input type="file" hidden #imageUploader (input)="onSetUserImage($event)">
-        <div class="user-data__image-wrapper change-avatar-btn" *ngIf="user?.allowChangeAvatar" (click)="imageUploader.click()">
+        <div class="user-data__image-wrapper change-avatar-btn" [class.loading]="loading" *ngIf="user?.allowChangeAvatar" (click)="imageUploader.click()">
             <mat-icon class="user-data__edit-image">edit</mat-icon>
             <img class="user-data__image" [src]="user?.imageUrl">
         </div>

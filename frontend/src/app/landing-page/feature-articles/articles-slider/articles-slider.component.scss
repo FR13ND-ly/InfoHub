@@ -1,19 +1,18 @@
 .articles-slider {
     border-radius: 6px;
     overflow: hidden;
-    height: 82vh;
+    height: 30vh;
     position: relative;
     width: 100%;
-    cursor: pointer;
     &__title {
         position: absolute;
         z-index: 2;
-        bottom: 10%;
-        left: 5%;
-        font-size: 2.6rem;
+        bottom: 1rem;
+        left: 1rem;
+        font-size: 1.1rem;
         font-weight: bold;
         color: #fff; 
-        width: 80%;
+        width: 90%;
         line-height: normal;
     }
     &__image-wrapper {
@@ -37,89 +36,80 @@
         height: 100%;
         object-fit: cover;
         overflow: hidden;
-        transition: .3s ease-in-out;
-    }
-    &__selectors {
-        display: flex;
-        position: absolute;
-        bottom: 2rem;
-        right: 2rem;
-        gap: .5rem;
-        z-index: 2;
-    }
-    &__selector {
-        width: 15px;
-        height: 15px;
-        border-radius: 50%;
-        background-color: #fff;
-        transition: .2s cubic-bezier(0, 0, 0.2, 1);
-        animation: jump .3s;
-        &:hover {
-            transform: scale(1.2);
-            filter: brightness(.5);   
-        }
-    }
-    
-    &:hover {
-        .articles-slider__title {
-            text-decoration: underline;
-        }
-        .articles-slider__image {
-            transform: scale(1.05);
-        }
-    }
-}
-
-.appear {
-    animation: appear .3s ease-in-out;
-}
-
-.selected {
-    background-color: var(--primary-color);
-}
-
-.loading {
-    &__slider {
-        border-radius: 6px;
-        overflow: hidden;
-        height: 82vh;
-        position: relative;
-        width: 100%;
         background-color: var(--loading-color);
-        animation: loading 1.4s infinite alternate;
     }
 }
 
-@keyframes jump {
-    0% {transform: translateY(0);}
-    50% {transform: translateY(-4px);}
-    100% {transform: translateY(0);}
+.loading__slider {
+    border-radius: 6px;
+    overflow: hidden;
+    height: 30vh;
+    position: relative;
+    width: 100%;
+    background-color: var(--loading-color);
+    animation: loading 1.4s infinite alternate;
 }
 
-@keyframes appear {
-    from { opacity: .7; }
-    to { opacity: 1; }
-}
-
-@media only screen and (max-width: 600px) {
-    
+@media only screen and (min-width: 601px) {
+    .appear {
+        animation: appear .3s ease-in-out;
+    }
     .articles-slider {
-        height: 30vh;
+        height: 82vh;
+        cursor: pointer;
         &__title {
-            bottom: 1rem;
-            left: 1rem;
-            font-size: 1.1rem;
-            width: 90%;
+            bottom: 10%;
+            left: 5%;
+            font-size: 2.6rem;
+            width: 80%;
         }
-    }
-    .articles-slider {
+        &__image {
+            transition: .3s ease-in-out;
+        }
         &__selectors {
-            display: none;
+            display: flex;
+            position: absolute;
+            bottom: 2rem;
+            right: 2rem;
+            gap: .5rem;
+            z-index: 2;
+        }
+        &__selector {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: #fff;
+            transition: .2s cubic-bezier(0, 0, 0.2, 1);
+            animation: jump .3s;
+            &:hover {
+                transform: scale(1.2);
+                filter: brightness(.5);   
+            }
+        }
+        
+        &:hover {
+            .articles-slider__title {
+                text-decoration: underline;
+            }
+            .articles-slider__image {
+                transform: scale(1.05);
+            }
         }
     }
-    .loading {
-        &__slider {
-            height: 30vh;
-        }
+    .selected {
+        background-color: var(--primary-color);
+    }
+    .loading__slider {
+        height: 82vh;
+    }
+    @keyframes jump {
+        0% {transform: translateY(0);}
+        50% {transform: translateY(-4px);}
+        100% {transform: translateY(0);}
+    }
+    
+    @keyframes appear {
+        from { opacity: .7; }
+        to { opacity: 1; }
     }
 }

@@ -184,6 +184,7 @@
     box-sizing: border-box;
     justify-content: space-between;
     z-index: 2;
+    color: #fff;
     @include mat.elevation(20);
     &__data {
         display: flex;

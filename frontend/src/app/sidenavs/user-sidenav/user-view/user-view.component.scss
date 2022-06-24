@@ -79,6 +79,16 @@
     }
 }
 
+.loading {
+    animation: loading 1s infinite;
+}
+
+@keyframes loading {
+    0% { outline-color: var(--primary-color); }
+    50% { outline-color: var(--primary-color-secondary); }
+    100% { outline-color: var(--primary-color); }
+}
+
 .change-avatar-btn {
     cursor: pointer;
     &:hover {

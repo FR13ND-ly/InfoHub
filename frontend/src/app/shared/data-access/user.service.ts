@@ -50,11 +50,13 @@ export class UserService {
   }
 
   setUserImage(data : any) {
-    this.http.post(`${this.APIUrl}set-user-image/${data.token}/`, data.file).subscribe(() => {
+    return new Observable((observer) => this.http.post(`${this.APIUrl}set-user-image/${data.token}/`, data.file).subscribe(() => {
       this.http.get(`${this.APIUrl}authorization/${this.auth.currentUser?.uid}/`).subscribe(res => {
         this.userUpdated.next({...this.auth.currentUser, ...res})
+        observer.next()
       })
     })
+    )
   }
 
   getUsers() {

@@ -2,9 +2,9 @@
     <app-articles-slider></app-articles-slider>
     <app-secondary-articles></app-secondary-articles>
 </div>
-<app-articles-by-category></app-articles-by-category>
-<app-editorial-articles></app-editorial-articles> 
+<app-articles-by-category *ngIf="!mobile"></app-articles-by-category>
+<app-editorial-articles *ngIf="!mobile"></app-editorial-articles> 
 <div class="articles">
     <app-articles-list></app-articles-list>
-    <app-right-sidebar></app-right-sidebar>
+    <app-right-sidebar *ngIf="!mobile"></app-right-sidebar>
 </div>

@@ -1,8 +1,8 @@
 <ng-container *ngIf="comments$ | async as comments">
     <h2 class="comments-count">{{ comments.length }} comentarii</h2>
     <ng-container *ngIf="user$ | async as user else notAuthenticated">
-        <form class="add-comment" #commentForm="ngForm" (submit)="onAddComment(commentForm, user, comments)" *ngIf="user.allowWriteComments">
-            <img class="add-comment__user-photo" [src]="user?.imageUrl"/>
+        <form class="add-comment" #commentForm="ngForm" (submit)="onAddComment(commentForm, user, comments)" *ngIf="user.allowWriteComments && !comments[0].restrictComments">
+            <img class="add-comment__user-photo" [src]="user?.imageUrl" loading="lazy"/>
             <mat-form-field appearance="standard" class="add-comment__input">
                 <input matInput ngModel name="text" #commentText placeholder="Adaugă un comentariu"/>
             </mat-form-field>
@@ -15,7 +15,7 @@
     <div class="comments">
         <div class="comment" *ngFor="let comment of comments; let i = index" [style.transition-delay]="i * .1" #commentRef>
             <button class="comment__delete-button" mat-icon-button *ngIf="(user$ | async)?.isStaff && comment.id" (click)="onDeleteComment(comment.id, i, comments)"><mat-icon>delete</mat-icon></button>
-            <img class="comment__user-photo" [src]="comment.photoUrl">
+            <img class="comment__user-photo" [src]="comment.photoUrl" loading="lazy">
             <div class="comment__content-wrapper">
                 <b class="comment__username">{{ comment.username }}<span class="comment__date">{{ comment.date }}</span></b>
                 <p class="comment__text">{{ comment.text }}</p>

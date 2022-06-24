@@ -17,6 +17,7 @@ export class FilesDialogComponent implements OnInit {
 
   index: number = 1
   noMoreImages : boolean = true
+  loading: boolean = true
 
   ngOnInit(): void {
     this.getFiles()
@@ -26,6 +27,7 @@ export class FilesDialogComponent implements OnInit {
     this.fileService.getFiles(this.index).subscribe((res : any)=> {
       this.images.push(...res.files)
       this.noMoreImages = res.noMoreFiles
+      this.loading = false
     })
   }
 
@@ -45,6 +47,7 @@ export class FilesDialogComponent implements OnInit {
 
   loadMore() {
     this.index++
+    this.loading = true
     this.getFiles()
   }
 
@@ -57,6 +60,7 @@ export class FilesDialogComponent implements OnInit {
   }
 
   onAddFile(e : any) {
+    this.loading = true
     let file = e.target.files[0]
     let formData = new FormData()
     formData.append('file', file, file.name)
@@ -64,6 +68,7 @@ export class FilesDialogComponent implements OnInit {
       this.index = 1
       this.fileService.getFiles(this.index).subscribe((res : any)=> {
         this.images = res.files
+        this.loading = false
       })
     })
   }

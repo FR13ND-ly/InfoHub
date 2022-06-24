@@ -14,9 +14,11 @@ export class ArticlesListComponent implements OnInit {
   articles : any[] = []
   index: number = 1
   noMoreArticles: boolean = true
+  primeLoading:boolean = true
 
   ngOnInit(): void {
     this.articleService.getArticles(this.index).subscribe((res : any)=> {
+      this.primeLoading = false
       this.articles.push(...res.articles)
       this.index++
       this.noMoreArticles = res.noMoreArticles
