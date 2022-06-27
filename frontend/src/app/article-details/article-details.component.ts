@@ -3,7 +3,7 @@ import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, QueryList, Vie
 import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { delay, filter, interval, Observable, skipWhile, switchMap, takeWhile, throttle } from 'rxjs';
+import { delay, filter, interval, Observable, skipWhile, switchMap, takeWhile, throttle, timer } from 'rxjs';
 import { ArticlesService } from '../shared/data-access/articles.service';
 import { addArticle, resetArticles, setArticle } from '../state/articles/articles.actions';
 import { setSearchSidenavOpen } from '../state/search-sidenav/search-sidenav.actions';
@@ -20,6 +20,7 @@ export class ArticleDetailsComponent implements OnInit, AfterViewInit, OnDestroy
   articles$ : Observable<string[]> = this.store.select('articles')
   loadArticles : boolean = true
   articles!: any
+  url!: string
 
   @ViewChildren('articles') articlesRef! : QueryList<ElementRef>
 
@@ -60,7 +61,7 @@ export class ArticleDetailsComponent implements OnInit, AfterViewInit, OnDestroy
     )
     .subscribe((data: any) => {
       this.loadArticles = false
-      this.store.dispatch(addArticle({ url : data.article }))
+      if (!this.articles.includes(data.article)) this.store.dispatch(addArticle({ url : data.article }))
     })
   }
 
@@ -68,6 +69,7 @@ export class ArticleDetailsComponent implements OnInit, AfterViewInit, OnDestroy
     articles.forEach((articleRef : IntersectionObserverEntry, i : number) => {
       if (articleRef.isIntersecting){
         this.setTitle(articleRef.target.id)
+        this.url = articleRef.target.id
       }
     })
   }

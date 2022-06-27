@@ -1,6 +1,6 @@
 <div class="articles-slider mat-elevation-z4 appear" #slider *ngIf="articles$ | async as articles else loading">
-    <span class="articles-slider__title" routerLink="/articol/{{ articles[selectedIndex]?.url }}">{{ articles[selectedIndex]?.title }}</span>
-    <div class="articles-slider__image-wrapper" routerLink="/articol/{{ articles[selectedIndex]?.url }}">
+    <span class="articles-slider__title focus" routerLink="/articol/{{ articles[selectedIndex]?.url }}">{{ articles[selectedIndex]?.title }}</span>
+    <div class="articles-slider__image-wrapper focus" routerLink="/articol/{{ articles[selectedIndex]?.url }}">
         <img class="articles-slider__image" [src]="articles[selectedIndex]?.imageUrl">
     </div>
     <div class="articles-slider__selectors" #selectorsWrapper>

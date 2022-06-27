@@ -32,7 +32,7 @@ $dark-theme: mat.define-dark-theme(
   --accent-color: teal;
   --text-color: #212121;
   --placeholder-color: #8e8e8e;
-  --red-color: #d50000;
+  --red-color: #f44336;
   --loading-color: hsl(0, 0%, 80%);
   --loading-color-secondary: hsl(0, 0%, 55%); 
   --select-text-color: hsl(210, 79%, 36%);
@@ -113,7 +113,7 @@ mat-sidenav-content {
 }
 
 .img-container {
-  transition: .2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: .4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .video-container {

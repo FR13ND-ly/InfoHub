@@ -19,15 +19,15 @@ export class ArticleComponent implements OnInit, OnDestroy {
     private articlesService: ArticlesService,
     private titleService: Title,
     private metaService: Meta,
-    private scrollDispatcher: ScrollDispatcher,
     private store: Store<any>
   ) {}
 
+  @Input() article!: string
   @Input() url! : string
   
   article$: Observable<any> = timer(0).pipe( 
     switchMap(() : Observable<any> => {
-      return this.articlesService.getArticle(this.url).pipe(
+      return this.articlesService.getArticle(this.article).pipe(
         delay(500),
         catchError(async (err) => {
           this.router.navigate(['/404']);

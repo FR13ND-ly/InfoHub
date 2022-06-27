@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { timer } from 'rxjs';
 
 @Component({
@@ -11,13 +11,14 @@ export class NavigatorComponent implements AfterViewInit {
   constructor() { }
 
   @ViewChild('articleText') text! : ElementRef<HTMLElement>
-
+  @Input() article! : string
   minimalize: boolean = false
   moments : any = [
   ]
   ngAfterViewInit(): void {
+    this.moments = []
     timer(0).subscribe(() => {
-      document.querySelectorAll('.text h1')?.forEach((element : any) => {
+      document.querySelectorAll(`#${this.article} .text h1`)?.forEach((element : any) => {
         this.moments.push({
           "content" : element.innerText,
           "element" : element

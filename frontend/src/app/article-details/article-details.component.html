@@ -1,5 +1,5 @@
 <div *ngFor="let article of articles$ | async as articles" #articles [id]="article">
-    <article-details-article [url]="article"></article-details-article>
+    <article-details-article [article]="article" [url]="url"></article-details-article>
     <app-survey [url]="article"></app-survey>
     <app-menu [url]="article"></app-menu>
     <div class="extra-content">

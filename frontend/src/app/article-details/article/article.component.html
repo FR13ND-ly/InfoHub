@@ -4,7 +4,7 @@
     <app-details [details]="article.details"></app-details>
     <app-cover-image [imageUrl]="article.imageUrl" [coverImageDescription]="article.coverImageDescription"></app-cover-image>
     <app-text [text]="article.text"></app-text>
-    <!-- <app-navigator></app-navigator> -->
+    <app-navigator *ngIf="url == article.url" [article]="article.url"></app-navigator>
 </article>
 <ng-template #loading>
     <div class="loading">

@@ -1,6 +1,5 @@
-<ng-container *ngIf="!details.hideViews || !details.hideDate">
-    <div class="divider"></div>
-    <div class="details-set" *ngIf="!details.hideDate"><mat-icon>access_time</mat-icon> {{ details.date }} </div> <div class="v-divider" *ngIf="!details.hideViews && !details.hideDate"></div>
-    <div class="details-set" *ngIf="!details.hideViews"><mat-icon>remove_red_eye</mat-icon> {{ details.views }}</div>
-    <div class="divider second"></div>
-</ng-container>
+<div class="divider"></div>
+<div class="details-set"><mat-icon>timer</mat-icon> {{ details.timeForRead | timeForRead }}</div>
+<div class="details-set" *ngIf="!details.hideDate"><mat-icon>access_time</mat-icon> {{ details.date }} </div>
+<div class="details-set" *ngIf="!details.hideViews"><mat-icon>remove_red_eye</mat-icon> {{ details.views }}</div>
+<div class="divider second"></div>
