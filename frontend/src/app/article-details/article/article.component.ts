@@ -3,7 +3,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { catchError, delay, filter, first, Observable, Subscription, switchMap, timer } from 'rxjs';
+import { catchError, delay, filter, first, Observable, Subscription, switchMap, tap, timer } from 'rxjs';
 import { ArticlesService } from 'src/app/shared/data-access/articles.service';
 import { setLoading } from 'src/app/state/loading/loading.actions';
 import { setReadProgress } from 'src/app/state/read-progress/read-progress.actions';
@@ -16,7 +16,6 @@ import { setReadProgress } from 'src/app/state/read-progress/read-progress.actio
 export class ArticleComponent implements OnInit, OnDestroy {
   constructor(
     private router : Router,
-    private route: ActivatedRoute,
     private articlesService: ArticlesService,
     private titleService: Title,
     private metaService: Meta,
@@ -24,17 +23,19 @@ export class ArticleComponent implements OnInit, OnDestroy {
     private store: Store<any>
   ) {}
 
-  article$: Observable<any> = this.route.paramMap.pipe(
-    delay(500),
-    switchMap((params: any) =>
-      this.articlesService.getArticle(params.params.url).pipe(
+  @Input() url! : string
+  
+  article$: Observable<any> = timer(0).pipe( 
+    switchMap(() : Observable<any> => {
+      return this.articlesService.getArticle(this.url).pipe(
+        delay(500),
         catchError(async (err) => {
-          this.router.navigate(['/404'])
-          this.store.dispatch(setLoading({state : false}))
+          this.router.navigate(['/404']);
+          this.store.dispatch(setLoading({ state: false }));
         })
-      )
-    ),
-  );
+      );
+    })
+  )
   scrollDispatcherSub!: Subscription
 
   ngOnInit(): void {

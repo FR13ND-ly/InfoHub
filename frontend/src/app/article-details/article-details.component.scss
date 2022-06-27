@@ -2,12 +2,21 @@
     display: flex;
     margin-top: 1rem;
     gap: 1rem;
+    align-items: flex-start;
     app-comments {
         width: 70%;
     }
     app-more-articles {
         width: 30%;
     }
+}
+
+.articles-divider {
+    background-color: var(--loading-color);
+    height: 5rem;
+    width: 142.7%;
+    margin: 3rem 0;
+    margin-left: -21.25%;
 }
 
 @media only screen and (max-width: 600px) {

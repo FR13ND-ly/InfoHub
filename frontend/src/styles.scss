@@ -176,6 +176,12 @@ app-surveys .mat-tab-labels :last-child.mat-tab-label {
 }
 
 @media only screen and (max-width: 600px) {
+  .zoom {
+    padding: 1rem;
+    img {
+      width: 90%;
+    }
+  }
   ::-webkit-scrollbar { 
     display: none; 
   }
@@ -230,6 +236,9 @@ app-surveys .mat-tab-labels :last-child.mat-tab-label {
 .files-dialog, .image-editor-dialog {
   max-height: 90vh;
   width: 60vw;
+  mat-dialog-container {
+    padding: 1rem;
+  }
 }
 
 mat-dialog-container {

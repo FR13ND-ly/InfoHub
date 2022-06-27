@@ -13,7 +13,15 @@ export class ArticleComponent implements AfterViewInit {
   @Input()
   left!: boolean
 
+  @Input()
+  icon!: string
+
+  @Input()
+  backdropColorWarn: boolean = false
+
   @Output() onScrollToEnd = new EventEmitter()
+
+  @Output() onAction = new EventEmitter()
 
   @ViewChildren('articleRef') articlesRef!: QueryList<ElementRef>;
 
@@ -41,5 +49,10 @@ export class ArticleComponent implements AfterViewInit {
         this.observer.unobserve(article.target)
       }
     })
+  }
+
+  onActionExec(article : any) {
+    article.opened = false
+    this.onAction.emit(article.url)
   }
 }

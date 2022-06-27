@@ -2,6 +2,7 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  Input,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -33,7 +34,7 @@ export class MenuComponent implements AfterViewInit, OnInit {
   @ViewChild('menuRef') menuRef!: ElementRef;
 
   user!: any;
-  url!: string;
+  @Input() url!: string;
   showAddListMenu: boolean = false;
 
   likesInfo$: Observable<any> = this.userService.getUserUpdateListener().pipe(
@@ -57,7 +58,6 @@ export class MenuComponent implements AfterViewInit, OnInit {
   showSocials: boolean = false;
 
   ngOnInit(): void {
-    this.route.params.subscribe((params: any) => (this.url = params.url));
     this.userService.getUserUpdateListener().subscribe((user) => {
       this.user = user;
       this.readListsService

@@ -46,4 +46,12 @@ export class ReadListsService {
   addView(data : any) {
     return this.http.post(`${this.APIUrl}add-view/`, data)
   }
+
+  readLater(data : any) {
+    return this.http.post(`${this.APIUrl}read-later/`, data)
+  }
+
+  removeItem(data : any) {
+    return this.http.post(`${this.APIUrl}remove-item/`, data)
+  }
 }

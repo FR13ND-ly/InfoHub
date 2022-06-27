@@ -2,13 +2,14 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  Input,
   OnInit,
   ViewChild,
 } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { map, Observable, switchMap } from 'rxjs';
+import { map, Observable, switchMap, tap, timer } from 'rxjs';
 import { ArticlesService } from 'src/app/shared/data-access/articles.service';
 import { UserService } from 'src/app/shared/data-access/user.service';
 import { setUserSidenavState } from 'src/app/state/user-sidenav-open/user-sidenav-open.actions';
@@ -28,17 +29,18 @@ export class SurveyComponent implements AfterViewInit {
     private store: Store<any>
   ) {}
 
+  @Input() url! : string
   surveyIndex = 0;
   user!: any;
 
-  surveys$: Observable<any> = this.route.params.pipe(
-    switchMap((params: any) =>
+  surveys$: Observable<any> = timer(0).pipe(
+    switchMap(() =>
       this.userService.getUserUpdateListener().pipe(
-        map((user) => (this.user = user)),
+        tap((user) => this.user = user),
         switchMap((user) =>
           this.articlesService.getSurvey({
             user: user?.uid,
-            url: params.url,
+            url: this.url,
           })
         )
       )

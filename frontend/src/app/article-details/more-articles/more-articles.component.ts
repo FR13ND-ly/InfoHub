@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, switchMap, timer } from 'rxjs';
 import { ArticlesService } from 'src/app/shared/data-access/articles.service';
@@ -13,6 +13,7 @@ export class MoreArticlesComponent implements AfterViewInit {
   constructor(private route : ActivatedRoute, private articlesService : ArticlesService, private router : Router) { }
 
   @ViewChild('articlesRef') articlesRef! : ElementRef
+  @Input() url! : string
 
   articles$ : Observable<any> =  this.route.params.pipe(
     switchMap((params : any) => this.articlesService.getAditionalArticles(params.url))

@@ -23,10 +23,7 @@
     </mat-menu>
 </div>
 <div class="list-articles" *ngIf="articles$ | async as articles else loadingArticles">
-    <app-article [articles]="articles.articles" [left]="true" (onScrollToEnd)="onLoadMoreArticles(articles)"></app-article>
-    <div class="empty-list" *ngIf="!articles.length">
-        <h2>Lista e goală</h2>
-    </div>
+    <app-article [articles]="articles.articles" (onAction)="onRemoveItem($event)" [backdropColorWarn]="id > 0" [icon]="id > 0 ? 'delete' : ''" [left]="true" (onScrollToEnd)="onLoadMoreArticles(articles)"></app-article>
 </div>
 <div class="list-info-mobile hide-on-large" *ngIf="listInfo$ | async as listInfo">
     <div class="list-info-mobile__data">

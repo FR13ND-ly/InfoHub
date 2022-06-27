@@ -2,13 +2,14 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  Input,
   OnInit,
   QueryList,
   ViewChildren,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { first, Observable, switchMap } from 'rxjs';
+import { first, Observable, switchMap, timer } from 'rxjs';
 import { UserService } from 'src/app/shared/data-access/user.service';
 import { setUserSidenavState } from 'src/app/state/user-sidenav-open/user-sidenav-open.actions';
 import { CommentsService } from './data-access/comments.service';
@@ -22,27 +23,22 @@ export class CommentsComponent implements OnInit, AfterViewInit {
   constructor(
     private commentsService: CommentsService,
     private userService: UserService,
-    private route: ActivatedRoute,
     private store: Store<any>
   ) {}
 
+  @Input() url! : string
+
   @ViewChildren('commentRef') commentsRef!: QueryList<ElementRef>;
 
-  comments$: Observable<any> = this.route.params.pipe(
-    first((params: any) => (this.url = params.url)),
-    switchMap((params: any) => this.commentsService.getComments(params.url))
-  );
-
+  comments$: Observable<any> = timer(0).pipe(
+    switchMap(() => this.commentsService.getComments(this.url))
+  )
   user$: Observable<any> = this.userService.getUserUpdateListener();
-  url!: string;
   observer = new IntersectionObserver((comments) => {
     this.observeArticles(comments);
   });
 
-  ngOnInit(): void {}
-
-  getComments() {
-    this.comments$ = this.commentsService.getComments(this.url);
+  ngOnInit(): void {
   }
 
   ngAfterViewInit() {

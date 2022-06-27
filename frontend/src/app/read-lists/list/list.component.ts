@@ -9,6 +9,7 @@ import {
   map,
   Observable,
   switchMap,
+  tap,
 } from 'rxjs';
 import { UserService } from 'src/app/shared/data-access/user.service';
 import { setLoading } from 'src/app/state/loading/loading.actions';
@@ -80,7 +81,7 @@ export class ListComponent implements OnInit {
   articles$: Observable<any> = this.userService.getUserUpdateListener().pipe(
     delay(500),
     filter((user: any) => user),
-    map((user) => (this.user = user)),
+    tap((user) => (this.user = user)),
     switchMap((user) =>
       this.readListService.getReadListArticles({
         id:
@@ -147,5 +148,12 @@ export class ListComponent implements OnInit {
         articles.articles.push(...res.articles);
         articles.noMoreArticles = res.noMoreArticles;
       });
+  }
+
+  onRemoveItem(article : any) {
+    this.readListService.removeItem({
+      article,
+      list : this.route.snapshot.paramMap.get('url')
+    }).subscribe()
   }
 }

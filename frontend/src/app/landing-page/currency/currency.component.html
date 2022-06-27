@@ -1,0 +1,18 @@
+<h1 class="currencies__title">Curs valutar</h1>
+<div
+  class="currencies"
+  *ngIf="{
+    currency: currency$ | async,
+    previous: previousCurrency$ | async
+  } as vm">
+    <section class="currency" *ngFor="let currency of currencies">
+        <div>
+            1 <b>{{ currency.outputName }}</b> -
+            {{ 1 / vm.currency?.rates[currency.name] | number }} lei
+        </div>
+        <div class="currency__fluct" *ngIf="(1 / vm.currency?.rates[currency.name] - 1 / vm.previous?.rates[currency.name] | number )as fluct">
+            {{ fluct }}
+            <mat-icon>arrow_circle_{{ fluct > "0" ? "up" : "down" }}</mat-icon>
+        </div>
+    </section>
+</div>

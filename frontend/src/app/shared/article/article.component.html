@@ -1,18 +1,47 @@
-<div class="article-backdrop" *ngFor="let article of articles" #articleRef>
-    <div class="article mat-elevation-z4" [class.left]="left" routerLink="/articol/{{article.url}}">
-        <img class="article__image" [src]="article.imageUrl" load="lazy">
-        <div class="article__content-wrapper">
-            <span class="article__title">{{ article.title }}</span>
-            <p class="article__text hide-on-mob">{{ article.text | articlePreview : 45 }}</p>
-            <p class="article__text hide-on-large">{{ article.text | articlePreview : 25 }}</p>
-            <div *ngIf="article.details">
-                <div class="divider"></div>
-                <div class="article__details" *ngIf="!article.details.hideDate || !article.details.hideViews">
-                    <div class="article__details-set" *ngIf="!article.details.hideDate"><mat-icon>access_time</mat-icon> {{ article.details.date }}</div>
-                    <ng-container *ngIf="!article.details.hideDate && !article.details.hideViews">|</ng-container>
-                    <div class="article__details-set" *ngIf="!article.details.hideViews"><mat-icon>remove_red_eye</mat-icon> {{ article.details.views }}</div>
-                </div>
+<div
+  class="article-backdrop"
+  [class.opened]="article.opened"
+  [class.article-backdrop--warn]="backdropColorWarn"
+  [class.left]="left"
+  *ngFor="let article of articles"
+  #articleRef
+>
+  <button mat-icon-button class="article-backdrop__action" *ngIf="icon" (click)="onActionExec(article)">
+    <mat-icon>{{ icon }}</mat-icon>
+  </button>
+  <div class="article mat-elevation-z4">
+    <img class="article__image" [src]="article.imageUrl" load="lazy" routerLink="/articol/{{ article.url }}"/>
+    <div class="article__content-wrapper">
+      <button class="article__more-action" *ngIf="icon" mat-icon-button (click)="article.opened = !article.opened">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <div routerLink="/articol/{{ article.url }}">
+        <span class="article__title">{{ article.title }}</span>
+        <p class="article__text hide-on-mob">
+            {{ article.text | articlePreview: 45 }}
+        </p>
+        <p class="article__text hide-on-large">
+            {{ article.text | articlePreview: 25 }}
+        </p>
+        <div *ngIf="article.details">
+            <div class="divider"></div>
+            <div
+            class="article__details"
+            *ngIf="!article.details.hideDate || !article.details.hideViews"
+            >
+            <div class="article__details-set" *ngIf="!article.details.hideDate">
+                <mat-icon>access_time</mat-icon> {{ article.details.date }}
+            </div>
+            <ng-container
+                *ngIf="!article.details.hideDate && !article.details.hideViews"
+                >|</ng-container
+            >
+            <div class="article__details-set" *ngIf="!article.details.hideViews">
+                <mat-icon>remove_red_eye</mat-icon> {{ article.details.views }}
+            </div>
             </div>
         </div>
+        </div>
     </div>
+  </div>
 </div>

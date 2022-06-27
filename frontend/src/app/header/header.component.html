@@ -6,5 +6,4 @@
         <button class="search-search-sidenav" mat-icon-button (click)="onOpenSearchSidenav()"><mat-icon>search</mat-icon></button>
     </div>
     <mat-progress-bar class="loader" mode="indeterminate" *ngIf="loading$ | async"></mat-progress-bar>
-    <mat-progress-bar class="loader" mode="determinate" [value]="progress" *ngIf="progress$ | async as progress"></mat-progress-bar>
 </header>

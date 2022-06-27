@@ -31,6 +31,8 @@ import { loadingReducer } from './state/loading/loading.reducer';
 import { readProgressReducer } from './state/read-progress/read-progress.reducer';
 import { userSidenavOpenReducer } from './state/user-sidenav-open/user-sidenav-open.reducer';
 import { searchSidenavReducer } from './state/search-sidenav/search-sidenav.reducer';
+import { CurrencyComponent } from './landing-page/currency/currency.component';
+import { articlesReducer } from './state/articles/articles.reducer';
 
 
 @NgModule({
@@ -54,6 +56,7 @@ import { searchSidenavReducer } from './state/search-sidenav/search-sidenav.redu
     UserViewComponent,
     SearchSidenavComponent,
     WeatherComponent,
+    CurrencyComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,7 +70,8 @@ import { searchSidenavReducer } from './state/search-sidenav/search-sidenav.redu
       loading : loadingReducer,
       readProgress : readProgressReducer,
       userSidenavOpen : userSidenavOpenReducer,
-      searchSidenav : searchSidenavReducer
+      searchSidenav : searchSidenavReducer,
+      articles : articlesReducer,
     }),
   ],
   providers: [],

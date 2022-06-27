@@ -11,7 +11,7 @@
     gap: 1rem;
     overflow: scroll;
     height: 70vh;
-    padding: 2%;
+    padding: .5rem 0;
     box-sizing: border-box;
     background-color: var(--background-color-2);
 }
@@ -23,7 +23,7 @@
     overflow: hidden;
     box-sizing: border-box;
     cursor: pointer;
-    transition: .1s;
+    transition: .2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     border-radius: 3px;
     background-color: var(--loading-color);
     &:hover {
@@ -32,6 +32,7 @@
 }
 
 .selected {
+    transform: scale(.95);
     border: 5px solid var(--primary-color);
 }
 

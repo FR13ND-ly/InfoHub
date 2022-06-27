@@ -25,7 +25,7 @@ export class WeatherService {
 
   getWeather(loc : string) {
     if (environment.production) {
-      return this.http.get(`https://api.weatherapi.com/v1/current.json?key=143babf1649a4a7a83572528222206&q=${loc}&aqi=no`)
+      return this.http.get(`https://api.weatherapi.com/v1/current.json?key=143babf1649a4a7a83572528222206&lang=ro&q=${loc}&aqi=no`)
     }
     else {
       return of({

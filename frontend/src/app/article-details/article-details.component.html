@@ -1,7 +1,10 @@
-<article-details-article></article-details-article>
-<app-survey></app-survey>
-<app-menu></app-menu>
-<div class="extra-content">
-    <app-comments></app-comments>
-    <app-more-articles></app-more-articles>
+<div *ngFor="let article of articles$ | async as articles" #articles>
+    <article-details-article [url]="article"></article-details-article>
+    <app-survey [url]="article"></app-survey>
+    <app-menu [url]="article"></app-menu>
+    <div class="extra-content">
+        <app-comments [url]="article"></app-comments>
+        <app-more-articles [url]="article"></app-more-articles>
+    </div>
+    <div class="articles-divider"></div>
 </div>
