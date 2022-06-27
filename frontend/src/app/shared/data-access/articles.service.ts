@@ -63,4 +63,8 @@ export class ArticlesService {
   deleteArticle(url : string) {
     return this.http.delete(`${this.APIUrl}delete/${url}/`)
   }
+
+  getNextArticle(data : any) {
+    return this.http.post(`${this.APIUrl}next-article/`, data)
+  }
 }
