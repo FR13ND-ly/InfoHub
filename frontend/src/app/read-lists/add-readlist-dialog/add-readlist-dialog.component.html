@@ -1,0 +1,12 @@
+ <form #addListForm="ngForm" (submit)="onAddList(addListForm)">
+    <mat-form-field appearance="outline">
+        <mat-label>Introdu numele readlist-ului</mat-label>
+        <input matInput ngModel name="name" required=""/>
+    </mat-form-field>
+    <div class="buttons-wrapper">
+        <mat-slide-toggle [ngModel]="false" name="access"
+        >Public</mat-slide-toggle
+        >
+        <button color="primary" mat-flat-button>+</button>
+    </div>
+</form>

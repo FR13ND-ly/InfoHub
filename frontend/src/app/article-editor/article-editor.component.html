@@ -33,7 +33,7 @@
                     </button>
                     <input matInput [(ngModel)]="article.aditionalArticles[i]">
                   </mat-form-field>
-                <button mat-stroked-button color="accent" (click)="article.aditionalArticles.push('')">+</button>
+                <button mat-stroked-button color="accent" *ngIf="article.aditionalArticles.length < 3" (click)="article.aditionalArticles.push('')">+</button>
             </div>
         </div>
     </div>

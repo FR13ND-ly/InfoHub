@@ -35,6 +35,8 @@ $dark-theme: mat.define-dark-theme(
   --red-color: #d50000;
   --loading-color: hsl(0, 0%, 80%);
   --loading-color-secondary: hsl(0, 0%, 55%); 
+  --select-text-color: hsl(210, 79%, 36%);
+  --select-background-color: hsl(210, 79%, 76%);
 }
 
 .dark-theme {
@@ -53,8 +55,12 @@ body {
 }
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  
+  font-family: Roboto, "Helvetica Neue", sans-serif; 
+}
+
+::selection {
+  color: var(--select-text-color);
+  background: var(--select-background-color);
 }
 
 mat-sidenav-content {

@@ -11,6 +11,7 @@
                 <p class="comment__text">{{ comment.text }}</p>
             </div>
         </div>
+        <h5 *ngIf="!comments.length">Fii primul care scrie un comentariu</h5>
     </div>
     <ng-container *ngIf="user$ | async as user">
         <form class="add-comment-form" #commentForm="ngForm" (submit)="onAddComment(commentForm, user, comments)" *ngIf="user.allowWriteComments && !comments[0]?.restrictComments">

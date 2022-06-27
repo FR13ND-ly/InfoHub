@@ -6,7 +6,7 @@
     previous: previousCurrency$ | async
   } as vm">
     <section class="currency" *ngFor="let currency of currencies">
-        <div>
+        <div class="currency__main">
             1 <b>{{ currency.outputName }}</b> -
             {{ 1 / vm.currency?.rates[currency.name] | number }} lei
         </div>

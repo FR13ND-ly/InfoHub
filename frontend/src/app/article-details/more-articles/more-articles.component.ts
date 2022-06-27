@@ -1,7 +1,9 @@
 import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Observable, switchMap, timer } from 'rxjs';
 import { ArticlesService } from 'src/app/shared/data-access/articles.service';
+import { setArticle } from 'src/app/state/articles/articles.actions';
 
 @Component({
   selector: 'app-more-articles',
@@ -10,30 +12,31 @@ import { ArticlesService } from 'src/app/shared/data-access/articles.service';
 })
 export class MoreArticlesComponent implements AfterViewInit {
 
-  constructor(private route : ActivatedRoute, private articlesService : ArticlesService, private router : Router) { }
+  constructor(private route: ActivatedRoute, private articlesService: ArticlesService, private router: Router, private store: Store) { }
 
-  @ViewChild('articlesRef') articlesRef! : ElementRef
-  @Input() url! : string
+  @ViewChild('articlesRef') articlesRef!: ElementRef
+  @Input() url!: string
 
-  articles$ : Observable<any> =  this.route.params.pipe(
-    switchMap((params : any) => this.articlesService.getAditionalArticles(params.url))
+  articles$: Observable<any> = this.route.params.pipe(
+    switchMap((params: any) => this.articlesService.getAditionalArticles(params.url))
   )
 
   ngAfterViewInit(): void {
     let observer = new IntersectionObserver((entries) => {
-      entries.forEach((surveyEntry : IntersectionObserverEntry) => {
+      entries.forEach((surveyEntry: IntersectionObserverEntry) => {
         if (surveyEntry.isIntersecting) {
           surveyEntry.target.classList.add('show')
           observer.unobserve(surveyEntry.target)
         }
       })
-    }, {threshold : .2})
+    }, { threshold: .2 })
     observer.observe(this.articlesRef.nativeElement)
   }
 
-  onGoToArticle(url : any) {
-    this.router.navigate(['/articol', url]).then(() => {
-      document.querySelector('mat-sidenav-content')?.scrollTo({top: 0, behavior: 'smooth'})
+  onGoToArticle(url: any) {
+    timer(200).subscribe(() => {
+      this.store.dispatch(setArticle({ url }))
+      document.querySelector('mat-sidenav-content')?.scrollTo({ top: 0, behavior: 'smooth' })
     })
   }
 

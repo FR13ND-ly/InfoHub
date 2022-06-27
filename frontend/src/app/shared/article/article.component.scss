@@ -17,6 +17,7 @@
         overflow: hidden;
         height: auto;
         object-fit: cover;
+        user-select: none;
     }
     &__content-wrapper {
         width: 100%;

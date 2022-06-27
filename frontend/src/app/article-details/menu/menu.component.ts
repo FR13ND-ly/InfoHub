@@ -41,7 +41,7 @@ export class MenuComponent implements AfterViewInit, OnInit {
     switchMap((user) =>
       this.likesService.getLikes({
         user: user?.uid,
-        article: this.route.snapshot.paramMap.get('url'),
+        article: this.url,
       })
     )
   );
@@ -51,7 +51,7 @@ export class MenuComponent implements AfterViewInit, OnInit {
     switchMap((user) =>
       this.readListsService.getLightReadLists({
         user: user.uid,
-        article: this.route.snapshot.paramMap.get('url'),
+        article: this.url,
       })
     )
   );
@@ -123,7 +123,7 @@ export class MenuComponent implements AfterViewInit, OnInit {
       switchMap((user) =>
         this.readListsService.getLightReadLists({
           user: user.uid,
-          article: this.route.snapshot.paramMap.get('url'),
+          article: this.url,
         })
       )
     );

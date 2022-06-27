@@ -27,15 +27,14 @@
             <div class="divider"></div>
             <div
             class="article__details"
-            *ngIf="!article.details.hideDate || !article.details.hideViews"
+            *ngIf="article.details"
             >
+            <div class="article__details-set">
+              <mat-icon>timer</mat-icon> {{ article.details.timeForRead | timeForRead }}
+            </div>
             <div class="article__details-set" *ngIf="!article.details.hideDate">
                 <mat-icon>access_time</mat-icon> {{ article.details.date }}
             </div>
-            <ng-container
-                *ngIf="!article.details.hideDate && !article.details.hideViews"
-                >|</ng-container
-            >
             <div class="article__details-set" *ngIf="!article.details.hideViews">
                 <mat-icon>remove_red_eye</mat-icon> {{ article.details.views }}
             </div>

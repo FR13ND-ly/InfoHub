@@ -4,6 +4,7 @@ import { ArticleComponent } from './article.component'
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from 'src/app/material.module';
 import { ArticlePreviewModule } from '../article-preview/article-preview.module';
+import { TimeForReadModule } from '../data-access/time-for-read/time-for-read.module';
 
 
 
@@ -13,7 +14,8 @@ import { ArticlePreviewModule } from '../article-preview/article-preview.module'
     CommonModule,
     MaterialModule,
     RouterModule,
-    ArticlePreviewModule
+    ArticlePreviewModule,
+    TimeForReadModule
   ],
   exports: [
     ArticleComponent,

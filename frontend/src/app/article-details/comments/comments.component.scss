@@ -32,37 +32,6 @@
         margin-right: .5rem;
     }
 }
-
-.add-comment {
-    display: flex;
-    width: 100%;
-    align-items: center;
-    gap: .6rem;
-    margin-top: -.8rem;
-    margin-bottom: 1.5rem;
-    position: relative;
-    
-    &__user-photo {
-        flex-shrink: 0;
-        background-color: #ccc;
-        height: 45px;
-        width: 45px;
-        overflow: hidden;
-        object-fit: cover;
-        border-radius: 50%;
-        user-select: none;
-    }
-    &__input {
-        border: 0;
-        width: 100%;
-        margin-top: -2%;
-    }
-    &__button {
-        position: absolute;
-        bottom: -1.5rem;
-        right: 0;
-    }
-}
 .comments {
     display: flex;
     flex-direction: column-reverse;
@@ -81,12 +50,13 @@
     position: relative;
     &__user-photo {
         flex-shrink: 0;
-        width: 45px;
-        height: 45px;
+        width: 40px;
+        height: 40px;
         background-color: #ccc;
         object-fit: cover;
         overflow: hidden;
         border-radius: 50%;
+        user-select: none;
     }
     &__content-wrapper {
         width: 100%;

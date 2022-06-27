@@ -43,29 +43,11 @@ export class ArticleComponent implements OnInit, OnDestroy {
     this.article$.subscribe((article: any) => {
       this.setMeta(article);
       this.store.dispatch(setLoading({state : false}))
-      let articleSize = (<HTMLElement>document.querySelector('article-details-article'))?.offsetHeight
-      if (articleSize > 1000) {
-        timer(0).subscribe(() => {
-          this.scrollDispatcherSub = this.scrollDispatcher.scrolled().pipe(
-            filter((cdk : any) => !cdk.dir)
-          )
-          .subscribe((cdk: any) => {
-            let scrollTop = cdk.getElementRef().nativeElement.scrollTop;
-            this.store.dispatch(setReadProgress(
-              {state : scrollTop / articleSize * 100}))
-          });
-        })
-      }
     });
     
   }
 
   setMeta(article: any) {
-    this.titleService.setTitle(
-      article?.title.replace(/(^\w{1})|(\s+\w{1})/g, (letter: any) =>
-        letter.toUpperCase()
-      ) + ' |  InfoHub'
-    );
     let description = article.text.replace(/<[^>]+>/gm, '');
     description =
       description.split(' ').length < 25

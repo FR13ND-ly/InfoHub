@@ -150,7 +150,12 @@ export class ListComponent implements OnInit {
       });
   }
 
-  onRemoveItem(article : any) {
+  onRemoveItem(article : any, articles : any) {
+    articles.forEach((articleEl : any, i : number) => {
+      if (articleEl.url == article) {
+        articles.splice(1, i)
+      }
+    })
     this.readListService.removeItem({
       article,
       list : this.route.snapshot.paramMap.get('url')
