@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { delay, Observable, switchMap } from 'rxjs';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { ArticlesService } from '../shared/data-access/articles.service';
 import { setLoading } from '../state/loading/loading.actions';
 
@@ -15,7 +18,9 @@ export class ArticleEditorComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private articleService: ArticlesService,
-    private store: Store<{ loading: boolean }>
+    private store: Store<{ loading: boolean }>,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar
   ) {}
 
   article$: Observable<any> = this.route.paramMap.pipe(
@@ -31,6 +36,18 @@ export class ArticleEditorComponent implements OnInit {
   }
 
   onPublish(article: any) {
+    if (!article.title.trim()) {
+      this.snackBar.open("Titlul este obligatoriu", "", {duration: 3000});
+      return
+    }
+    if (!article.text.trim()) {
+      this.snackBar.open("Text-ul este obligatoriu", "", {duration: 3000});
+      return
+    }
+    if (!article.image) {
+      this.snackBar.open("Imaginea de copertă e obligatorie", "", {duration: 3000});
+      return
+    }
     this.store.dispatch(setLoading({state : true}))
     let textEditor = document.getElementById('text-editor')
     let articleToPush : any = {...article}
@@ -45,7 +62,11 @@ export class ArticleEditorComponent implements OnInit {
   }
 
   onDelete(url: any) {
-    if (!confirm("Sunteți sigur?")) return
-    this.articleService.deleteArticle(url).subscribe(() => this.router.navigate(['/']))
+    let confirmDialog = this.dialog.open(ConfirmDialogComponent);
+    confirmDialog.afterClosed().subscribe((res) => {
+      if (res) {
+        this.articleService.deleteArticle(url).subscribe(() => this.router.navigate(['/']))
+      }
+    })
   }
 }

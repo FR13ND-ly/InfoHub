@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signOut, signInWithRedirect } from "firebase/auth";
+import { BehaviorSubject, fromEvent, Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -18,8 +18,8 @@ export class UserService {
   private auth = getAuth()
 
   login() {
-    signInWithPopup(this.auth, this.provider)
-    .then((result) => {
+    signInWithRedirect(this.auth, this.provider)
+    .then((result : any) => {
       this.http.post(this.APIUrl + 'login/', result.user).subscribe((res) => {
         if (result.user) this.userUpdated.next({...result.user, ...res})
         else this.userUpdated.next(false)
@@ -46,7 +46,7 @@ export class UserService {
 
   logout() {
     signOut(this.auth)
-    this.userUpdated.next(null)
+    this.userUpdated.next(false)
   }
 
   setUserImage(data : any) {

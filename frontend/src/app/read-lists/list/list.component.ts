@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import {
@@ -11,6 +12,7 @@ import {
   switchMap,
   tap,
 } from 'rxjs';
+import { ConfirmDialogComponent } from 'src/app/confirm-dialog/confirm-dialog.component';
 import { UserService } from 'src/app/shared/data-access/user.service';
 import { setLoading } from 'src/app/state/loading/loading.actions';
 import { ReadListsService } from '../read-lists.service';
@@ -26,7 +28,8 @@ export class ListComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private userService: UserService,
-    private store: Store<{ loading: boolean }>
+    private store: Store<{ loading: boolean }>,
+    private dialog: MatDialog
   ) {}
 
   id!: any;
@@ -119,9 +122,13 @@ export class ListComponent implements OnInit {
   }
 
   onDelete() {
-    if (!confirm('Ești sigur?')) return
-    this.readListService.deleteReadList(this.id).subscribe(() => {
-      this.router.navigate(['/readlist'])
+    let confirmDialog = this.dialog.open(ConfirmDialogComponent);
+    confirmDialog.afterClosed().subscribe((res) => {
+      if (res) {
+        this.readListService.deleteReadList(this.id).subscribe(() => {
+          this.router.navigate(['/readlist'])
+        })
+      }
     })
   }
 

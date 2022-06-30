@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthenticatedGuard } from './guards/authenticated.guard';
-import { AuthorizedGuard } from './guards/authorized.guard';
-import { DesktopGuard } from './guards/desktop.guard';
+import { AuthenticatedGuard } from './core/guards/authenticated.guard';
+import { AuthorizedGuard } from './core/guards/authorized.guard';
+import { DesktopGuard } from './core/guards/desktop.guard';
+import { DirtyArticleGuard } from './core/guards/dirty-article.guard';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 
 const routes: Routes = [
@@ -13,7 +14,8 @@ const routes: Routes = [
       import('./article-editor/article-editor.module').then(
         (m) => m.ArticleEditorModule
       ),
-    canActivate: [AuthorizedGuard, DesktopGuard]
+    canActivate: [AuthorizedGuard, DesktopGuard],
+    canDeactivate: [DirtyArticleGuard]
   },
   {
     path: 'articol/:url',

@@ -3,7 +3,7 @@ import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, QueryList, Vie
 import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { delay, filter, interval, Observable, skipWhile, switchMap, takeWhile, throttle, timer } from 'rxjs';
+import { debounce, debounceTime, delay, filter, interval, Observable, skipWhile, switchMap, takeWhile, throttle, timer } from 'rxjs';
 import { ArticlesService } from '../shared/data-access/articles.service';
 import { addArticle, resetArticles, setArticle } from '../state/articles/articles.actions';
 import { setSearchSidenavOpen } from '../state/search-sidenav/search-sidenav.actions';
@@ -47,10 +47,9 @@ export class ArticleDetailsComponent implements OnInit, AfterViewInit, OnDestroy
       this.loadArticles = true
     })
     this.scrollDispatcher.scrolled().pipe(
-      delay(500),
       filter((cdk : any) => {
         let element = cdk.getElementRef().nativeElement
-        return element.offsetHeight + element.scrollTop >= element.scrollHeight - 400 && this.loadArticles
+        return element.offsetHeight + element.scrollTop >= element.scrollHeight - 1000 && this.loadArticles
       }),
       switchMap(() => this.articlesService.getNextArticle(this.articles).pipe(
         takeWhile((res : any) => {

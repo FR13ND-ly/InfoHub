@@ -37,6 +37,7 @@ mat-icon {
 
 @media only screen and (min-width: 601px) {
     :host {
+        min-height: 20rem;
         opacity: 0;
         animation: tie-slide-in-up .5s .3s ease-in-out forwards;
     }

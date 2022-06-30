@@ -1,4 +1,4 @@
-<div class="categories mat-elevation-z6">
+<div class="categories mat-elevation-z6" *ngIf="selectedCategory$ | async as selected">
     <span class="category" (click)="onSelectCategory('economic')" [class.selected-category]="selected == 'economic'">Economic</span>
     <span class="category" (click)="onSelectCategory('tehnologii')" [class.selected-category]="selected == 'tehnologii'">Tehnologii</span>
     <span class="category" (click)="onSelectCategory('politic')" [class.selected-category]="selected == 'politic'">Politic</span>
@@ -21,7 +21,7 @@
     <div class="right-side-articles">
         <div class="feature-article mat-elevation-z4" routerLink="/articol/{{articles[2]?.url}}">
             <img class="feature-article__image" [src]="articles[2]?.imageUrl" loading="lazy">
-            <div class="feature-article__category" [attr.category]="selected"></div>
+            <div class="feature-article__category" [attr.category]="selectedCategory$ | async"></div>
             <span class="feature-article__title">{{ articles[2]?.title }}</span>
         </div>
         <div class="right-side-small-articles">

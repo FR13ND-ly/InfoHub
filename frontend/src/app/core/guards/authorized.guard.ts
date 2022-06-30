@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { filter, map, Observable } from 'rxjs';
-import { UserService } from '../shared/data-access/user.service';
+import { filter, map, Observable, tap } from 'rxjs';
+import { UserService } from '../../shared/data-access/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +15,7 @@ export class AuthorizedGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       return this.userService.getUserUpdateListener().pipe(
         filter((user) => user != null),
-        map((user) => {
-          return user.isStaff
-        }),
+        map((user) => !!user.isStaff),
       );
   }
   

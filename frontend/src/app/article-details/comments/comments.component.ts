@@ -7,9 +7,11 @@ import {
   QueryList,
   ViewChildren,
 } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { first, Observable, switchMap, timer } from 'rxjs';
+import { ConfirmDialogComponent } from 'src/app/confirm-dialog/confirm-dialog.component';
 import { UserService } from 'src/app/shared/data-access/user.service';
 import { setUserSidenavState } from 'src/app/state/user-sidenav-open/user-sidenav-open.actions';
 import { CommentsService } from './data-access/comments.service';
@@ -23,7 +25,8 @@ export class CommentsComponent implements OnInit, AfterViewInit {
   constructor(
     private commentsService: CommentsService,
     private userService: UserService,
-    private store: Store<any>
+    private store: Store<any>,
+    private dialog: MatDialog
   ) {}
 
   @Input() url! : string
@@ -83,9 +86,14 @@ export class CommentsComponent implements OnInit, AfterViewInit {
   }
 
   onDeleteComment(id: number, index: number, comments: any) {
-    if (!confirm('Ești sigur?')) return;
-    this.commentsService.removeComment(id).subscribe(() => {
-      comments.splice(index, 1);
-    });
+    let confirmDialog = this.dialog.open(ConfirmDialogComponent);
+    confirmDialog.afterClosed().subscribe((res) => {
+      if (res) {
+        this.commentsService.removeComment(id).subscribe(() => {
+          comments.splice(index, 1);
+        });
+      }
+    })
+    
   }
 }

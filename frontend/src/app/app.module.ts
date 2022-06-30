@@ -17,7 +17,6 @@ import { SecondaryArticlesComponent } from './landing-page/feature-articles/seco
 import { LiveComponent } from './landing-page/live/live.component';
 import { EditorialArticlesComponent } from './landing-page/editorial-articles/editorial-articles.component';
 import { FilesDialogComponent } from './files-dialog/files-dialog.component';
-import { AboutComponent } from './about/about.component';
 import { UserSidenavComponent } from './sidenavs/user-sidenav/user-sidenav.component';
 import { LoginComponent } from './sidenavs/user-sidenav/login/login.component';
 import { UserViewComponent } from './sidenavs/user-sidenav/user-view/user-view.component';
@@ -28,11 +27,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { WeatherComponent } from './landing-page/weather/weather.component';
 import { StoreModule } from '@ngrx/store';
 import { loadingReducer } from './state/loading/loading.reducer';
-import { readProgressReducer } from './state/read-progress/read-progress.reducer';
 import { userSidenavOpenReducer } from './state/user-sidenav-open/user-sidenav-open.reducer';
 import { searchSidenavReducer } from './state/search-sidenav/search-sidenav.reducer';
 import { CurrencyComponent } from './landing-page/currency/currency.component';
 import { articlesReducer } from './state/articles/articles.reducer';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 
 @NgModule({
@@ -50,13 +49,13 @@ import { articlesReducer } from './state/articles/articles.reducer';
     LiveComponent,
     EditorialArticlesComponent,
     FilesDialogComponent,
-    AboutComponent,
     UserSidenavComponent,
     LoginComponent,
     UserViewComponent,
     SearchSidenavComponent,
     WeatherComponent,
     CurrencyComponent,
+    ConfirmDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,7 +67,6 @@ import { articlesReducer } from './state/articles/articles.reducer';
     HttpClientModule,
     StoreModule.forRoot({
       loading : loadingReducer,
-      readProgress : readProgressReducer,
       userSidenavOpen : userSidenavOpenReducer,
       searchSidenav : searchSidenavReducer,
       articles : articlesReducer,

@@ -108,12 +108,23 @@ mat-sidenav-content {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: hsla(0, 0%, 0%, 0.75);
+  background-color: hsla(0, 0%, 0%, .6);
   z-index: 9999999999999999999;
 }
 
 .img-container {
   transition: .4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.img-editor-container {
+  position: relative;
+  &__buttons-wrapper {
+    display: flex;
+    gap: .2rem;
+    position: absolute;
+    top: .2rem;
+    right: .2rem;
+  }
 }
 
 .video-container {

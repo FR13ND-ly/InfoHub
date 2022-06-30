@@ -34,9 +34,9 @@ export class MoreArticlesComponent implements AfterViewInit {
   }
 
   onGoToArticle(url: any) {
-    timer(200).subscribe(() => {
+    timer(0).subscribe(() => {
       this.store.dispatch(setArticle({ url }))
-      document.querySelector('mat-sidenav-content')?.scrollTo({ top: 0, behavior: 'smooth' })
+      document.querySelector('mat-sidenav-content')?.scrollTo({ top: 0 })
     })
   }
 

@@ -1,7 +1,12 @@
 import { createReducer, on } from '@ngrx/store';
 import { setSearchSidenavOpen, setSearchText } from './search-sidenav.actions';
 
-export const initialState: { open: boolean; text: string } = {
+export interface searchSidenav {
+  open : boolean,
+  text : string
+} 
+
+export const initialState: searchSidenav = {
   open: false,
   text: '',
 };

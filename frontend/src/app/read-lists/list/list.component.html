@@ -4,7 +4,7 @@
         Înapoi
     </div>
     <div class="list-info__image-wrapper">
-        <span class="list-info__length">{{ listInfo.length }} articole</span>
+        <span class="list-info__length">{{ listInfo.length }} articol{{ listInfo.length == 1 ? '' : 'e' }}</span>
         <img class="list-info__image" src="/assets/images/readlists-bg.webp">
         <div class="list-info__actions" *ngIf="listInfo.editable && listInfo.own">
             <mat-icon [matMenuTriggerFor]="menu">{{ listInfo.icon }}</mat-icon>

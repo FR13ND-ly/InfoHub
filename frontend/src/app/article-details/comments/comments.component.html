@@ -1,6 +1,6 @@
 <ng-container *ngIf="comments$ | async as comments">
     <div class="header-wrapper">
-        <h1 class="header">{{ comments.length }} comentarii</h1>
+        <h1 class="header">{{ comments.length }} comentari{{ comments.length == 1 ? 'u' : 'i' }}</h1>
     </div>
     <div class="comments">
         <div class="comment" *ngFor="let comment of comments; let i = index" [style.transition-delay]="i * .1" #commentRef>

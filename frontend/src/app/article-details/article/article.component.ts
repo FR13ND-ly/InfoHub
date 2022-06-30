@@ -6,7 +6,6 @@ import { Store } from '@ngrx/store';
 import { catchError, delay, filter, first, Observable, Subscription, switchMap, tap, timer } from 'rxjs';
 import { ArticlesService } from 'src/app/shared/data-access/articles.service';
 import { setLoading } from 'src/app/state/loading/loading.actions';
-import { setReadProgress } from 'src/app/state/read-progress/read-progress.actions';
 
 @Component({
   selector: 'article-details-article',
@@ -77,7 +76,6 @@ export class ArticleComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.store.dispatch(setReadProgress({state : 0}))
     this.titleService.setTitle('InfoHub')
     this.scrollDispatcherSub?.unsubscribe()
   }

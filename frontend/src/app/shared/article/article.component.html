@@ -4,23 +4,22 @@
   [class.article-backdrop--warn]="backdropColorWarn"
   [class.left]="left"
   *ngFor="let article of articles"
-  #articleRef
->
-  <button mat-icon-button class="article-backdrop__action focus" *ngIf="icon" (click)="onActionExec(article)">
-    <mat-icon class="focus">{{ icon }}</mat-icon>
+  #articleRef>
+  <button mat-icon-button class="article-backdrop__action hide-on-mob" *ngIf="icon" (click)="onActionExec(article)">
+    <mat-icon>{{ icon }}</mat-icon>
   </button>
   <div class="article mat-elevation-z4">
     <img class="article__image" [src]="article.imageUrl" load="lazy" routerLink="/articol/{{ article.url }}"/>
     <div class="article__content-wrapper">
-      <button class="article__more-action focus" *ngIf="icon" mat-icon-button (click)="article.opened = !article.opened">
-        <mat-icon class="focus">more_vert</mat-icon>
+      <button class="article__more-action hide-on-mob" *ngIf="icon" mat-icon-button (click)="article.opened = !article.opened">
+        <mat-icon>more_vert</mat-icon>
       </button>
       <div routerLink="/articol/{{ article.url }}">
-        <span class="article__title focus">{{ article.title }}</span>
-        <p class="article__text hide-on-mob focus">
+        <span class="article__title">{{ article.title }}</span>
+        <p class="article__text hide-on-mob">
             {{ article.text | articlePreview: 45 }}
         </p>
-        <p class="article__text hide-on-large focus">
+        <p class="article__text hide-on-large">
             {{ article.text | articlePreview: 25 }}
         </p>
         <div *ngIf="article.details">

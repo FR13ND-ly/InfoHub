@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { filter, map, Observable, take } from 'rxjs';
-import { UserService } from '../shared/data-access/user.service';
+import { UserService } from '../../shared/data-access/user.service';
 import { getAuth } from "firebase/auth";
 
 @Injectable({
@@ -15,9 +15,7 @@ export class AuthenticatedGuard implements CanActivate {
     
     return this.userService.getUserUpdateListener().pipe(
       filter((user) => user != null),
-      map((user) => {
-        return !!user
-      }),
+      map((user) => !!user),
     );
   }
   

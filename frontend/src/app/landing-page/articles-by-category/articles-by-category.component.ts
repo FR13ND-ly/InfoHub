@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { delay, Observable, of, timer } from 'rxjs';
+import { BehaviorSubject, delay, Observable, of, Subject, switchMap, timer } from 'rxjs';
 import { ArticlesService } from 'src/app/shared/data-access/articles.service';
 
 @Component({
@@ -13,9 +13,11 @@ export class ArticlesByCategoryComponent implements AfterViewInit {
 
   @ViewChild('articlesWrapper') articlesWrapper! : ElementRef
 
-  selected : string = 'economic'
+  selectedCategory$ : BehaviorSubject<string> = new BehaviorSubject<string>('economic')
 
-  articles$ : Observable<any> = this.articlesService.getArticlesByCategory(this.selected)
+  articles$ : Observable<any> = this.selectedCategory$.pipe(
+    switchMap((category) => this.articlesService.getArticlesByCategory(category))
+  ) 
 
   ngAfterViewInit(): void {
     let observer = new IntersectionObserver((articles) => {
@@ -30,11 +32,9 @@ export class ArticlesByCategoryComponent implements AfterViewInit {
   }
 
   onSelectCategory(category : string) {
-    this.selected = category
-    this.articles$ = this.articlesService.getArticlesByCategory(this.selected)
-    this.articles$.subscribe(() => {
-      document.querySelector('app-articles-by-category .articles')?.classList.remove('show')
-      timer(100).subscribe(() => document.querySelector('app-articles-by-category .articles')?.classList.add('show'))
-    })
+    if (category == this.selectedCategory$.value) return
+    this.selectedCategory$.next(category)
+    document.querySelector('app-articles-by-category .articles')?.classList.remove('show')
+    timer(0).subscribe(() => document.querySelector('app-articles-by-category .articles')?.classList.add('show'))
   }
 }

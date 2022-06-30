@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { debounceTime, filter, map, Observable, Subject, switchMap } from 'rxjs';
 import { setSearchSidenavOpen } from 'src/app/state/search-sidenav/search-sidenav.actions';
 import { SearchService } from './data-access/search.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-search-sidenav',
@@ -14,34 +16,30 @@ export class SearchSidenavComponent implements OnInit {
     private store: Store<any>
   ) {}
 
-  searchText: string = '';
-
-  articles!: any[];
-  loading: boolean = false;
+  searchText: string = "";
+  
+  searchText$: Subject<string> = new Subject<string>()
+  articles$: Observable<any> = this.searchText$.pipe(
+    debounceTime(500),
+    switchMap((text : string) => this.searchService.search(text))
+  );
 
   ngOnInit(): void {
     this.store.select('searchSidenav')
-      .subscribe((res: any) => {
-        this.searchText = res.text;
-        this.onSearch(this.searchText);
+      .pipe(
+        map((res) => res.text)
+      )
+      .subscribe((text: string) => {
+        this.searchText = text
+        this.searchText$.next(text);
       });
   }
 
-  onSearch(text: string) {
-    if (text.trim()) {
-      this.loading = true;
-      this.searchService.search(text).subscribe((res: any) => {
-        this.articles = res;
-        this.loading = false;
-      });
-    } else {
-      this.articles = [];
-    }
+  onInput() {
+    this.searchText$.next(this.searchText)
   }
 
   onCloseSearchSidenav() {
-    this.searchText = '';
-    this.articles = [];
     this.store.dispatch(setSearchSidenavOpen({ state: false }));
   }
 }
