@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { delay, filter, Observable, switchMap } from 'rxjs';
+import { ReadList } from 'src/app/core/models/readlist.model';
 import { UserService } from 'src/app/shared/data-access/user.service';
 import { setLoading } from 'src/app/state/loading/loading.actions';
 import { AddReadlistDialogComponent } from '../add-readlist-dialog/add-readlist-dialog.component';
@@ -20,7 +21,7 @@ export class ListsComponent implements OnInit {
     public dialog: MatDialog
   ) {}
 
-  lists$: Observable<any> = this.userService.getUserUpdateListener().pipe(
+  lists$: Observable<ReadList[]> = this.userService.getUserUpdateListener().pipe(
     delay(500),
     filter((user: any) => user),
     switchMap((user: any) => this.readListsService.getReadLists(user.uid))

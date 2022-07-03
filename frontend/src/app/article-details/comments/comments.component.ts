@@ -3,15 +3,15 @@ import {
   Component,
   ElementRef,
   Input,
-  OnInit,
   QueryList,
   ViewChildren,
 } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { first, Observable, switchMap, timer } from 'rxjs';
+import { Observable, switchMap, timer } from 'rxjs';
 import { ConfirmDialogComponent } from 'src/app/confirm-dialog/confirm-dialog.component';
+import { Comment } from 'src/app/core/models/comment.model';
 import { UserService } from 'src/app/shared/data-access/user.service';
 import { setUserSidenavState } from 'src/app/state/user-sidenav-open/user-sidenav-open.actions';
 import { CommentsService } from './data-access/comments.service';
@@ -21,7 +21,7 @@ import { CommentsService } from './data-access/comments.service';
   templateUrl: './comments.component.html',
   styleUrls: ['./comments.component.scss'],
 })
-export class CommentsComponent implements OnInit, AfterViewInit {
+export class CommentsComponent implements AfterViewInit {
   constructor(
     private commentsService: CommentsService,
     private userService: UserService,
@@ -33,16 +33,15 @@ export class CommentsComponent implements OnInit, AfterViewInit {
 
   @ViewChildren('commentRef') commentsRef!: QueryList<ElementRef>;
 
-  comments$: Observable<any> = timer(0).pipe(
+  comments$: Observable<Comment[]> = timer(0).pipe(
     switchMap(() => this.commentsService.getComments(this.url))
   )
+
   user$: Observable<any> = this.userService.getUserUpdateListener();
-  observer = new IntersectionObserver((comments) => {
+
+  observer : IntersectionObserver = new IntersectionObserver((comments) => {
     this.observeArticles(comments);
   });
-
-  ngOnInit(): void {
-  }
 
   ngAfterViewInit() {
     this.commentsRef.toArray().forEach((comment: ElementRef) => {
@@ -68,7 +67,7 @@ export class CommentsComponent implements OnInit, AfterViewInit {
     });
   }
 
-  onAddComment(form: any, user: any, comments: Array<any>) {
+  onAddComment(form: NgForm, user: any, comments: Comment[]) {
     if (!form.form.value.text.trim()) return;
     let data: any = {
       username: user.displayName,
@@ -85,13 +84,13 @@ export class CommentsComponent implements OnInit, AfterViewInit {
     });
   }
 
-  onDeleteComment(id: number, index: number, comments: any) {
+  onDeleteComment(id: number, commentRef : HTMLElement) {
     let confirmDialog = this.dialog.open(ConfirmDialogComponent);
     confirmDialog.afterClosed().subscribe((res) => {
       if (res) {
-        this.commentsService.removeComment(id).subscribe(() => {
-          comments.splice(index, 1);
-        });
+        commentRef.classList.add('delete')
+        this.commentsService.removeComment(id).subscribe();
+        timer(800).subscribe(() => commentRef.remove())
       }
     })
     

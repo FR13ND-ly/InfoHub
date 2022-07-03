@@ -16,13 +16,12 @@ import { setSearchText } from 'src/app/state/search-sidenav/search-sidenav.actio
   styleUrls: ['./tags.component.scss'],
 })
 export class TagsComponent implements OnInit {
-  constructor(
-    private store: Store<any>
-  ) {}
+  
+  constructor(private store: Store<any>) {}
 
   @ViewChildren('tagRef') tagsRef!: QueryList<ElementRef>;
 
-  @Input() tags!: Array<string>;
+  @Input() tags!: string[];
 
   ngOnInit(): void {
     interval(6000).subscribe(() => {

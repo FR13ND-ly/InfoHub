@@ -8,7 +8,6 @@ import {
 } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { delay, filter, Observable, switchMap, timer } from 'rxjs';
 import { ReadListsService } from 'src/app/read-lists/read-lists.service';
@@ -25,7 +24,6 @@ export class MenuComponent implements AfterViewInit, OnInit {
   constructor(
     private likesService: LikesService,
     private userService: UserService,
-    private route: ActivatedRoute,
     private _snackBar: MatSnackBar,
     private readListsService: ReadListsService,
     private store: Store<any>
@@ -105,7 +103,7 @@ export class MenuComponent implements AfterViewInit, OnInit {
     }
   }
 
-  onShare(e: any, link: string) {
+  onShare(e: Event, link: string) {
     e.preventDefault();
     var windowShare: any = window.open(
       link + location.href,

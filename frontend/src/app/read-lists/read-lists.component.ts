@@ -1,15 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-read-lists',
   templateUrl: './read-lists.component.html',
   styleUrls: ['./read-lists.component.scss']
 })
-export class ReadListsComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-}
+export class ReadListsComponent { }

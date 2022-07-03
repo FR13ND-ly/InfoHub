@@ -1,4 +1,4 @@
-import { ScrollDispatcher } from '@angular/cdk/scrolling';
+import { CdkScrollable, ScrollDispatcher } from '@angular/cdk/scrolling';
 import {
   Component,
   ElementRef,
@@ -31,7 +31,7 @@ export class HeaderComponent implements OnInit {
     this.scrollDispatcher.scrolled().pipe(
       filter((cdk : any) => !cdk.dir)
     )
-    .subscribe((cdk: any) => {
+    .subscribe((cdk: CdkScrollable) => {
       this.headerRef.nativeElement.classList.toggle(
         'sticked',
         cdk.getElementRef().nativeElement.scrollTop > 30

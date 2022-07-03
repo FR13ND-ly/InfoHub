@@ -25,7 +25,7 @@
     <ul class="anwsers">
       <li
         class="answer"
-        (click)="onVote(answer, surveys[surveyIndex].variants)"
+        (click)="onVote(answer)"
         *ngFor="let answer of surveys[surveyIndex].variants; let i = index"
         [style.animation-delay.s]="i * 0.1 + 0.2"
         [attr.votes]="answer.votes"

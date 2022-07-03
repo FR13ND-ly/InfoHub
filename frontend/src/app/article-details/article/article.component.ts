@@ -1,9 +1,9 @@
-import { ScrollDispatcher } from '@angular/cdk/scrolling';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { catchError, delay, filter, first, Observable, Subscription, switchMap, tap, timer } from 'rxjs';
+import { catchError, delay, Observable, switchMap, tap, timer } from 'rxjs';
+import { Article } from 'src/app/core/models/article.model';
 import { ArticlesService } from 'src/app/shared/data-access/articles.service';
 import { setLoading } from 'src/app/state/loading/loading.actions';
 
@@ -12,41 +12,36 @@ import { setLoading } from 'src/app/state/loading/loading.actions';
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.scss'],
 })
-export class ArticleComponent implements OnInit, OnDestroy {
+export class ArticleComponent implements OnDestroy {
   constructor(
     private router : Router,
     private articlesService: ArticlesService,
     private titleService: Title,
     private metaService: Meta,
     private store: Store<any>
-  ) {}
+  ) {
+    this.store.dispatch(setLoading({state : true}))
+  }
 
   @Input() article!: string
   @Input() url! : string
   
-  article$: Observable<any> = timer(0).pipe( 
-    switchMap(() : Observable<any> => {
-      return this.articlesService.getArticle(this.article).pipe(
+  article$: Observable<Article> = timer(0).pipe( 
+    switchMap(() : Observable<any> => this.articlesService.getArticle(this.article).pipe(
         delay(500),
+        tap((article: Article) => {
+          this.setMeta(article);
+          this.store.dispatch(setLoading({state : false}))
+        }),
         catchError(async (err) => {
           this.router.navigate(['/404']);
           this.store.dispatch(setLoading({ state: false }));
         })
-      );
-    })
+      )
+    )
   )
-  scrollDispatcherSub!: Subscription
 
-  ngOnInit(): void {
-    this.store.dispatch(setLoading({state : true}))
-    this.article$.subscribe((article: any) => {
-      this.setMeta(article);
-      this.store.dispatch(setLoading({state : false}))
-    });
-    
-  }
-
-  setMeta(article: any) {
+  setMeta(article: Article) : void {
     let description = article.text.replace(/<[^>]+>/gm, '');
     description =
       description.split(' ').length < 25
@@ -59,7 +54,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
     });
     this.metaService.addTag({
       name: 'article:published_time',
-      content: article.date,
+      content: article.details.date!,
     });
     this.metaService.addTag({
       property: 'oc:image',
@@ -77,6 +72,5 @@ export class ArticleComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.titleService.setTitle('InfoHub')
-    this.scrollDispatcherSub?.unsubscribe()
   }
 }

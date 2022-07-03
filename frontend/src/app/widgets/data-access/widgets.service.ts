@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Widget } from 'src/app/core/models/widget.model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -11,15 +13,15 @@ export class WidgetsService {
 
   readonly APIUrl = environment.apiUrl + 'widgets/'
 
-  getWidgets() {
-    return this.http.get(`${this.APIUrl}get/all/`)
+  getWidgets() : Observable<Widget[]> {
+    return <Observable<Widget[]>>this.http.get(`${this.APIUrl}get/all/`)
   }
 
-  getWidget(id : any) {
-    return this.http.get(`${this.APIUrl}get/${id}/`)
+  getWidget(id : number) : Observable<Widget> {
+    return <Observable<Widget>>this.http.get(`${this.APIUrl}get/${id}/`)
   }
 
-  editWidget(id : any, data : any) {
-    return this.http.post(`${this.APIUrl}edit/${id}/`, data)
+  editWidget(id : number, widget : Widget) {
+    return this.http.post(`${this.APIUrl}edit/${id}/`, widget)
   }
 }

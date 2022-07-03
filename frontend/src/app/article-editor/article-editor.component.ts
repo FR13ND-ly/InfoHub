@@ -1,10 +1,12 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { delay, Observable, switchMap } from 'rxjs';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { ArticleEdit } from '../core/models/article.edit.model';
+import { Article } from '../core/models/article.model';
 import { ArticlesService } from '../shared/data-access/articles.service';
 import { setLoading } from '../state/loading/loading.actions';
 
@@ -23,7 +25,7 @@ export class ArticleEditorComponent implements OnInit {
     private snackBar: MatSnackBar
   ) {}
 
-  article$: Observable<any> = this.route.paramMap.pipe(
+  article$: Observable<ArticleEdit> = this.route.paramMap.pipe(
     delay(500),
     switchMap((params: Params) =>
       this.articleService.getArticleToEdit(params['params'].url)

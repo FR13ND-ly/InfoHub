@@ -1,6 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { ArticlesResponse } from '../core/models/article.response.model';
+import { ListInfo } from '../core/models/readlist.info.model';
+import { ReadList } from '../core/models/readlist.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,19 +16,19 @@ export class ReadListsService {
   readonly APIUrl = environment.apiUrl + 'read-lists/'
 
   getReadLists(token : any) {
-    return this.http.get(`${this.APIUrl}get/all/${token}/`)
+    return <Observable<ReadList[]>>this.http.get(`${this.APIUrl}get/all/${token}/`)
   }
 
   getLightReadLists(data : any) {
     return this.http.post(`${this.APIUrl}get-light/`, data)
   }
 
-  getReadListArticles(data: any) {
-    return this.http.post(`${this.APIUrl}articles/`, data)
+  getReadListArticles(data: any) : Observable<ArticlesResponse> {
+    return <Observable<ArticlesResponse>> this.http.post(`${this.APIUrl}articles/`, data)
   }
 
   getReadListInfo(data: any) {
-    return this.http.post(`${this.APIUrl}info/`, data)
+    return <Observable<ListInfo>>this.http.post(`${this.APIUrl}info/`, data)
   }
 
   addToList(data : any) {

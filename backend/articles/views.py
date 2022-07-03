@@ -23,6 +23,7 @@ def getArticle(request, url):
     article.save()
     response = {
         "id": article.id,
+        "url": article.url,
         "title": article.title,
         "text": article.text,
         "subtitle": article.subtitle,
@@ -32,6 +33,7 @@ def getArticle(request, url):
             "date": formatDate(article.date),
             "hideViews": article.hideViews,
             "views": article.views,
+            "timeForRead": calculateTimeForRead(article.text)
         },
         "tags": article.tags.split(',' if article.tags.strip() else None),
         "coverImageDescription": article.coverImageDescription,
@@ -229,6 +231,8 @@ def search(request):
                 wordList.remove(i)
         return wordList
     searchText = JSONParser().parse(request)['text']
+    if (not searchText):
+        return JsonResponse([], status=status.HTTP_200_OK, safe=False)
     wordsList = prepareWordList(searchText.strip().split(' '))
     response = []
     articles = Article.objects.filter(draft=False).order_by("-date")

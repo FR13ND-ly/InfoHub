@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Comment } from 'src/app/core/models/comment.model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -11,8 +13,8 @@ export class CommentsService {
 
   readonly APIUrl = environment.apiUrl + 'comments/'
 
-  getComments(url : string) {
-    return this.http.get(`${this.APIUrl}get/${url}`)
+  getComments(url : string) : Observable<Comment[]> {
+    return <Observable<Comment[]>>this.http.get(`${this.APIUrl}get/${url}`)
   }
 
   addComment(data : any) {

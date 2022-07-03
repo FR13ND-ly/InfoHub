@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { timer } from 'rxjs';
 
 @Component({
@@ -14,7 +14,7 @@ export class TextComponent implements OnInit {
   @ViewChild('articleText') articleTextRef! : ElementRef
 
   @Input()
-  text! : any
+  text! : any | SafeHtml
 
   ngOnInit(): void {
     this.text = this.domSanitizer.bypassSecurityTrustHtml(this.text)

@@ -3,7 +3,8 @@ import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, QueryList, Vie
 import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { debounce, debounceTime, delay, filter, interval, Observable, skipWhile, switchMap, takeWhile, throttle, timer } from 'rxjs';
+import { filter, Observable, switchMap, takeWhile} from 'rxjs';
+import { ArticlesResponse } from '../core/models/article.response.model';
 import { ArticlesService } from '../shared/data-access/articles.service';
 import { addArticle, resetArticles, setArticle } from '../state/articles/articles.actions';
 import { setSearchSidenavOpen } from '../state/search-sidenav/search-sidenav.actions';
@@ -64,7 +65,7 @@ export class ArticleDetailsComponent implements OnInit, AfterViewInit, OnDestroy
     })
   }
 
-  observeArticles(articles : any) {
+  observeArticles(articles : IntersectionObserverEntry[]) {
     articles.forEach((articleRef : IntersectionObserverEntry, i : number) => {
       if (articleRef.isIntersecting){
         this.setTitle(articleRef.target.id)

@@ -16,14 +16,10 @@ export class TextEditorComponent implements OnInit {
   editorText! : string
 
   ngOnInit(): void {
-    timer(100).subscribe(() => {
-      this.editorText = this.text
-      // this.imagesResolve()
-    })
+    this.editorText = this.text
   }
 
   onChange() {
-    // this.imagesResolve()
     timer(0).subscribe(() => {
       this.textChange.emit(this.textEditorRef.nativeElement.innerHTML)
     })
@@ -37,9 +33,9 @@ export class TextEditorComponent implements OnInit {
     })
   }
 
-  addImageEditContainer(img : any) {
+  addImageEditContainer(img : HTMLElement) {
     let div = document.createElement('div')
-    img.parentNode.insertBefore(div, img)
+    img.parentNode!.insertBefore(div, img)
     div.appendChild(img)
     div.classList.add('img-editor-container')
     let buttonsWrapper = document.createElement('div')
@@ -51,7 +47,7 @@ export class TextEditorComponent implements OnInit {
     div.addEventListener('mouseleave', () => this.destroyDiv(div, img))
   }
 
-  destroyDiv(div : any, img : any) {
+  destroyDiv(div : HTMLElement, img : HTMLElement) {
     div.insertBefore(img.cloneNode(), div)
     div.remove
   }

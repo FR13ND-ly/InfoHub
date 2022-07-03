@@ -7,12 +7,15 @@ import {
   combineLatestWith,
   delay,
   filter,
-  map,
   Observable,
   switchMap,
   tap,
+  timer,
 } from 'rxjs';
 import { ConfirmDialogComponent } from 'src/app/confirm-dialog/confirm-dialog.component';
+import { ArticleAction } from 'src/app/core/models/article-action.model';
+import { ArticlesResponse } from 'src/app/core/models/article.response.model';
+import { ListInfo } from 'src/app/core/models/readlist.info.model';
 import { UserService } from 'src/app/shared/data-access/user.service';
 import { setLoading } from 'src/app/state/loading/loading.actions';
 import { ReadListsService } from '../read-lists.service';
@@ -72,20 +75,19 @@ export class ListComponent implements OnInit {
             ? -2
             : this.route.snapshot.paramMap.get('url'),
         user: user.uid,
-      }).pipe(
-        catchError(async (err) => { 
-          this.store.dispatch(setLoading({state : false}))
-          this.router.navigate(['/404'])
-        }),
-      )
-    )
+      })
+    ),
+    catchError(async (err) => { 
+      this.store.dispatch(setLoading({state : false}))
+      this.router.navigate(['/404'])
+    })
   );
 
-  articles$: Observable<any> = this.userService.getUserUpdateListener().pipe(
+  articles$: Observable<ArticlesResponse> = this.userService.getUserUpdateListener().pipe(
     delay(500),
     filter((user: any) => user),
     tap((user) => (this.user = user)),
-    switchMap((user) =>
+    switchMap((user) : Observable<ArticlesResponse> =>
       this.readListService.getReadListArticles({
         id:
           this.route.snapshot.paramMap.get('url') == 'istoric'
@@ -106,13 +108,13 @@ export class ListComponent implements OnInit {
       .subscribe(() => this.store.dispatch(setLoading({state : false})));
   }
 
-  onChangeName(listInfo: any, newName: string) {
+  onChangeName(listInfo: ListInfo, newName: string) {
     let newListInfo: any = { ...listInfo };
     newListInfo.name = newName;
     this.onEdit(newListInfo);
   }
 
-  onChangeAccess(listInfo: any) {
+  onChangeAccess(listInfo: ListInfo) {
     listInfo.public = !listInfo.public;
     this.onEdit(listInfo);
   }
@@ -132,16 +134,16 @@ export class ListComponent implements OnInit {
     })
   }
 
-  onChangeIcon(listInfo: any, icon: string): void {
+  onChangeIcon(listInfo: ListInfo, icon: string): void {
     listInfo.icon = icon;
     this.onEdit(listInfo);
   }
 
-  onEdit(listInfo: any) {
+  onEdit(listInfo: ListInfo) {
     this.readListService.editReadList(listInfo, this.id).subscribe();
   }
 
-  onLoadMoreArticles(articles: any) {
+  onLoadMoreArticles(articles: ArticlesResponse) {
     if (articles.noMoreArticles) return;
     this.store.dispatch(setLoading({state : true}))
     this.readListService
@@ -157,15 +159,12 @@ export class ListComponent implements OnInit {
       });
   }
 
-  onRemoveItem(article : any, articles : any) {
-    articles.forEach((articleEl : any, i : number) => {
-      if (articleEl.url == article) {
-        articles.splice(1, i)
-      }
-    })
+  onRemoveItem(event : ArticleAction) {
+    event.el.classList.add('delete')
     this.readListService.removeItem({
-      article,
+      article : event.article,
       list : this.route.snapshot.paramMap.get('url')
     }).subscribe()
+    timer(600).subscribe(() => event.el.remove())
   }
 }

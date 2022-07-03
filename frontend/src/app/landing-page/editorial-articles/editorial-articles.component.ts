@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, of, timer } from 'rxjs';
+import { ArticlePreview } from 'src/app/core/models/article.preview.model';
 import { ArticlesService } from 'src/app/shared/data-access/articles.service';
 import { setSearchText } from 'src/app/state/search-sidenav/search-sidenav.actions';
 
@@ -16,7 +17,7 @@ export class EditorialArticlesComponent implements OnInit {
     private store: Store<any>
   ) {}
 
-  editorials$: Observable<any> =
+  editorials$: Observable<ArticlePreview[]> =
     this.articlesService.getArticlesByCategory('opiniieditorial');
 
   ngOnInit(): void {

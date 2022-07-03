@@ -1,7 +1,8 @@
 import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild, ViewChildren } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, switchMap, timer } from 'rxjs';
+import { ArticleLightPreview } from 'src/app/core/models/article.light-preview.model';
 import { ArticlesService } from 'src/app/shared/data-access/articles.service';
 import { setArticle } from 'src/app/state/articles/articles.actions';
 
@@ -17,8 +18,8 @@ export class MoreArticlesComponent implements AfterViewInit {
   @ViewChild('articlesRef') articlesRef!: ElementRef
   @Input() url!: string
 
-  articles$: Observable<any> = this.route.params.pipe(
-    switchMap((params: any) => this.articlesService.getAditionalArticles(params.url))
+  articles$: Observable<ArticleLightPreview[]> = this.route.params.pipe(
+    switchMap((params: Params) => this.articlesService.getAditionalArticles(params['url']))
   )
 
   ngAfterViewInit(): void {
@@ -33,7 +34,7 @@ export class MoreArticlesComponent implements AfterViewInit {
     observer.observe(this.articlesRef.nativeElement)
   }
 
-  onGoToArticle(url: any) {
+  onGoToArticle(url: string) {
     timer(0).subscribe(() => {
       this.store.dispatch(setArticle({ url }))
       document.querySelector('mat-sidenav-content')?.scrollTo({ top: 0 })

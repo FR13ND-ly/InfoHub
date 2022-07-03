@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FilesDialogData } from 'src/app/files-dialog/files-dialog-data.model';
 import { FilesDialogComponent } from 'src/app/files-dialog/files-dialog.component';
@@ -8,7 +8,7 @@ import { FilesDialogComponent } from 'src/app/files-dialog/files-dialog.componen
   templateUrl: './preview-image.component.html',
   styleUrls: ['./preview-image.component.scss']
 })
-export class PreviewImageComponent implements OnInit {
+export class PreviewImageComponent {
 
   constructor(private dialog: MatDialog) { }
 
@@ -19,9 +19,7 @@ export class PreviewImageComponent implements OnInit {
 
   @Input() coverImageDescription! : string
   @Output() coverImageDescriptionChange = new EventEmitter()
-  
-  ngOnInit(): void {
-  }
+ 
 
   onSelectImage() {
     const filesDialog = this.dialog.open(FilesDialogComponent, {

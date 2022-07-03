@@ -3,13 +3,13 @@ import {
   Component,
   ElementRef,
   Input,
-  OnInit,
-  ViewChild,
 } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { map, Observable, switchMap, tap, timer } from 'rxjs';
+import { Observable, switchMap, tap, timer } from 'rxjs';
+import { Survey } from 'src/app/core/models/survey.model';
+import { Variant } from 'src/app/core/models/variant.model';
 import { ArticlesService } from 'src/app/shared/data-access/articles.service';
 import { UserService } from 'src/app/shared/data-access/user.service';
 import { setUserSidenavState } from 'src/app/state/user-sidenav-open/user-sidenav-open.actions';
@@ -24,7 +24,6 @@ export class SurveyComponent implements AfterViewInit {
     private el: ElementRef,
     private userService: UserService,
     private articlesService: ArticlesService,
-    private route: ActivatedRoute,
     private _snackBar: MatSnackBar,
     private store: Store<any>
   ) {}
@@ -33,7 +32,7 @@ export class SurveyComponent implements AfterViewInit {
   surveyIndex = 0;
   user!: any;
 
-  surveys$: Observable<any> = timer(0).pipe(
+  surveys$: Observable<Survey[]> = timer(0).pipe(
     switchMap(() =>
       this.userService.getUserUpdateListener().pipe(
         tap((user) => this.user = user),
@@ -73,7 +72,7 @@ export class SurveyComponent implements AfterViewInit {
     else --this.surveyIndex;
   }
 
-  onVote(variant: any, variants: any) {
+  onVote(variant: Variant) {
     if (this.user) {
       this.articlesService
         .vote({

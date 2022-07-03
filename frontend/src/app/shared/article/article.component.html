@@ -5,7 +5,7 @@
   [class.left]="left"
   *ngFor="let article of articles"
   #articleRef>
-  <button mat-icon-button class="article-backdrop__action hide-on-mob" *ngIf="icon" (click)="onActionExec(article)">
+  <button mat-icon-button class="article-backdrop__action hide-on-mob" *ngIf="icon" (click)="onActionExec(article, articleRef)">
     <mat-icon>{{ icon }}</mat-icon>
   </button>
   <div class="article mat-elevation-z4">
@@ -29,7 +29,7 @@
             *ngIf="article.details"
             >
             <div class="article__details-set">
-              <mat-icon>timer</mat-icon> {{ article.details.timeForRead | timeForRead }}
+              <mat-icon>timer</mat-icon> {{ article.details.timeForRead! | timeForRead }}
             </div>
             <div class="article__details-set" *ngIf="!article.details.hideDate">
                 <mat-icon>access_time</mat-icon> {{ article.details.date }}

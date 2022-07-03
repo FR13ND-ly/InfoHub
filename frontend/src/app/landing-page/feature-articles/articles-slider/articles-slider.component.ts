@@ -2,6 +2,7 @@ import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/co
 import { delay, Observable } from 'rxjs';
 import { timer } from 'rxjs';
 import { interval, Subscription } from 'rxjs';
+import { ArticlePreview } from 'src/app/core/models/article.preview.model';
 import { ArticlesService } from 'src/app/shared/data-access/articles.service';
 
 @Component({
@@ -18,7 +19,7 @@ export class ArticlesSliderComponent implements OnInit, OnDestroy {
   @ViewChild('selectorsWrapper') selectorsWrapper! : ElementRef
   @ViewChild('slider') slider! : ElementRef
 
-  articles$ : Observable<Array<any>> = this.articleService.getSlider().pipe(
+  articles$ : Observable<ArticlePreview[]> = this.articleService.getSlider().pipe(
     delay(500)
   )
 

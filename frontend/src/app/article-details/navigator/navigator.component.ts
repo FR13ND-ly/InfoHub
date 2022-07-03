@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { timer } from 'rxjs';
+import { TextMoment } from 'src/app/core/models/text-moment.model';
 
 @Component({
   selector: 'app-navigator',
@@ -13,7 +14,7 @@ export class NavigatorComponent implements AfterViewInit {
   @ViewChild('articleText') text! : ElementRef<HTMLElement>
   @Input() article! : string
   minimalize: boolean = false
-  moments : any = [
+  moments : TextMoment[] = [
   ]
   ngAfterViewInit(): void {
     this.moments = []
@@ -27,7 +28,7 @@ export class NavigatorComponent implements AfterViewInit {
     })
   }
 
-  onGoToTitle(moment: any) {
+  onGoToTitle(moment: HTMLElement) {
     moment.scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"})
     moment.className = ""
     timer(100).subscribe(() => moment.className = "scroll-to")

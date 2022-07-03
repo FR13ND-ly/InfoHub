@@ -1,16 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ArticleDetails } from 'src/app/core/models/article.details.model';
 
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.scss']
 })
-export class DetailsComponent implements OnInit {
+export class DetailsComponent {
 
-  constructor() { }
-  @Input() details!: any
-
-  ngOnInit(): void {
-  }
+  @Input() details!: ArticleDetails
 
 }

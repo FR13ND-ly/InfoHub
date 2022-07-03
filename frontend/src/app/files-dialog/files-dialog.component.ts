@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Observable, of } from 'rxjs';
+import { File } from '../core/models/file.model';
 import { FilesService } from './data-access/files.service';
 import { FilesDialogData } from './files-dialog-data.model';
 
@@ -13,7 +13,7 @@ export class FilesDialogComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data : FilesDialogData, private fileService : FilesService) { }
 
-  images : Array<any> = []
+  images : File[] = []
 
   index: number = 1
   noMoreImages : boolean = true
@@ -31,7 +31,7 @@ export class FilesDialogComponent implements OnInit {
     })
   }
 
-  includes(image : any) : boolean {
+  includes(image : File) : boolean {
     let res : boolean = false
     this.data.selectedImages.forEach((item : any) => {
       if (item.id == image.id) res = true
@@ -39,8 +39,8 @@ export class FilesDialogComponent implements OnInit {
     return res
   }
 
-  removeImage(image : any) : void {
-    this.data.selectedImages.filter((item : any) => {
+  removeImage(image : File) : void {
+    this.data.selectedImages.filter((item : File) => {
       return item.id != image.id
     })
   }
@@ -51,7 +51,7 @@ export class FilesDialogComponent implements OnInit {
     this.getFiles()
   }
 
-  onSelectImage(image : any) {
+  onSelectImage(image : File) {
     if (this.includes(image)) this.removeImage(image) 
     else {
       if (this.data.multipleSelect) this.data.selectedImages.push(image)

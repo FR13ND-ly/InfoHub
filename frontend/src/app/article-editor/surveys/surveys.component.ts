@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Survey } from 'src/app/core/models/survey.model';
 
 @Component({
   selector: 'app-surveys',
@@ -11,7 +12,7 @@ export class SurveysComponent implements OnInit {
 
   selectedTabIndex : number = 0
 
-  @Input() surveys : any = []
+  @Input() surveys : Survey[] = []
   @Output() surveysChange = new EventEmitter()
   surveysResponse : any = []
 
@@ -25,12 +26,10 @@ export class SurveysComponent implements OnInit {
 
 
   onAddSurvey() {
-    this.surveysResponse.push(
-      {
-        question : "",
-        variants : [[''], ['']]
-      }
-    )
+    this.surveysResponse.push({
+      question : "",
+      variants : [[''], ['']]
+    })
     this.selectedTabIndex = this.surveysResponse.length - 1;
   }
 

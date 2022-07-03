@@ -61,22 +61,11 @@
 
 
 @media only screen and (min-width: 600px) {
-    
     @keyframes pop-up {
         0% { transform: translateY(0) }
         50% { transform: translateY(-3px) }
         100% { transform: translateY(0) }
     }
-
-    .left{
-        .article-backdrop__action {
-            left: 0;
-        }
-        .article-backdrop:hover .article {
-            transform: translateX(10px);
-        }
-    }
-    
     .article-backdrop {
         display: flex;
         align-items: center;
@@ -148,7 +137,15 @@
             transform: translateX(40px);
         }
     }
-}   
+    .left {
+        .article-backdrop__action {
+            left: 0;
+        }
+        &:hover .article {
+            transform: translateX(10px);
+        }
+    }
+}
 
 @media only screen and (max-width: 600px) {
     :host {

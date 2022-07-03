@@ -7,6 +7,7 @@ from files.views import addUserPhoto, getFile, uploadFile
 from rest_framework import status
 from readlists.models import List
 from files.models import File
+from articles.views import formatDate
 
 @csrf_exempt
 def login(request):
@@ -61,7 +62,7 @@ def getAllUsers(request):
         response.append({
             "id" : profile.id,
             "username" : profile.user.first_name,
-            "date" : profile.date,
+            "date" : formatDate(profile.date),
             "imageUrl" : getFile(profile.image, "/users/"),
             "allowWriteComments" : profile.allowWriteComments,
             "allowChangeAvatar" : profile.allowChangeAvatar

@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
+import { ArticlePreview } from 'src/app/core/models/article.preview.model';
 
 @Component({
   selector: 'app-article',
@@ -8,7 +9,7 @@ import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Outp
 export class ArticleComponent implements AfterViewInit {
 
   @Input() 
-  articles : any 
+  articles! : ArticlePreview[] | null
 
   @Input()
   left!: boolean
@@ -51,8 +52,8 @@ export class ArticleComponent implements AfterViewInit {
     })
   }
 
-  onActionExec(article : any) {
+  onActionExec(article : any, articleRef : any) {
     article.opened = false
-    this.onAction.emit(article.url)
+    this.onAction.emit({ article : article.url, el : articleRef})
   }
 }

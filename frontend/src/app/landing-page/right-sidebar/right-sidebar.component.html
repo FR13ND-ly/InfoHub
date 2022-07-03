@@ -1,6 +1,6 @@
 <app-weather></app-weather>
 <app-currency></app-currency>
-<a class="widget mat-elevation-z4" [href]="widget.url ? widget.url : '#'" *ngIf="widget$ | async as widget">
+<a class="widget mat-elevation-z4" [href]="widget.link ? widget.link : '#'" *ngIf="widget$ | async as widget">
     <mat-icon class="widget__icon">paid</mat-icon>
     <img src="widget__image" [src]="widget.imageUrl" loading="lazy">
     <p class="widget__title">{{ widget.text }}</p>
@@ -13,7 +13,7 @@
 </a> -->
 <ng-container *ngIf="weeklyImg$ | async as weeklyImg">
     <div class="weekly-image mat-elevation-z4" matTooltip="Imaginea săptămânii" *ngIf="weeklyImg.activated">
-        <img class="weekly-image__image focus" [class.not-revealed]="!weeklyImgRevealed" (click)="weeklyImgRevealed = true" [src]="weeklyImg.imageUrl" loading="lazy" />
+        <img class="weekly-image__image focus" [class.not-revealed]="!weeklyImg.revealed" (click)="weeklyImg.revealed= true" [src]="weeklyImg.imageUrl" loading="lazy" />
         <div class="weekly-image__details">
             <h2 class="weekly-image__title">{{ weeklyImg.text }}</h2>
             <h5 class="weekly-image__author" *ngIf="weeklyImg.author!">

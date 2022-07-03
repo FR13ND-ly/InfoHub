@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { BehaviorSubject, delay, Observable, of, Subject, switchMap, timer } from 'rxjs';
+import { ArticlePreview } from 'src/app/core/models/article.preview.model';
 import { ArticlesService } from 'src/app/shared/data-access/articles.service';
 
 @Component({
@@ -15,7 +16,7 @@ export class ArticlesByCategoryComponent implements AfterViewInit {
 
   selectedCategory$ : BehaviorSubject<string> = new BehaviorSubject<string>('economic')
 
-  articles$ : Observable<any> = this.selectedCategory$.pipe(
+  articles$ : Observable<ArticlePreview[]> = this.selectedCategory$.pipe(
     switchMap((category) => this.articlesService.getArticlesByCategory(category))
   ) 
 
