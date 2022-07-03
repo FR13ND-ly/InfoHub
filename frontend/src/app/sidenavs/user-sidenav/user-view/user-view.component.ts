@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { UserService } from 'src/app/shared/data-access/user.service';
+import { UserService } from 'src/app/core/data-access/user.service';
 import { setUserSidenavState } from 'src/app/state/user-sidenav-open/user-sidenav-open.actions';
 
 @Component({

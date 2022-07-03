@@ -10,8 +10,8 @@ import { Store } from '@ngrx/store';
 import { Observable, switchMap, tap, timer } from 'rxjs';
 import { Survey } from 'src/app/core/models/survey.model';
 import { Variant } from 'src/app/core/models/variant.model';
-import { ArticlesService } from 'src/app/shared/data-access/articles.service';
-import { UserService } from 'src/app/shared/data-access/user.service';
+import { ArticlesService } from 'src/app/core/data-access/articles.service';
+import { UserService } from 'src/app/core/data-access/user.service';
 import { setUserSidenavState } from 'src/app/state/user-sidenav-open/user-sidenav-open.actions';
 
 @Component({

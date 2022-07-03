@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { catchError, delay, Observable, switchMap, tap, timer } from 'rxjs';
 import { Article } from 'src/app/core/models/article.model';
-import { ArticlesService } from 'src/app/shared/data-access/articles.service';
+import { ArticlesService } from 'src/app/core/data-access/articles.service';
 import { setLoading } from 'src/app/state/loading/loading.actions';
 
 @Component({

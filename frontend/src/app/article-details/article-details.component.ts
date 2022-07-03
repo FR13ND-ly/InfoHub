@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { filter, Observable, switchMap, takeWhile} from 'rxjs';
 import { ArticlesResponse } from '../core/models/article.response.model';
-import { ArticlesService } from '../shared/data-access/articles.service';
+import { ArticlesService } from '../core/data-access/articles.service';
 import { addArticle, resetArticles, setArticle } from '../state/articles/articles.actions';
 import { setSearchSidenavOpen } from '../state/search-sidenav/search-sidenav.actions';
 

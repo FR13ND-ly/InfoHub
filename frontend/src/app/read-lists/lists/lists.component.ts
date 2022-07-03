@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { delay, filter, Observable, switchMap } from 'rxjs';
 import { ReadList } from 'src/app/core/models/readlist.model';
-import { UserService } from 'src/app/shared/data-access/user.service';
+import { UserService } from 'src/app/core/data-access/user.service';
 import { setLoading } from 'src/app/state/loading/loading.actions';
 import { AddReadlistDialogComponent } from '../add-readlist-dialog/add-readlist-dialog.component';
 import { ReadListsService } from '../read-lists.service';

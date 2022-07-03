@@ -16,7 +16,7 @@ import { ConfirmDialogComponent } from 'src/app/confirm-dialog/confirm-dialog.co
 import { ArticleAction } from 'src/app/core/models/article-action.model';
 import { ArticlesResponse } from 'src/app/core/models/article.response.model';
 import { ListInfo } from 'src/app/core/models/readlist.info.model';
-import { UserService } from 'src/app/shared/data-access/user.service';
+import { UserService } from 'src/app/core/data-access/user.service';
 import { setLoading } from 'src/app/state/loading/loading.actions';
 import { ReadListsService } from '../read-lists.service';
 

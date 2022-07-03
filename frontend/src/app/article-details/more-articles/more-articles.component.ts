@@ -3,7 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, switchMap, timer } from 'rxjs';
 import { ArticleLightPreview } from 'src/app/core/models/article.light-preview.model';
-import { ArticlesService } from 'src/app/shared/data-access/articles.service';
+import { ArticlesService } from 'src/app/core/data-access/articles.service';
 import { setArticle } from 'src/app/state/articles/articles.actions';
 
 @Component({

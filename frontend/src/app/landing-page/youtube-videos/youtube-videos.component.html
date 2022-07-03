@@ -1,9 +1,0 @@
-<div class="youtube-video-wrapper mat-elevation-z4">
-
-</div>
-<div class="youtube-videos mat-elevation-z4">
-    <div class="youtube-video" [class.selected]="selectedIndex == i" *ngFor="let youtubeVideo of youtubeVideos; let i = index" (click)="selectedIndex = i">
-        <span class="youtube-video__title">{{ youtubeVideo.title }}</span>
-        <img class="youtube-video__image" [src]="youtubeVideo.imageUrl">
-    </div>
-</div>

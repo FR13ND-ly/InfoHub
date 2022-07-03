@@ -9,12 +9,10 @@ import { FooterComponent } from './footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { ArticlesByCategoryComponent } from './landing-page/articles-by-category/articles-by-category.component';
-import { YoutubeVideosComponent } from './landing-page/youtube-videos/youtube-videos.component';
 import { ArticlesListComponent } from './landing-page/articles-list/articles-list.component';
 import { RightSidebarComponent } from './landing-page/right-sidebar/right-sidebar.component';
 import { ArticlesSliderComponent } from './landing-page/feature-articles/articles-slider/articles-slider.component';
 import { SecondaryArticlesComponent } from './landing-page/feature-articles/secondary-articles/secondary-articles.component';
-import { LiveComponent } from './landing-page/live/live.component';
 import { EditorialArticlesComponent } from './landing-page/editorial-articles/editorial-articles.component';
 import { FilesDialogComponent } from './files-dialog/files-dialog.component';
 import { UserSidenavComponent } from './sidenavs/user-sidenav/user-sidenav.component';
@@ -22,7 +20,7 @@ import { LoginComponent } from './sidenavs/user-sidenav/login/login.component';
 import { UserViewComponent } from './sidenavs/user-sidenav/user-view/user-view.component';
 import { FormsModule } from '@angular/forms';
 import { SearchSidenavComponent } from './sidenavs/search-sidenav/search-sidenav.component';
-import { ArticleModule } from './shared/article/article.module';
+import { ArticleModule } from './core/components/article/article.module';
 import { HttpClientModule } from '@angular/common/http';
 import { WeatherComponent } from './landing-page/weather/weather.component';
 import { StoreModule } from '@ngrx/store';
@@ -41,12 +39,10 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     HeaderComponent,
     FooterComponent,
     ArticlesByCategoryComponent,
-    YoutubeVideosComponent,
     ArticlesListComponent,
     RightSidebarComponent,
     ArticlesSliderComponent,
     SecondaryArticlesComponent,
-    LiveComponent,
     EditorialArticlesComponent,
     FilesDialogComponent,
     UserSidenavComponent,

@@ -11,7 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Store } from '@ngrx/store';
 import { delay, filter, Observable, switchMap, timer } from 'rxjs';
 import { ReadListsService } from 'src/app/read-lists/read-lists.service';
-import { UserService } from 'src/app/shared/data-access/user.service';
+import { UserService } from 'src/app/core/data-access/user.service';
 import { setUserSidenavState } from 'src/app/state/user-sidenav-open/user-sidenav-open.actions';
 import { LikesService } from './data-access/likes.service';
 

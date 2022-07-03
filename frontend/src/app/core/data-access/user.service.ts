@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signOut, signInWithRedirect } from "firebase/auth";
-import { BehaviorSubject, fromEvent, Observable, Subject } from 'rxjs';
+import { getAuth, onAuthStateChanged, GoogleAuthProvider, signOut, signInWithRedirect } from "firebase/auth";
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({

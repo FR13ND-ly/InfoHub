@@ -15,7 +15,7 @@ import { MaterialModule } from '../material.module';
 import { MenuComponent } from './menu/menu.component';
 import { NavigatorComponent } from './navigator/navigator.component';
 import { FormsModule } from '@angular/forms';
-import { TimeForReadModule } from '../shared/data-access/time-for-read/time-for-read.module';
+import { TimeForReadModule } from '../core/pipes/time-for-read/time-for-read.module';
 
 
 @NgModule({

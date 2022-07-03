@@ -1,7 +1,7 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { UserService } from './shared/data-access/user.service';
+import { UserService } from './core/data-access/user.service';
 import { setUserSidenavState } from './state/user-sidenav-open/user-sidenav-open.actions';
 
 @Component({

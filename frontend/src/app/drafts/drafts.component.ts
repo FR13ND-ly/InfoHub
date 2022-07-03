@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Article } from '../core/models/article.model';
 import { ArticlePreview } from '../core/models/article.preview.model';
-import { ArticlesService } from '../shared/data-access/articles.service';
+import { ArticlesService } from '../core/data-access/articles.service';
 
 @Component({
   selector: 'app-drafts',

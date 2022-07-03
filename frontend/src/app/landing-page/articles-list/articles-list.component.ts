@@ -4,8 +4,8 @@ import { ArticleAction } from 'src/app/core/models/article-action.model';
 import { ArticlePreview } from 'src/app/core/models/article.preview.model';
 import { ArticlesResponse } from 'src/app/core/models/article.response.model';
 import { ReadListsService } from 'src/app/read-lists/read-lists.service';
-import { ArticlesService } from 'src/app/shared/data-access/articles.service';
-import { UserService } from 'src/app/shared/data-access/user.service';
+import { ArticlesService } from 'src/app/core/data-access/articles.service';
+import { UserService } from 'src/app/core/data-access/user.service';
 
 @Component({
   selector: 'app-articles-list',

@@ -7,7 +7,7 @@ import { delay, Observable, switchMap } from 'rxjs';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { ArticleEdit } from '../core/models/article.edit.model';
 import { Article } from '../core/models/article.model';
-import { ArticlesService } from '../shared/data-access/articles.service';
+import { ArticlesService } from '../core/data-access/articles.service';
 import { setLoading } from '../state/loading/loading.actions';
 
 @Component({

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { UserService } from 'src/app/shared/data-access/user.service';
+import { UserService } from 'src/app/core/data-access/user.service';
 import { ReadListsService } from '../read-lists.service';
 
 @Component({

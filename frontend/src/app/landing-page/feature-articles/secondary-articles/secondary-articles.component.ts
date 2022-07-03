@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { combineLatestWith, delay, Observable, of } from 'rxjs';
 import { ArticlePreview } from 'src/app/core/models/article.preview.model';
-import { ArticlesService } from 'src/app/shared/data-access/articles.service';
+import { ArticlesService } from 'src/app/core/data-access/articles.service';
 import { WidgetsService } from 'src/app/widgets/data-access/widgets.service';
 
 @Component({

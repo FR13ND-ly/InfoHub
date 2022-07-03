@@ -3,7 +3,7 @@ import { delay, Observable } from 'rxjs';
 import { timer } from 'rxjs';
 import { interval, Subscription } from 'rxjs';
 import { ArticlePreview } from 'src/app/core/models/article.preview.model';
-import { ArticlesService } from 'src/app/shared/data-access/articles.service';
+import { ArticlesService } from 'src/app/core/data-access/articles.service';
 
 @Component({
   selector: 'app-articles-slider',

@@ -2,7 +2,7 @@ import { Component, OnChanges, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
-import { UserService } from '../shared/data-access/user.service';
+import { UserService } from '../core/data-access/user.service';
 
 @Component({
   selector: 'app-users',

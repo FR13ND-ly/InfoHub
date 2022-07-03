@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, of, timer } from 'rxjs';
 import { ArticlePreview } from 'src/app/core/models/article.preview.model';
-import { ArticlesService } from 'src/app/shared/data-access/articles.service';
+import { ArticlesService } from 'src/app/core/data-access/articles.service';
 import { setSearchText } from 'src/app/state/search-sidenav/search-sidenav.actions';
 
 @Component({
