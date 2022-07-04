@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WidgetsComponent } from './widgets.component';
 import { RouterModule } from '@angular/router';
-import { MaterialModule } from '../material.module';
+import { MaterialModule } from '../core/modules/material.module';
 import { FormsModule } from '@angular/forms';
 
 

@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable, scan, switchMap, takeWhile } from 'rxjs';
-import { ArticleAction } from 'src/app/core/models/article-action.model';
-import { ArticlePreview } from 'src/app/core/models/article.preview.model';
-import { ArticlesResponse } from 'src/app/core/models/article.response.model';
+import { ArticleAction } from 'src/app/core/models/article/article-action.model';
+import { ArticlePreview } from 'src/app/core/models/article/article.preview.model';
+import { ArticlesResponse } from 'src/app/core/models/article/article.response.model';
 import { ReadListsService } from 'src/app/read-lists/read-lists.service';
 import { ArticlesService } from 'src/app/core/data-access/articles.service';
 import { UserService } from 'src/app/core/data-access/user.service';
+import { User } from 'src/app/core/models/user.model';
 
 @Component({
   selector: 'app-articles-list',
@@ -16,7 +17,7 @@ export class ArticlesListComponent implements OnInit {
 
   constructor(private articleService : ArticlesService, private userService : UserService, private readListsService : ReadListsService) { }
 
-  user! : any
+  user! : User
   index$: BehaviorSubject<number> = new BehaviorSubject<number>(1)
   
   articles$ : Observable<ArticlePreview[]> = this.index$.pipe(
@@ -36,7 +37,7 @@ export class ArticlesListComponent implements OnInit {
   onReadLater(article : ArticleAction) : void {
     this.readListsService.readLater({
       article : article.article,
-      user : this.user.uid
+      user : this.user['uid']
     }).subscribe()
   }
 }

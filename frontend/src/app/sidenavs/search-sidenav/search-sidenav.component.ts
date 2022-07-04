@@ -4,6 +4,7 @@ import { debounceTime, filter, map, Observable, Subject, switchMap } from 'rxjs'
 import { setSearchSidenavOpen } from 'src/app/state/search-sidenav/search-sidenav.actions';
 import { SearchService } from './data-access/search.service';
 import { FormControl } from '@angular/forms';
+import { ArticlePreview } from 'src/app/core/models/article/article.preview.model';
 
 @Component({
   selector: 'app-search-sidenav',
@@ -19,7 +20,7 @@ export class SearchSidenavComponent implements OnInit {
   searchText: string = "";
   
   searchText$: Subject<string> = new Subject<string>()
-  articles$: Observable<any> = this.searchText$.pipe(
+  articles$: Observable<ArticlePreview[]> = this.searchText$.pipe(
     debounceTime(500),
     switchMap((text : string) => this.searchService.search(text))
   );

@@ -11,7 +11,7 @@ import { CoverImageComponent } from './article/cover-image/cover-image.component
 import { TitlesComponent } from './article/titles/titles.component';
 import { TextComponent } from './article/text/text.component';
 import { DetailsComponent } from './article/details/details.component';
-import { MaterialModule } from '../material.module';
+import { MaterialModule } from '../core/modules/material.module';
 import { MenuComponent } from './menu/menu.component';
 import { NavigatorComponent } from './navigator/navigator.component';
 import { FormsModule } from '@angular/forms';

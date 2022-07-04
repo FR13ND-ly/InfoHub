@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
-import { ArticlePreview } from 'src/app/core/models/article.preview.model';
+import { ArticlePreview } from 'src/app/core/models/article/article.preview.model';
 
 @Component({
   selector: 'app-article',

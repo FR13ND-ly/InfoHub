@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CurrencyService } from './currency.service';
 
 @Component({
   selector: 'app-currency',
   templateUrl: './currency.component.html',
-  styleUrls: ['./currency.component.scss']
+  styleUrls: ['./currency.component.scss'],
+  changeDetection : ChangeDetectionStrategy.OnPush
 })
-export class CurrencyComponent implements OnInit {
+export class CurrencyComponent {
 
   constructor(private currencyService : CurrencyService) { }
 
@@ -31,9 +32,5 @@ export class CurrencyComponent implements OnInit {
 
   currency$ = this.currencyService.getCurrency('latest')
   previousCurrency$ = this.currencyService.getCurrency(this.currencyService.getPreviousDay())
-
-  ngOnInit(): void {
-    console.log()
-  }
 
 }

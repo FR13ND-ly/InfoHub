@@ -7,6 +7,7 @@ import { UserService } from 'src/app/core/data-access/user.service';
 import { setLoading } from 'src/app/state/loading/loading.actions';
 import { AddReadlistDialogComponent } from '../add-readlist-dialog/add-readlist-dialog.component';
 import { ReadListsService } from '../read-lists.service';
+import { User } from 'src/app/core/models/user.model';
 
 @Component({
   selector: 'app-lists',
@@ -23,8 +24,8 @@ export class ListsComponent implements OnInit {
 
   lists$: Observable<ReadList[]> = this.userService.getUserUpdateListener().pipe(
     delay(500),
-    filter((user: any) => user),
-    switchMap((user: any) => this.readListsService.getReadLists(user.uid))
+    filter((user: User) => !!user),
+    switchMap((user: User) => this.readListsService.getReadLists(user['uid']))
   );
 
   ngOnInit(): void {
@@ -36,8 +37,8 @@ export class ListsComponent implements OnInit {
     let dialog = this.dialog.open(AddReadlistDialogComponent);
     dialog.afterClosed().subscribe(() => this.lists$ = this.userService.getUserUpdateListener().pipe(
       delay(500),
-      filter((user: any) => user),
-      switchMap((user: any) => this.readListsService.getReadLists(user.uid))
+      filter((user: User) => !!user),
+      switchMap((user: User) => this.readListsService.getReadLists(user['uid']))
     ))
   }
 }

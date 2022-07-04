@@ -13,6 +13,7 @@ import { Variant } from 'src/app/core/models/variant.model';
 import { ArticlesService } from 'src/app/core/data-access/articles.service';
 import { UserService } from 'src/app/core/data-access/user.service';
 import { setUserSidenavState } from 'src/app/state/user-sidenav-open/user-sidenav-open.actions';
+import { User } from 'src/app/core/models/user.model';
 
 @Component({
   selector: 'app-survey',
@@ -30,7 +31,7 @@ export class SurveyComponent implements AfterViewInit {
 
   @Input() url! : string
   surveyIndex = 0;
-  user!: any;
+  user!: User;
 
   surveys$: Observable<Survey[]> = timer(0).pipe(
     switchMap(() =>
@@ -38,7 +39,7 @@ export class SurveyComponent implements AfterViewInit {
         tap((user) => this.user = user),
         switchMap((user) =>
           this.articlesService.getSurvey({
-            user: user?.uid,
+            user: user ? user['uid'] : null,
             url: this.url,
           })
         )
@@ -77,7 +78,7 @@ export class SurveyComponent implements AfterViewInit {
       this.articlesService
         .vote({
           id: variant.id,
-          user: this.user.uid,
+          user: this.user ? this.user['uid'] : null,
         })
         .subscribe();
       variant.votes += variant.voted ? -1 : 1;

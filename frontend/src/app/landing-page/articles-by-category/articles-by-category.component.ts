@@ -1,12 +1,13 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { BehaviorSubject, delay, Observable, of, Subject, switchMap, timer } from 'rxjs';
-import { ArticlePreview } from 'src/app/core/models/article.preview.model';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, ViewChild } from '@angular/core';
+import { BehaviorSubject, Observable, switchMap, timer } from 'rxjs';
+import { ArticlePreview } from 'src/app/core/models/article/article.preview.model';
 import { ArticlesService } from 'src/app/core/data-access/articles.service';
 
 @Component({
   selector: 'app-articles-by-category',
   templateUrl: './articles-by-category.component.html',
-  styleUrls: ['./articles-by-category.component.scss']
+  styleUrls: ['./articles-by-category.component.scss'],
+  changeDetection : ChangeDetectionStrategy.OnPush
 })
 export class ArticlesByCategoryComponent implements AfterViewInit {
 

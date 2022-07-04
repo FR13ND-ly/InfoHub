@@ -1,9 +1,9 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnDestroy } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { catchError, delay, Observable, switchMap, tap, timer } from 'rxjs';
-import { Article } from 'src/app/core/models/article.model';
+import { Article } from 'src/app/core/models/article/article.model';
 import { ArticlesService } from 'src/app/core/data-access/articles.service';
 import { setLoading } from 'src/app/state/loading/loading.actions';
 
@@ -11,6 +11,7 @@ import { setLoading } from 'src/app/state/loading/loading.actions';
   selector: 'article-details-article',
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.scss'],
+  changeDetection : ChangeDetectionStrategy.OnPush
 })
 export class ArticleComponent implements OnDestroy {
   constructor(

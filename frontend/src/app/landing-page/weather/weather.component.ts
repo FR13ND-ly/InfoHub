@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
-import { Observable, of, switchMap } from 'rxjs';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Observable, switchMap } from 'rxjs';
 import { WeatherService } from './weather.service';
 
 @Component({
   selector: 'app-weather',
   templateUrl: './weather.component.html',
-  styleUrls: ['./weather.component.scss']
+  styleUrls: ['./weather.component.scss'],
+  changeDetection : ChangeDetectionStrategy.OnPush
 })
 export class WeatherComponent {
 

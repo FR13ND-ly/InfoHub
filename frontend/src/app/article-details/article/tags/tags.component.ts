@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   Input,
@@ -14,6 +15,7 @@ import { setSearchText } from 'src/app/state/search-sidenav/search-sidenav.actio
   selector: 'app-tags',
   templateUrl: './tags.component.html',
   styleUrls: ['./tags.component.scss'],
+  changeDetection : ChangeDetectionStrategy.OnPush
 })
 export class TagsComponent implements OnInit {
   

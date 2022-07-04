@@ -2,8 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { ArticlesResponse } from '../core/models/article.response.model';
+import { ArticlesResponse } from '../core/models/article/article.response.model';
 import { ListInfo } from '../core/models/readlist.info.model';
+import { LightList } from '../core/models/readlist.light.model';
 import { ReadList } from '../core/models/readlist.model';
 
 @Injectable({
@@ -20,7 +21,7 @@ export class ReadListsService {
   }
 
   getLightReadLists(data : any) {
-    return this.http.post(`${this.APIUrl}get-light/`, data)
+    return <Observable<LightList[]>>this.http.post(`${this.APIUrl}get-light/`, data)
   }
 
   getReadListArticles(data: any) : Observable<ArticlesResponse> {

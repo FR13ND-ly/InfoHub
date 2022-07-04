@@ -17,7 +17,7 @@ def login(request):
         email=data['email']
     )
     if (created):
-        newList = List.objects.create(name = "Citește mai târziu", editable = False, user = data['uid'])
+        newList = List.objects.get_or_create(name = "Citește mai târziu", editable = False, user = data['uid'])[0]
         newList.save()
         user.username = data['uid']
         user.save()
@@ -38,6 +38,8 @@ def login(request):
     return JsonResponse(response, status = status.HTTP_200_OK)
 
 def getUserAuthorization(request, token):
+    if not Profile.objects.filter(token = token).exists():
+        return JsonResponse({}, status = status.HTTP_200_OK)    
     profile = Profile.objects.get(token = token)
     response = {
         "imageUrl" : getFile(profile.image, "users/"),
@@ -86,5 +88,7 @@ def setDefaultAvatar(request, id):
 
 @csrf_exempt
 def deleteUser(request, id):
-    User.objects.get(id = Profile.objects.get(id = id).user.id).delete()
+    profile = Profile.objects.get(id = id)
+    User.objects.get(id = profile.user.id).delete()
+    profile.delete()
     return JsonResponse({}, status = status.HTTP_200_OK)

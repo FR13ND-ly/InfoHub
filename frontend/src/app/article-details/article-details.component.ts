@@ -1,10 +1,9 @@
-import { ScrollDispatcher } from '@angular/cdk/scrolling';
+import { CdkScrollable, ScrollDispatcher } from '@angular/cdk/scrolling';
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { filter, Observable, switchMap, takeWhile} from 'rxjs';
-import { ArticlesResponse } from '../core/models/article.response.model';
 import { ArticlesService } from '../core/data-access/articles.service';
 import { addArticle, resetArticles, setArticle } from '../state/articles/articles.actions';
 import { setSearchSidenavOpen } from '../state/search-sidenav/search-sidenav.actions';
@@ -20,7 +19,7 @@ export class ArticleDetailsComponent implements OnInit, AfterViewInit, OnDestroy
 
   articles$ : Observable<string[]> = this.store.select('articles')
   loadArticles : boolean = true
-  articles!: any
+  articles!: string[]
   url!: string
 
   @ViewChildren('articles') articlesRef! : QueryList<ElementRef>
@@ -30,26 +29,26 @@ export class ArticleDetailsComponent implements OnInit, AfterViewInit, OnDestroy
   observer = new IntersectionObserver((articles) => {this.observeArticles(articles) , 1});
 
   ngOnInit(): void {
-    this.route.params.subscribe((params : any) => {
-      this.store.dispatch(setArticle({ url : params.url }))
+    this.route.params.subscribe((params : Params) => {
+      this.store.dispatch(setArticle({ url : params['url'] }))
       this.store.dispatch(setSearchSidenavOpen({state: false}))
     })
     this.articles$.subscribe((articles) => this.articles = articles)
   }
 
   ngAfterViewInit(): void {
-    this.articlesRef.toArray().forEach((article : any) => {
+    this.articlesRef.toArray().forEach((article : ElementRef) => {
       this.observer.observe(article.nativeElement)
     })
     this.articlesRef.changes.subscribe((articles) => {
-      articles._results.forEach((article: any) => {
+      articles._results.forEach((article: ElementRef) => {
         this.observer.observe(article.nativeElement)
       });
       this.loadArticles = true
     })
     this.scrollDispatcher.scrolled().pipe(
-      filter((cdk : any) => {
-        let element = cdk.getElementRef().nativeElement
+      filter((cdk : CdkScrollable | void) => {
+        let element = cdk!.getElementRef().nativeElement
         return element.offsetHeight + element.scrollTop >= element.scrollHeight - 1000 && this.loadArticles
       }),
       switchMap(() => this.articlesService.getNextArticle(this.articles).pipe(
@@ -77,7 +76,7 @@ export class ArticleDetailsComponent implements OnInit, AfterViewInit, OnDestroy
  
   setTitle(title: string) {
     this.titleService.setTitle(
-      title.replace(/-/g, " ").replace(/(^\w{1})|(\s+\w{1})/g, (letter: any) =>
+      title.replace(/-/g, " ").replace(/(^\w{1})|(\s+\w{1})/g, (letter: string) =>
         letter.toUpperCase()
       ) + ' |  InfoHub'
     );

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ArticleEditorComponent } from './article-editor.component';
 import { RouterModule } from '@angular/router';
-import { MaterialModule } from '../material.module';
+import { MaterialModule } from '../core/modules/material.module';
 import { MenuComponent } from './menu/menu.component';
 import { TextEditorComponent } from './text-editor/text-editor.component';
 import { TagsComponent } from './tags/tags.component';

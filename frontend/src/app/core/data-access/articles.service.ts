@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ArticleEdit } from 'src/app/core/models/article.edit.model';
-import { ArticleLightPreview } from 'src/app/core/models/article.light-preview.model';
-import { Article } from 'src/app/core/models/article.model';
-import { ArticlePreview } from 'src/app/core/models/article.preview.model';
-import { ArticlesResponse } from 'src/app/core/models/article.response.model';
+import { ArticleEdit } from 'src/app/core/models/article/article.edit.model';
+import { ArticleLightPreview } from 'src/app/core/models/article/article.light-preview.model';
+import { Article } from 'src/app/core/models/article/article.model';
+import { ArticlePreview } from 'src/app/core/models/article/article.preview.model';
+import { ArticlesResponse } from 'src/app/core/models/article/article.response.model';
 import { Survey } from 'src/app/core/models/survey.model';
 import { environment } from 'src/environments/environment';
 

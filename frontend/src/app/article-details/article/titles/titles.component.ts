@@ -1,9 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-titles',
   templateUrl: './titles.component.html',
-  styleUrls: ['./titles.component.scss']
+  styleUrls: ['./titles.component.scss'],
+  changeDetection : ChangeDetectionStrategy.OnPush
 })
 export class TitlesComponent {
 

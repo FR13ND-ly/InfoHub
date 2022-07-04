@@ -13,12 +13,13 @@ import {
   timer,
 } from 'rxjs';
 import { ConfirmDialogComponent } from 'src/app/confirm-dialog/confirm-dialog.component';
-import { ArticleAction } from 'src/app/core/models/article-action.model';
-import { ArticlesResponse } from 'src/app/core/models/article.response.model';
+import { ArticleAction } from 'src/app/core/models/article/article-action.model';
+import { ArticlesResponse } from 'src/app/core/models/article/article.response.model';
 import { ListInfo } from 'src/app/core/models/readlist.info.model';
 import { UserService } from 'src/app/core/data-access/user.service';
 import { setLoading } from 'src/app/state/loading/loading.actions';
 import { ReadListsService } from '../read-lists.service';
+import { User } from 'src/app/core/models/user.model';
 
 @Component({
   selector: 'app-list',
@@ -35,8 +36,8 @@ export class ListComponent implements OnInit {
     private dialog: MatDialog
   ) {}
 
-  id!: any;
-  user!: any;
+  id!: number | string;
+  user!: User;
   index: number = 1;
   icons: Array<string> = [
     'bookmark',
@@ -65,7 +66,7 @@ export class ListComponent implements OnInit {
 
   listInfo$: Observable<any> = this.userService.getUserUpdateListener().pipe(
     delay(500),
-    filter((user: any) => user),
+    filter((user: User) => !!user),
     switchMap((user) =>
       this.readListService.getReadListInfo({
         id:
@@ -74,7 +75,7 @@ export class ListComponent implements OnInit {
             : this.route.snapshot.paramMap.get('url') == 'aprecieri'
             ? -2
             : this.route.snapshot.paramMap.get('url'),
-        user: user.uid,
+        user: user['uid'],
       })
     ),
     catchError(async (err) => { 
@@ -102,7 +103,7 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(setLoading({state : true}))
-    this.id = this.route.snapshot.paramMap.get('url');
+    this.id = <string>this.route.snapshot.paramMap.get('url');
     this.articles$
       .pipe(delay(500), combineLatestWith(this.listInfo$))
       .subscribe(() => this.store.dispatch(setLoading({state : false})));
@@ -149,7 +150,7 @@ export class ListComponent implements OnInit {
     this.readListService
       .getReadListArticles({
         id: this.id == 'istoric' ? -1 : this.id == 'aprecieri' ? -2 : this.id,
-        user: this.user.uid,
+        user: this.user['uid'],
         index: ++this.index,
       })
       .subscribe((res: any) => {

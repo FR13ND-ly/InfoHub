@@ -14,6 +14,8 @@ import { ReadListsService } from 'src/app/read-lists/read-lists.service';
 import { UserService } from 'src/app/core/data-access/user.service';
 import { setUserSidenavState } from 'src/app/state/user-sidenav-open/user-sidenav-open.actions';
 import { LikesService } from './data-access/likes.service';
+import { User } from 'src/app/core/models/user.model';
+import { LightList } from 'src/app/core/models/readlist.light.model';
 
 @Component({
   selector: 'app-menu',
@@ -31,24 +33,24 @@ export class MenuComponent implements AfterViewInit, OnInit {
 
   @ViewChild('menuRef') menuRef!: ElementRef;
 
-  user!: any;
+  user!: User;
   @Input() url!: string;
   showAddListMenu: boolean = false;
 
   likesInfo$: Observable<any> = this.userService.getUserUpdateListener().pipe(
     switchMap((user) =>
       this.likesService.getLikes({
-        user: user?.uid,
+        user: user ? user['uid'] : null,
         article: this.url,
       })
     )
   );
 
-  lists$: Observable<any> = this.userService.getUserUpdateListener().pipe(
-    filter((user: any) => user),
+  lists$: Observable<LightList[]> = this.userService.getUserUpdateListener().pipe(
+    filter((user: User) => !!user),
     switchMap((user) =>
       this.readListsService.getLightReadLists({
-        user: user.uid,
+        user: user ? user['uid'] : null,
         article: this.url,
       })
     )
@@ -59,7 +61,7 @@ export class MenuComponent implements AfterViewInit, OnInit {
     this.userService.getUserUpdateListener().subscribe((user) => {
       this.user = user;
       this.readListsService
-        .addView({ article: this.url, user: this.user?.uid })
+        .addView({ article: this.url, user: user ? user['uid'] : null })
         .subscribe();
     });
   }
@@ -83,7 +85,7 @@ export class MenuComponent implements AfterViewInit, OnInit {
     if (this.user) {
       this.likesService
         .interact({
-          user: this.user.uid,
+          user: this.user["uid"],
           article: this.url,
         })
         .subscribe();
@@ -110,9 +112,7 @@ export class MenuComponent implements AfterViewInit, OnInit {
       'facebook-popup',
       'height=350,width=600'
     );
-    if (windowShare.focus) {
-      windowShare.focus();
-    }
+    if (windowShare.focus) windowShare.focus();
   }
 
   onGetList() {
@@ -120,7 +120,7 @@ export class MenuComponent implements AfterViewInit, OnInit {
       delay(500),
       switchMap((user) =>
         this.readListsService.getLightReadLists({
-          user: user.uid,
+          user: user['uid'],
           article: this.url,
         })
       )
@@ -142,7 +142,7 @@ export class MenuComponent implements AfterViewInit, OnInit {
       .addReadList({
         name: form.value.name,
         access: form.value.access,
-        user: this.user.uid,
+        user: this.user["uid"],
       })
       .subscribe(() => this.onGetList());
     form.reset();

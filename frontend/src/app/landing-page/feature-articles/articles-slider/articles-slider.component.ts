@@ -2,7 +2,7 @@ import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/co
 import { delay, Observable } from 'rxjs';
 import { timer } from 'rxjs';
 import { interval, Subscription } from 'rxjs';
-import { ArticlePreview } from 'src/app/core/models/article.preview.model';
+import { ArticlePreview } from 'src/app/core/models/article/article.preview.model';
 import { ArticlesService } from 'src/app/core/data-access/articles.service';
 
 @Component({

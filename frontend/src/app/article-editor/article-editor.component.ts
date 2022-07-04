@@ -5,8 +5,8 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { delay, Observable, switchMap } from 'rxjs';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
-import { ArticleEdit } from '../core/models/article.edit.model';
-import { Article } from '../core/models/article.model';
+import { ArticleEdit } from '../core/models/article/article.edit.model';
+import { Article } from '../core/models/article/article.model';
 import { ArticlesService } from '../core/data-access/articles.service';
 import { setLoading } from '../state/loading/loading.actions';
 

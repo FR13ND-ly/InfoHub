@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { getAuth, onAuthStateChanged, GoogleAuthProvider, signOut, signInWithRedirect } from "firebase/auth";
+import { getAuth, onAuthStateChanged, GoogleAuthProvider, signOut, signInWithRedirect, signInWithPopup } from "firebase/auth";
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +19,9 @@ export class UserService {
   private auth = getAuth()
 
   login() {
-    signInWithRedirect(this.auth, this.provider)
+    signInWithPopup(this.auth, this.provider)
     .then((result : any) => {
+      console.log('a')
       this.http.post(this.APIUrl + 'login/', result.user).subscribe((res) => {
         if (result.user) this.userUpdated.next({...result.user, ...res})
         else this.userUpdated.next(false)
@@ -40,7 +42,7 @@ export class UserService {
     return this.auth.currentUser
   }
 
-  getUserUpdateListener() : Observable<any> {
+  getUserUpdateListener() : Observable<User> {
     return this.userUpdated.asObservable()
   }
 

@@ -1,15 +1,16 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, switchMap, timer } from 'rxjs';
-import { ArticleLightPreview } from 'src/app/core/models/article.light-preview.model';
+import { ArticleLightPreview } from 'src/app/core/models/article/article.light-preview.model';
 import { ArticlesService } from 'src/app/core/data-access/articles.service';
 import { setArticle } from 'src/app/state/articles/articles.actions';
 
 @Component({
   selector: 'app-more-articles',
   templateUrl: './more-articles.component.html',
-  styleUrls: ['./more-articles.component.scss']
+  styleUrls: ['./more-articles.component.scss'],
+  changeDetection : ChangeDetectionStrategy.OnPush
 })
 export class MoreArticlesComponent implements AfterViewInit {
 

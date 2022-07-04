@@ -15,6 +15,7 @@ import { Comment } from 'src/app/core/models/comment.model';
 import { UserService } from 'src/app/core/data-access/user.service';
 import { setUserSidenavState } from 'src/app/state/user-sidenav-open/user-sidenav-open.actions';
 import { CommentsService } from './data-access/comments.service';
+import { User } from 'src/app/core/models/user.model';
 
 @Component({
   selector: 'app-comments',
@@ -37,7 +38,7 @@ export class CommentsComponent implements AfterViewInit {
     switchMap(() => this.commentsService.getComments(this.url))
   )
 
-  user$: Observable<any> = this.userService.getUserUpdateListener();
+  user$: Observable<User> = this.userService.getUserUpdateListener();
 
   observer : IntersectionObserver = new IntersectionObserver((comments) => {
     this.observeArticles(comments);
@@ -58,7 +59,7 @@ export class CommentsComponent implements AfterViewInit {
     this.store.dispatch(setUserSidenavState({ state : true }))
   }
 
-  observeArticles(comments: any) {
+  observeArticles(comments: IntersectionObserverEntry[]) {
     comments.forEach((comment: IntersectionObserverEntry) => {
       if (comment.isIntersecting) {
         comment.target.classList.add('show');
@@ -67,11 +68,11 @@ export class CommentsComponent implements AfterViewInit {
     });
   }
 
-  onAddComment(form: NgForm, user: any, comments: Comment[]) {
+  onAddComment(form: NgForm, user: User, comments: Comment[]) {
     if (!form.form.value.text.trim()) return;
     let data: any = {
-      username: user.displayName,
-      author: user.uid,
+      username: user['displayName'],
+      author: user['uid'],
       text: form.form.value.text,
       article: this.url,
       image: user.image,

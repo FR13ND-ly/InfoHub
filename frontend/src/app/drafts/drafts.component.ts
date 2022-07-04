@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Article } from '../core/models/article.model';
-import { ArticlePreview } from '../core/models/article.preview.model';
+import { Article } from '../core/models/article/article.model';
+import { ArticlePreview } from '../core/models/article/article.preview.model';
 import { ArticlesService } from '../core/data-access/articles.service';
 
 @Component({

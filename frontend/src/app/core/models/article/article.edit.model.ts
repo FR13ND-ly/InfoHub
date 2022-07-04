@@ -1,5 +1,5 @@
 import { ArticleDetails } from "./article.details.model";
-import { Survey } from "./survey.model";
+import { Survey } from "../survey.model";
 
 export interface ArticleEdit {
     id : string,

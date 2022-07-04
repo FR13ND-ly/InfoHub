@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { Widget } from 'src/app/core/models/widget.model';
 import { WidgetsService } from 'src/app/widgets/data-access/widgets.service';
@@ -6,7 +6,8 @@ import { WidgetsService } from 'src/app/widgets/data-access/widgets.service';
 @Component({
   selector: 'app-right-sidebar',
   templateUrl: './right-sidebar.component.html',
-  styleUrls: ['./right-sidebar.component.scss']
+  styleUrls: ['./right-sidebar.component.scss'],
+  changeDetection : ChangeDetectionStrategy.OnPush
 })
 export class RightSidebarComponent {
 

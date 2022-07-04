@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { ArticlePreview } from 'src/app/core/models/article/article.preview.model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -12,6 +14,6 @@ export class SearchService {
   readonly APIUrl = environment.apiUrl + 'articles/search/'
 
   search(text : string) {
-    return this.http.post(this.APIUrl, {text})
+    return <Observable<ArticlePreview[]>>this.http.post(this.APIUrl, {text})
   }
 }

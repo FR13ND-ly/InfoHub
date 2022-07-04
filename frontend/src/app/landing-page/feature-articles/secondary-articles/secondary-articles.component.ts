@@ -1,13 +1,13 @@
-import { AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
-import { combineLatestWith, delay, Observable, of } from 'rxjs';
-import { ArticlePreview } from 'src/app/core/models/article.preview.model';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
+import { combineLatestWith, delay, Observable } from 'rxjs';
 import { ArticlesService } from 'src/app/core/data-access/articles.service';
 import { WidgetsService } from 'src/app/widgets/data-access/widgets.service';
 
 @Component({
   selector: 'app-secondary-articles',
   templateUrl: './secondary-articles.component.html',
-  styleUrls: ['./secondary-articles.component.scss']
+  styleUrls: ['./secondary-articles.component.scss'],
+  changeDetection : ChangeDetectionStrategy.OnPush
 })
 export class SecondaryArticlesComponent implements AfterViewInit {
 

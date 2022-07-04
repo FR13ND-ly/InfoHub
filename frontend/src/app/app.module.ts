@@ -7,7 +7,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from './material.module';
+import { MaterialModule } from './core/modules/material.module';
 import { ArticlesByCategoryComponent } from './landing-page/articles-by-category/articles-by-category.component';
 import { ArticlesListComponent } from './landing-page/articles-list/articles-list.component';
 import { RightSidebarComponent } from './landing-page/right-sidebar/right-sidebar.component';
@@ -24,12 +24,9 @@ import { ArticleModule } from './core/components/article/article.module';
 import { HttpClientModule } from '@angular/common/http';
 import { WeatherComponent } from './landing-page/weather/weather.component';
 import { StoreModule } from '@ngrx/store';
-import { loadingReducer } from './state/loading/loading.reducer';
-import { userSidenavOpenReducer } from './state/user-sidenav-open/user-sidenav-open.reducer';
-import { searchSidenavReducer } from './state/search-sidenav/search-sidenav.reducer';
 import { CurrencyComponent } from './landing-page/currency/currency.component';
-import { articlesReducer } from './state/articles/articles.reducer';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { appState } from './state/app.state';
 
 
 @NgModule({
@@ -61,12 +58,7 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     ArticleModule,
     FormsModule,
     HttpClientModule,
-    StoreModule.forRoot({
-      loading : loadingReducer,
-      userSidenavOpen : userSidenavOpenReducer,
-      searchSidenav : searchSidenavReducer,
-      articles : articlesReducer,
-    }),
+    StoreModule.forRoot(appState),
   ],
   providers: [],
   bootstrap: [AppComponent]
