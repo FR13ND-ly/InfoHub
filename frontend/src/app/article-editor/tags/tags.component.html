@@ -11,16 +11,16 @@
         </mat-chip>
         <input
             placeholder="Adaugă un tag"
-            #fruitInput
-            [formControl]="fruitCtrl"
+            #tagsInput
+            [formControl]="tagsCtrl"
             [matAutocomplete]="auto"
             [matChipInputFor]="chipList"
             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
             (matChipInputTokenEnd)="add($event)">
     </mat-chip-list>
     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-        <mat-option *ngFor="let fruit of filteredTags | async" [value]="fruit" class="color1">
-            {{fruit}}
+        <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
+            {{ tag }}
         </mat-option>
     </mat-autocomplete>
 </mat-form-field>

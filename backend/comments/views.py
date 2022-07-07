@@ -8,7 +8,7 @@ from files.views import getFile
 from rest_framework import status
 from articles.views import formatDate
 
-apiUrl = "http://infohub.pythonanywhere.com/api"
+apiUrl = "http://localhost:8000/api"
 
 def getComments(request, url):
     comments = []

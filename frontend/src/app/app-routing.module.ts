@@ -30,7 +30,8 @@ const routes: Routes = [
       import('./article-editor/article-editor.module').then(
         (m) => m.ArticleEditorModule
       ),
-    canActivate: [AuthorizedGuard, DesktopGuard]
+    canActivate: [AuthorizedGuard, DesktopGuard],
+    canDeactivate: [DirtyArticleGuard]
   },
   {
     path: 'ciorne',

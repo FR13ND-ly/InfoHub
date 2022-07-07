@@ -1,5 +1,5 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { delay, Observable } from 'rxjs';
+import { ChangeDetectionStrategy, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { BehaviorSubject, map, Observable, repeatWhen, Subject, switchMap, takeUntil, tap } from 'rxjs';
 import { timer } from 'rxjs';
 import { interval, Subscription } from 'rxjs';
 import { ArticlePreview } from 'src/app/core/models/article/article.preview.model';
@@ -8,47 +8,45 @@ import { ArticlesService } from 'src/app/core/data-access/articles.service';
 @Component({
   selector: 'app-articles-slider',
   templateUrl: './articles-slider.component.html',
-  styleUrls: ['./articles-slider.component.scss']
+  styleUrls: ['./articles-slider.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ArticlesSliderComponent implements OnInit, OnDestroy {
+export class ArticlesSliderComponent implements OnDestroy {
 
   constructor(private articleService : ArticlesService) { }
-
-  selectedIndex : number = 0;
 
   @ViewChild('selectorsWrapper') selectorsWrapper! : ElementRef
   @ViewChild('slider') slider! : ElementRef
 
-  articles$ : Observable<ArticlePreview[]> = this.articleService.getSlider().pipe(
-    delay(500)
+  selectedIndex$ : BehaviorSubject<number> = new BehaviorSubject<number>(0)
+  article$ : Observable<ArticlePreview> = this.selectedIndex$.pipe(
+    tap(() => this.restartSliderAnimation()),
+    switchMap((i : number) => this.articleService.getSlider().pipe(
+      map((articles : ArticlePreview[]) : ArticlePreview => articles[i])
+    ))
   )
 
-  sliderInterval! : Subscription
-  repeatAnimationInterval! : Subscription
+  start$ = new Subject<void>();
+  stop$ = new Subject<void>();
 
-  ngOnInit(): void {
-    this.sliderInterval = interval(6000).subscribe(() => {
-      this.restartSliderAnimation()
-      this.selectedIndex = ++this.selectedIndex % 5;
-    })
-    this.repeatAnimationInterval = interval(10000).subscribe(() => {
-      this.restartSelectorsAnimation()
-    })
-  }
+  sliderInterval : Subscription = interval(6000).pipe(
+    takeUntil(this.stop$),
+    repeatWhen(() => this.start$)
+  ).subscribe(() => {
+    this.selectedIndex$.next((this.selectedIndex$.value + 1) % 5)
+  })
+  repeatAnimationInterval: Subscription = interval(10000).subscribe(() => {
+    this.restartSelectorsAnimation()
+  })
 
   onSelectIndex(index : number) : void {
-    this.sliderInterval.unsubscribe()
-    this.restartSliderAnimation()
-    this.selectedIndex = index
-    this.sliderInterval = interval(5000).subscribe(() => {
-      this.restartSliderAnimation()
-      this.selectedIndex = ++this.selectedIndex % 5;
-    })
-    
+    this.stop$.next()
+    this.selectedIndex$.next(index)
+    this.start$.next()
   }
 
   restartSelectorsAnimation() : void {
-    Array.from(<HTMLCollection>this.selectorsWrapper.nativeElement.children).forEach((el : any, i ) => {
+    Array.from(<HTMLCollection>this.selectorsWrapper!.nativeElement.children).forEach((el : any, i ) => {
       el.style.animation = 'none';
       el.offsetHeight;
       el.style.animation = '';
@@ -57,8 +55,9 @@ export class ArticlesSliderComponent implements OnInit, OnDestroy {
   }
 
   restartSliderAnimation() : void {
+    if (!this.slider) return
     this.slider.nativeElement.classList.toggle('appear')
-    timer(0).subscribe(() => this.slider.nativeElement.classList.toggle('appear'))
+    timer(0).subscribe(() => this.slider!.nativeElement.classList.toggle('appear'))
   }
 
   ngOnDestroy() : void {

@@ -18,14 +18,14 @@ export class TagsComponent {
   selectable = true;
   removable = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
-  fruitCtrl = new FormControl();
+  tagsCtrl = new FormControl();
   filteredTags: Observable<string[]>;
   alltags: string[] = ['Divertisment', 'LongRead', 'Educație', 'Cultural', 'Ecologic', 'Economic', 'Interviu', 'Politic', 'Sănătate', 'Social', 'Sportiv', 'Finanțe', 'Incidente', 'Internațional', 'Investigații', 'Justiție', 'Meteo', 'OpiniiEditorial', 'Poliție', 'Religie', 'StopFals', 'SuccesComunitar', 'Transport', "IT"];
 
-  @ViewChild('fruitInput') fruitInput: ElementRef<HTMLInputElement> | undefined;
+  @ViewChild('fruitInput') tagsInput: ElementRef<HTMLInputElement> | undefined;
 
   constructor() {
-    this.filteredTags = this.fruitCtrl.valueChanges.pipe(
+    this.filteredTags = this.tagsCtrl.valueChanges.pipe(
       startWith(null),
       map((fruit: string | null) => fruit ? this._filter(fruit) : this.alltags.slice()));
   }
@@ -37,7 +37,7 @@ export class TagsComponent {
     }
     event.chipInput!.clear();
 
-    this.fruitCtrl.setValue(null);
+    this.tagsCtrl.setValue(null);
   }
 
   remove(fruit: string): void {
@@ -50,8 +50,8 @@ export class TagsComponent {
 
   selected(event: MatAutocompleteSelectedEvent): void {
     this.tags!.push(event.option.viewValue);
-    this.fruitInput!.nativeElement.value = '';
-    this.fruitCtrl.setValue(null);
+    this.tagsInput!.nativeElement.value = '';
+    this.tagsCtrl.setValue(null);
   }
 
   private _filter(value: string): string[] {
