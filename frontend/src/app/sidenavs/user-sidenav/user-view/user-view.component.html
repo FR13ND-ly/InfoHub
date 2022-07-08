@@ -1,6 +1,6 @@
 <div class="user-data">
     <div class="user-data__wrapper">
-        <input type="file" hidden #imageUploader (input)="onSetUserImage($event)">
+        <input aria-label="schimbă imaginea de profile" type="file" hidden #imageUploader (input)="onSetUserImage($event)">
         <div class="user-data__image-wrapper change-avatar-btn" [class.loading]="loading" *ngIf="user?.allowChangeAvatar" (click)="imageUploader.click()">
             <mat-icon class="user-data__edit-image">edit</mat-icon>
             <img class="user-data__image" [src]="user?.imageUrl">
@@ -31,15 +31,15 @@
             Utilizatori
         </li>
     </div>
-    <li class="action" routerLink="/readlist" (click)="onCloseUserSideNav()">
+    <li aria-label="accesează readlistele" class="action" routerLink="/readlist" (click)="onCloseUserSideNav()">
         <mat-icon>library_books</mat-icon>
         ReadListe
     </li>
-    <li class="action" (click)="onLogout()">
+    <li aria-label="delogheazăte" class="action" (click)="onLogout()">
         <mat-icon>logout</mat-icon>
         Delogare
     </li>
-    <li class="action hide-on-large" (click)="onChangeTheme()">
+    <li aria-label="schimbă tema" class="action hide-on-large" (click)="onChangeTheme()">
         <mat-icon>brightness_5</mat-icon>
         Schimbă tema
     </li>

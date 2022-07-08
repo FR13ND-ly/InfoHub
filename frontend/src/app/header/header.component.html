@@ -1,9 +1,0 @@
-<header class="mat-elevation-z6" #header>
-    <button class="open-menu-sidenav" (click)="onOpenUserSidenav()" mat-icon-button><mat-icon>menu</mat-icon></button>
-    <span class="title" routerLink="/">InfoHub</span>
-    <div class="right-side">
-        <button class="change-theme-button hide-on-mob" mat-icon-button (click)="onChangeTheme()"><mat-icon>brightness_4</mat-icon></button>
-        <button class="search-search-sidenav" mat-icon-button (click)="onOpenSearchSidenav()"><mat-icon>search</mat-icon></button>
-    </div>
-    <mat-progress-bar class="loader" mode="indeterminate" *ngIf="loading$ | async"></mat-progress-bar>
-</header>

@@ -2,7 +2,7 @@
     <app-login *ngIf="!vm.user"></app-login>
     <app-user-view *ngIf="vm.user"></app-user-view>
 </ng-container>
-<div class="close-button-wrapper" (click)="onCloseUserSideNav()">
+<div aria-label="închide" class="close-button-wrapper" (click)="onCloseUserSideNav()">
     <mat-icon>close</mat-icon>
     Închide
 </div>

@@ -3,7 +3,7 @@
         <h1 class="editorial__title">{{ editorial.title }}</h1>
         <img class="editorial__image" [src]="editorial.imageUrl" loading="lazy">
     </a>
-    <div class="more-articles mat-elevation-z8" matTooltip="Mai multe Editoriale" (click)="onOpenSearchSideNav()">
+    <div aria-label="afișează articolele editoriale" class="more-articles mat-elevation-z8" matTooltip="Mai multe Editoriale" (click)="onOpenSearchSideNav()">
         <mat-icon>apps</mat-icon>
     </div>
 </ng-container>

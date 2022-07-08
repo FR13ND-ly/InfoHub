@@ -5,13 +5,13 @@
   [class.left]="left"
   *ngFor="let article of articles"
   #articleRef>
-  <button mat-icon-button class="article-backdrop__action hide-on-mob" *ngIf="icon" (click)="onActionExec(article, articleRef)">
+  <button aria-label="afișează mai multe acțiuni" mat-icon-button class="article-backdrop__action hide-on-mob" *ngIf="icon" (click)="onActionExec(article, articleRef)">
     <mat-icon>{{ icon }}</mat-icon>
   </button>
   <div class="article mat-elevation-z4">
     <img class="article__image" [src]="article.imageUrl" load="lazy" routerLink="/articol/{{ article.url }}"/>
     <div class="article__content-wrapper">
-      <button class="article__more-action hide-on-mob" *ngIf="icon" mat-icon-button (click)="article.opened = !article.opened">
+      <button aria-label="citește mai târziu" class="article__more-action hide-on-mob" *ngIf="icon" mat-icon-button (click)="article.opened = !article.opened">
         <mat-icon>more_vert</mat-icon>
       </button>
       <div routerLink="/articol/{{ article.url }}">

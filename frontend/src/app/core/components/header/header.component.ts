@@ -7,8 +7,8 @@ import {
 } from '@angular/core';
 import { filter, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { setUserSidenavState } from '../state/user-sidenav-open/user-sidenav-open.actions';
-import { setSearchSidenavOpen } from '../state/search-sidenav/search-sidenav.actions';
+import { setUserSidenavState } from '../../../state/user-sidenav-open/user-sidenav-open.actions';
+import { setSearchSidenavOpen } from '../../../state/search-sidenav/search-sidenav.actions';
 
 @Component({
   selector: 'app-header',

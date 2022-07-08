@@ -29,7 +29,5 @@ export class TextComponent implements OnInit {
         })
       })
     })
-    
   }
-
 }

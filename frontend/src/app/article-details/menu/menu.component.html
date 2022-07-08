@@ -1,5 +1,6 @@
 <div class="menu" #menuRef>
   <button
+    aria-label="apreciază"
     mat-raised-button
     (click)="onLikeInteract(likesInfo)"
     class="like-button"
@@ -9,6 +10,7 @@
     <span *ngIf="!likesInfo.hideLikes">{{ likesInfo.likes }}</span>
   </button>
   <button
+    aria-label="editează"
     mat-raised-button
     class="edit-button hide-on-mob"
     routerLink="edit/"
@@ -17,6 +19,7 @@
     <mat-icon color="accent">edit</mat-icon>
   </button>
   <button
+    aria-label="deschide readlistele"
     mat-raised-button
     *ngIf="user"
     [matMenuTriggerFor]="readListMenu"
@@ -25,6 +28,7 @@
     <mat-icon color="primary">add_to_photos</mat-icon>
   </button>
   <button
+    aria-label="afișează butoanele de distribuire"
     mat-icon-button
     class="share-button"
     (click)="showSocials = !showSocials"
@@ -33,6 +37,7 @@
   </button>
   <div class="socials" *ngIf="showSocials">
     <button
+      aria-label="distribuie pe facebook"
       mat-mini-fab
       (click)="onShare($event, 'http://www.facebook.com/sharer.php?u=')"
       class="facebook hoverable"
@@ -40,11 +45,13 @@
       f
     </button>
     <button
+      aria-label="distribuie pe twitter"
       mat-mini-fab
       (click)="onShare($event, 'http://twitter.com/intent/tweet/?url=')"
       class="twitter hoverable"
     ></button>
     <button
+      aria-label="distribuie pe viber"
       mat-mini-fab
       (click)="onShare($event, 'viber://forward?text=')"
       class="viber hoverable"
@@ -63,6 +70,7 @@
       <div class="list-item" *ngFor="let list of lists">
         <div class="list-item__name-wrapper">
           <mat-checkbox
+            [attr.aria-label]="list.added ? 'elimină' : 'adaugă' + 'în lista ' + list.name"
             [(ngModel)]="list.added"
             (ngModelChange)="onAddToList(list.id)"
           ></mat-checkbox>
@@ -74,6 +82,7 @@
     <hr />
     <div *ngIf="!showAddListMenu; else addListMenu">
       <div
+        aria-label="afișează meniul de adăugare a realistelor"
         class="add-list"
         (click)="showAddListMenu = true; $event.stopPropagation()"
       >
@@ -91,7 +100,7 @@
           <mat-slide-toggle [ngModel]="false" name="access"
             >Public</mat-slide-toggle
           >
-          <button color="primary" mat-flat-button>+</button>
+          <button aria-label="adaugă readlista" color="primary" mat-flat-button>+</button>
         </div>
       </form>
     </ng-template>

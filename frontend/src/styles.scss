@@ -102,11 +102,14 @@ body {
   background-color: hsla(0, 0%, 0%, .6);
   z-index: 9999999999999999999;
   img {
-    width: 90%;
+    object-fit: contain;
+    max-width: 90%;
+    max-height: 90vh;
   }
 }
 
 .img-container {
+  cursor: pointer;;
   transition: .4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 

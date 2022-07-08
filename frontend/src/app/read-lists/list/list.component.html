@@ -1,5 +1,5 @@
 <div class="list-info mat-elevation-z4 hide-on-mob" *ngIf="listInfo$ | async as listInfo else loadingInfo">
-    <div class="back" routerLink="/readlist">
+    <div aria-label="înapoi" class="back" routerLink="/readlist">
         <mat-icon>arrow_back_ios_new</mat-icon>
         Înapoi
     </div>
@@ -8,9 +8,9 @@
         <img class="list-info__image" src="/assets/images/readlists-bg.webp">
         <div class="list-info__actions" *ngIf="listInfo.editable && listInfo.own">
             <mat-icon [matMenuTriggerFor]="menu">{{ listInfo.icon }}</mat-icon>
-            <mat-icon matTooltip="Copie link-ul" *ngIf="listInfo.public" (click)="onCopyLink()">content_copy</mat-icon>
-            <mat-icon [matTooltip]="listInfo.public ? 'Interzice acces pe link' : 'Permite acces pe link'" (click)="onChangeAccess(listInfo)">{{ listInfo.public ? 'public' : 'lock' }}</mat-icon>
-            <mat-icon matTooltip="Șterge lista" (click)="onDelete()">delete</mat-icon>
+            <mat-icon aria-label="copie link-ul" matTooltip="Copie link-ul" *ngIf="listInfo.public" (click)="onCopyLink()">content_copy</mat-icon>
+            <mat-icon aria-label="schimbă accesul" [matTooltip]="listInfo.public ? 'Interzice acces pe link' : 'Permite acces pe link'" (click)="onChangeAccess(listInfo)">{{ listInfo.public ? 'public' : 'lock' }}</mat-icon>
+            <mat-icon aria-label="șterge lista" matTooltip="Șterge lista" (click)="onDelete()">delete</mat-icon>
         </div>
     </div> 
     <div class="list-info__content-wrapper">
@@ -31,9 +31,9 @@
         <span class="list-info-mobile__name">{{ listInfo.name }}</span>
     </div>
     <div class="list-info-mobile__actions">
-        <mat-icon matTooltip="Copie link-ul" *ngIf="listInfo.public" (click)="onCopyLink()">content_copy</mat-icon>
-        <mat-icon [matTooltip]="listInfo.public ? 'Interzice acces pe link' : 'Permite acces pe link'" (click)="onChangeAccess(listInfo)">{{ listInfo.public ? 'public' : 'lock' }}</mat-icon>
-        <mat-icon matTooltip="Șterge lista" (click)="onDelete()">delete</mat-icon>
+        <mat-icon aria-label="copie linkul" matTooltip="Copie link-ul" *ngIf="listInfo.public" (click)="onCopyLink()">content_copy</mat-icon>
+        <mat-icon aria-label="schimbă accesul" [matTooltip]="listInfo.public ? 'Interzice acces pe link' : 'Permite acces pe link'" (click)="onChangeAccess(listInfo)">{{ listInfo.public ? 'public' : 'lock' }}</mat-icon>
+        <mat-icon aria-label="șterge lista" matTooltip="Șterge lista" (click)="onDelete()">delete</mat-icon>
     </div>
 </div>
 <ng-template #loadingInfo >
