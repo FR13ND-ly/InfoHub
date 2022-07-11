@@ -3,7 +3,7 @@
   [class.opened]="article.opened"
   [class.article-backdrop--warn]="backdropColorWarn"
   [class.left]="left"
-  *ngFor="let article of articles"
+  *ngFor="let article of articles; trackBy: trackByFn"
   #articleRef>
   <button aria-label="afișează mai multe acțiuni" mat-icon-button class="article-backdrop__action hide-on-mob" *ngIf="icon" (click)="onActionExec(article, articleRef)">
     <mat-icon>{{ icon }}</mat-icon>

@@ -27,7 +27,6 @@ import { StoreModule } from '@ngrx/store';
 import { CurrencyComponent } from './landing-page/currency/currency.component';
 import { ConfirmDialogComponent } from './core/components/confirm-dialog/confirm-dialog.component';
 import { appState } from './state/app.state';
-import { MatDialogRef } from '@angular/material/dialog';
 
 
 @NgModule({

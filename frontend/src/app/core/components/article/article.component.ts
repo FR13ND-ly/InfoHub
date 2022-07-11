@@ -40,7 +40,7 @@ export class ArticleComponent implements AfterViewInit {
     })
 }
 
-  observeArticles(articles : any) {
+  observeArticles(articles : IntersectionObserverEntry[]) {
     articles.forEach((article : IntersectionObserverEntry) => {
       if (article.isIntersecting){
         if (article.target == this.articlesRef.last.nativeElement) {
@@ -52,8 +52,12 @@ export class ArticleComponent implements AfterViewInit {
     })
   }
 
-  onActionExec(article : any, articleRef : any) {
+  onActionExec(article : ArticlePreview, articleRef : HTMLElement) {
     article.opened = false
     this.onAction.emit({ article : article.url, el : articleRef})
+  }
+
+  trackByFn(index : number, article : ArticlePreview) : string {
+    return article.url
   }
 }

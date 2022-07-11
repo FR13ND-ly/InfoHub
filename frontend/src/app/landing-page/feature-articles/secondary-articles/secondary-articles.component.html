@@ -1,9 +1,12 @@
 <ng-container *ngIf="articles$ | async as articles else loading">
-    <div class="article mat-elevation-z4" [class.activated-widget]="articles[1].activated" #articleRef routerLink="/articol/{{ article.url }}" *ngFor="let article of articles[0]; let i = index" [style.animation-delay.s]="i * .15">
+    <div class="article mat-elevation-z4" [class.activated-widget]="articles[1].activated" #articleRef
+        routerLink="/articol/{{ article.url }}" *ngFor="let article of articles[0]; let i = index"
+        [style.animation-delay.s]="i * .15">
         <span class="article__title">{{ article.title }}</span>
         <img class="article__image" src="article__image" [src]="article.imageUrl">
     </div>
-    <a class="article widget mat-elevation-z4" #articleRef [href]="articles[1].link ? articles[1].link : '#'" [attr.target._blank]="articles[1].link" *ngIf="articles[1].activated">
+    <a class="article widget mat-elevation-z4" #articleRef [href]="articles[1].link ? articles[1].link : '#'"
+        [attr.target._blank]="articles[1].link" *ngIf="articles[1].activated">
         <mat-icon class="article__widget-icon">paid</mat-icon>
         <span class="article__title">{{ articles[1].text }}</span>
         <img class="article__image" src="article__image" [src]="articles[1].imageUrl">
