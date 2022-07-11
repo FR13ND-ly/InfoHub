@@ -17,7 +17,6 @@ import { NavigatorComponent } from './navigator/navigator.component';
 import { FormsModule } from '@angular/forms';
 import { TimeForReadModule } from '../core/pipes/time-for-read/time-for-read.module';
 
-
 @NgModule({
   declarations: [
     ArticleDetailsComponent,
@@ -39,6 +38,6 @@ import { TimeForReadModule } from '../core/pipes/time-for-read/time-for-read.mod
     FormsModule,
     ArticleDetailsRoutingModule,
     TimeForReadModule
-  ]
+  ],
 })
 export class ArticleDetailsModule { }

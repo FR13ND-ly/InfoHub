@@ -8,6 +8,7 @@ import { MaterialModule } from '../core/modules/material.module';
 import { ArticleModule } from '../core/components/article/article.module';
 import { AddReadlistDialogComponent } from './add-readlist-dialog/add-readlist-dialog.component';
 import { FormsModule } from '@angular/forms';
+import { ReadListsService } from './read-lists.service';
 
 
 
@@ -24,6 +25,7 @@ import { FormsModule } from '@angular/forms';
     MaterialModule,
     ArticleModule,
     FormsModule
-  ]
+  ],
+  providers : [ReadListsService]
 })
 export class ReadListsModule { }

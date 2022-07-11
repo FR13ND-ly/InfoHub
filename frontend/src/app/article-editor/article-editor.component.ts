@@ -63,7 +63,7 @@ export class ArticleEditorComponent implements OnInit {
     });
   }
 
-  onDelete(url: any) {
+  onDelete(url: string) {
     let confirmDialog = this.dialog.open(ConfirmDialogComponent);
     confirmDialog.afterClosed().subscribe((res) => {
       if (res) {

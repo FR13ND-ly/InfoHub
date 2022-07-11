@@ -65,7 +65,7 @@ export class ArticleDetailsComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   observeArticles(articles : IntersectionObserverEntry[]) {
-    articles.forEach((articleRef : IntersectionObserverEntry, i : number) => {
+    articles.forEach((articleRef : IntersectionObserverEntry) => {
       if (articleRef.isIntersecting){
         this.setTitle(articleRef.target.id)
         this.url = articleRef.target.id

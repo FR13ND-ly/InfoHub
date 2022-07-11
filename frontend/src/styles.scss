@@ -58,6 +58,14 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif; 
 }
 
+mat-sidenav-content {
+  background-color: var(--background-color-1);
+  transition: .2s ease-in-out;
+  width: 100vw;
+  overflow-y: overlay;
+  overflow-x: hidden!important;
+}
+
 ::selection {
   color: var(--select-text-color);
   background: var(--select-background-color);
@@ -187,14 +195,6 @@ app-surveys .mat-tab-labels :last-child.mat-tab-label {
 
 .mat-menu-panel {
   background-color: var(--background-color-2)!important;
-}
-
-mat-sidenav-content {
-  background-color: var(--background-color-1);
-  transition: .2s ease-in-out;
-  width: 100vw;
-  overflow-y: overlap;
-  overflow-x: hidden!important;
 }
 
 .files-dialog, .image-editor-dialog {
