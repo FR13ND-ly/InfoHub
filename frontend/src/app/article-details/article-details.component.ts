@@ -1,7 +1,8 @@
 import { CdkScrollable, ScrollDispatcher } from '@angular/cdk/scrolling';
+import { Location } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Route } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { filter, Observable, switchMap, takeWhile} from 'rxjs';
 import { ArticlesService } from '../core/data-access/articles.service';
@@ -15,7 +16,7 @@ import { setSearchSidenavOpen } from '../state/search-sidenav/search-sidenav.act
 })
 export class ArticleDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  constructor(private route : ActivatedRoute, private store : Store<any>, private scrollDispatcher: ScrollDispatcher, private articlesService : ArticlesService, private metaService : Meta, private titleService : Title) { }
+  constructor(private route : ActivatedRoute, private store : Store<any>, private scrollDispatcher: ScrollDispatcher, private articlesService : ArticlesService, private metaService : Meta, private titleService : Title, private location: Location) { }
 
   articles$ : Observable<string[]> = this.store.select('articles')
   loadArticles : boolean = true
@@ -69,6 +70,7 @@ export class ArticleDetailsComponent implements OnInit, AfterViewInit, OnDestroy
       if (articleRef.isIntersecting){
         this.setTitle(articleRef.target.id)
         this.url = articleRef.target.id
+        this.location.replaceState(`articol/${this.url}`)
       }
     })
   }

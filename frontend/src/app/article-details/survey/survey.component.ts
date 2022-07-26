@@ -5,7 +5,6 @@ import {
   Input,
 } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, switchMap, tap, timer } from 'rxjs';
 import { Survey } from 'src/app/core/models/survey.model';

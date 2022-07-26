@@ -8,8 +8,6 @@ from files.views import getFile
 from rest_framework import status
 from articles.views import formatDate
 
-apiUrl = "http://localhost:8000/api"
-
 def getComments(request, url):
     comments = []
     for comment in Comment.objects.filter(article=url).order_by("-date"):
@@ -36,7 +34,7 @@ def addComment(request):
         text=data['text'],
         article=data['article']
     ).save()
-    return JsonResponse({}, status=status.HTTP_200_OK)
+    return JsonResponse({}, status=status.HTTP_201_CREATED)
 
 
 @csrf_exempt

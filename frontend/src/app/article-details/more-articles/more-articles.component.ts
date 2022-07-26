@@ -1,5 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, ViewChild, ViewChildren } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, switchMap, timer } from 'rxjs';
 import { ArticleLightPreview } from 'src/app/core/models/article/article.light-preview.model';
@@ -14,14 +13,14 @@ import { setArticle } from 'src/app/state/articles/articles.actions';
 })
 export class MoreArticlesComponent implements AfterViewInit {
 
-  constructor(private route: ActivatedRoute, private articlesService: ArticlesService, private router: Router, private store: Store) { }
+  constructor(private articlesService: ArticlesService, private store: Store) { }
 
   @ViewChild('articlesRef') articlesRef!: ElementRef
   @Input() url!: string
 
-  articles$: Observable<ArticleLightPreview[]> = this.route.params.pipe(
-    switchMap((params: Params) => this.articlesService.getAditionalArticles(params['url']))
-  )
+  articles$: Observable<ArticleLightPreview[]> = timer(0).pipe(
+    switchMap(() => this.articlesService.getAditionalArticles(this.url))
+  ) 
 
   ngAfterViewInit(): void {
     let observer = new IntersectionObserver((entries) => {

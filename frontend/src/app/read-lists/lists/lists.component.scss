@@ -20,7 +20,7 @@
         padding: 0 .5rem 0 .2rem;
         box-sizing: border-box;
         align-items: center;
-        color: #fff;
+        color: var(--text-color);
         gap: .2rem;
         &::after {
             content: '';

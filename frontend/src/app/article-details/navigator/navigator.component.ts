@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { timer } from 'rxjs';
+import { BehaviorSubject, timer } from 'rxjs';
 import { TextMoment } from 'src/app/core/models/text-moment.model';
 
 @Component({
@@ -14,16 +14,20 @@ export class NavigatorComponent implements AfterViewInit {
   @ViewChild('articleText') text! : ElementRef<HTMLElement>
   @Input() article! : string
   minimalize: boolean = false
-  moments : TextMoment[] = [
-  ]
+  moments : TextMoment[] = []
+
+  moments$ : BehaviorSubject<TextMoment[]> = new BehaviorSubject<TextMoment[]>([])
+  
   ngAfterViewInit(): void {
-    this.moments = []
+    this.moments$.next([])
     timer(0).subscribe(() => {
       document.querySelectorAll(`#${this.article} .text h1`)?.forEach((element : any) => {
-        this.moments.push({
-          "content" : element.innerText,
-          "element" : element
-        })
+        this.moments$.next(
+          this.moments$.value.concat([{
+            "content": element.innerText,
+            "element": element
+          }])
+        )
       })
     })
   }

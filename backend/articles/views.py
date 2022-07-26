@@ -77,7 +77,7 @@ def fulfillAditionalArticles(url, articles):
         AditionalArticle.objects.get_or_create(sourceArticle = url, sharedArticle = article)[0].save()
     tag = Article.objects.get(url=url).tags.split(",")[0]
     for article in Article.objects.filter(tags__contains=tag).filter(draft=False).order_by("-date"):
-        if (AditionalArticle.objects.filter(sourceArticle=url).count() > 2):
+        if (AditionalArticle.objects.filter(sourceArticle=url).count() > 3):
             return
         if article.url != url:
             AditionalArticle.objects.get_or_create(sourceArticle = url, sharedArticle = article.url)[0].save()
@@ -136,7 +136,7 @@ def createUrl(title, id=-1):
     if (len(articles)):
         for article in articles:
             if (article.id != id):
-                title += '1'
+                title += '#'
                 return createUrl(title)
     return title
 

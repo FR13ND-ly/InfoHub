@@ -46,7 +46,7 @@ export class ArticleEditorComponent implements OnInit {
       this.snackBar.open("Text-ul este obligatoriu", "", {duration: 3000});
       return
     }
-    if (!article.image) {
+    if (!article.coverImage) {
       this.snackBar.open("Imaginea de copertă e obligatorie", "", {duration: 3000});
       return
     }

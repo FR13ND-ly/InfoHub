@@ -21,7 +21,6 @@ export class UserService {
   login() {
     signInWithPopup(this.auth, this.provider)
     .then((result : any) => {
-      console.log('a')
       this.http.post(this.APIUrl + 'login/', result.user).subscribe((res) => {
         if (result.user) this.userUpdated.next({...result.user, ...res})
         else this.userUpdated.next(false)

@@ -1,11 +1,11 @@
 <div class="categories mat-elevation-z6" *ngIf="selectedCategory$ | async as selected">
-    <span class="category" (click)="onSelectCategory('economic')" [class.selected-category]="selected == 'economic'">Economic</span>
-    <span class="category" (click)="onSelectCategory('tehnologii')" [class.selected-category]="selected == 'tehnologii'">Tehnologii</span>
-    <span class="category" (click)="onSelectCategory('politic')" [class.selected-category]="selected == 'politic'">Politic</span>
-    <span class="category" (click)="onSelectCategory('inovații')" [class.selected-category]="selected == 'inovații'">Inovații</span>
-    <span class="category hide-on-mob" (click)="onSelectCategory('stil de viață')" [class.selected-category]="selected == 'stil de viață'">Stil de viață</span>
-    <span class="category" (click)="onSelectCategory('ecologic')" [class.selected-category]="selected == 'ecologic'">Ecologic</span>
-    <span class="category hide-on-mob" (click)="onSelectCategory('sportiv')" [class.selected-category]="selected == 'sportiv'">Sportiv</span>
+    <span class="category" (click)="onSelectCategory('economic')" [class.selected-category]="selected === 'economic'">Economic</span>
+    <span class="category" (click)="onSelectCategory('tehnologii')" [class.selected-category]="selected === 'tehnologii'">Tehnologii</span>
+    <span class="category" (click)="onSelectCategory('politic')" [class.selected-category]="selected === 'politic'">Politic</span>
+    <span class="category" (click)="onSelectCategory('inovații')" [class.selected-category]="selected === 'inovații'">Inovații</span>
+    <span class="category hide-on-mob" (click)="onSelectCategory('stil de viață')" [class.selected-category]="selected === 'stil de viață'">Stil de viață</span>
+    <span class="category" (click)="onSelectCategory('ecologic')" [class.selected-category]="selected === 'ecologic'">Ecologic</span>
+    <span class="category hide-on-mob" (click)="onSelectCategory('sportiv')" [class.selected-category]="selected === 'sportiv'">Sportiv</span>
 </div>
 <div class="articles" #articlesWrapper *ngIf="articles$ | async as articles else loading">
     <div class="left-side-articles">

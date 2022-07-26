@@ -10,9 +10,13 @@ from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from PIL import Image
 import PIL
-from rest_framework import status
 
-apiUrl = "http://infohub.pythonanywhere.com"
+from rest_framework import status
+import environ
+
+env = environ.Env()
+apiUrl = env("apiURL")
+# apiUrl = "http://infohub.pythonanywhere.com"
 
 def getFiles(request, index):
     files = File.objects.filter(hidden=False).order_by('-date')
@@ -101,7 +105,6 @@ def resizeImage(id, path="/", newPath="/", newSize=25):
         crop = (width - 1280)
         width, height = width - crop, height - crop * height / width
     if (height > 720):
-        
         crop = (height - 720)
         width, height = width - crop * width / height, height - crop 
     resized_dimensions = (int(width * ((100 - newSize) / 100)),

@@ -78,7 +78,7 @@ export class CommentsComponent implements AfterViewInit {
       image: user.image,
     };
     this.commentsService.addComment(data).subscribe(() => {
-      data.date = 'Numai ce...';
+      data.date = 'Recent...';
       data.photoUrl = user.imageUrl;
       comments.unshift(data);
       form.reset();

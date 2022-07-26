@@ -1,4 +1,5 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { timer } from 'rxjs';
 
 @Component({
@@ -8,15 +9,15 @@ import { timer } from 'rxjs';
 })
 export class TextEditorComponent implements OnInit {
 
-  constructor() { }
+  constructor(private domSanitizer: DomSanitizer) { }
   @Input() text! : string
   @Output() textChange = new EventEmitter()
 
   @ViewChild('textEditorRef') textEditorRef! : ElementRef<HTMLElement>
-  editorText! : string
+  editorText! : any
 
   ngOnInit(): void {
-    this.editorText = this.text
+    this.editorText = this.domSanitizer.bypassSecurityTrustHtml(this.text)
   }
 
   onChange() {
